@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Data Project - Canadian Cloud Solutions</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/SplitText.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #A94442;
+            /* Burnt Red */
+            --primary-dark: #8C3330;
+            /* Darker Burnt Red */
+            --primary-light: #F8D7DA;
+            /* Light Accent/Background for Primary */
+
+            --secondary: #36454F;
+            /* Charcoal Grey for text */
+            --accent: #D9A477;
+            /* Muted Orange/Tan for accents */
+
+            --bg-dark: #2A2F33;
+            /* Dark background for sections */
+            --bg-light: #FDFBF7;
+            /* Warm Off-White for light sections */
+
+            --card-bg-light: #FFFFFF;
+            --card-bg-dark: #3E454C;
+            /* Darker card background */
+
+            --success: #28A745;
+            /* Green for success status */
+            --warning: #FFC107;
+            /* Yellow for warning status */
+            --error: #DC3545;
+            /* Red for error/cancelled status (distinct from primary red) */
+            /* --swiss-red: #D91F2A; /* Original, now unused */
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, #F5F1EA 100%);
+            /* Adjusted gradient for new bg-light */
+        }
+
+        /* Modern navbar styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.85);
+            /* var(--bg-dark) with opacity */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(42, 47, 51, 0.95);
+            /* Darker on scroll */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Departure Board Station Navigation */
+        .railway-nav-container {
+            position: relative;
+            height: 80px;
+            width: 100%;
+            overflow: hidden;
+            z-index: 50;
+        }
+
+        /* Railway Track Styles */
+        .railway-track-container {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .railway-track {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .railway-sleeper {
+            position: absolute;
+            width: 12px;
+            height: 3px;
+            background: linear-gradient(to bottom, #6c757d, #495057);
+            /* Neutral greys for sleepers */
+            border-radius: 1px;
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .railway-rail {
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(to bottom, #495057, #343a40);
+            /* Darker neutral greys for rails */
+            border-radius: 1px;
+            z-index: 2;
+        }
+
+        .railway-rail-top {
+            top: 8px;
+        }
+
+        .railway-rail-bottom {
+            bottom: 8px;
+        }
+
+        /* Departure Board Styled Navigation */
+        .departure-board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 85%;
+            margin: 0 auto;
+            height: 100%;
+            position: relative;
+            z-index: 5;
+
+
+
+
+            padding: 5px;
+            margin-top: 5px;
+        }
+
+        .board-station {
+            position: relative;
+            padding: 8px 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            user-select: none;
+            margin: 0 5px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            /* Kept dark transparent */
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-width: 120px;
+            flex: 1;
+            font-family: 'Inter', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .board-station:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(var(--accent), 0.2);
+            /* Use accent color on hover slightly */
+        }
+
+        .board-station.active {
+            color: white;
+            background: rgba(169, 68, 66, 0.4);
+            /* Primary burnt red with opacity */
+
+            /* Primary burnt red shadow */
+            border: 1px solid rgba(169, 68, 66, 0.6);
+        }
+
+        .station-time {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .board-station.active .station-time {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .station-connector {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: linear-gradient(to bottom, #6c757d, #495057);
+            /* Neutral greys */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        /* Detailed Swiss Train Design - Colors to be updated if this SVG is kept */
+        .train-container {
+            position: absolute;
+            width: 120px;
+            /* Adjust if new logo/SVG has different dimensions */
+            height: 35px;
+            bottom: 16px;
+            left: calc(12.5% - 14px);
+            /* Adjust based on new logo's center for the first item */
+            z-index: 10;
+            will-change: transform, left;
+            transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .train-container svg {
+            position: relative;
+            width: 120px;
+            height: 35px;
+        }
+
+        @keyframes trainWheelRotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .train-wheel {
+            transform-origin: center;
+            animation: trainWheelRotation 0.8s linear infinite;
+            animation-play-state: paused;
+            transform-box: fill-box;
+        }
+
+        .train-container.moving .train-wheel {
+            animation-play-state: running;
+        }
+
+        .train-container.moving {
+            transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes smokeAnimation {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-20px) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .train-smoke {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(220, 220, 220, 0.7);
+            opacity: 0;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* Lighter smoke */
+        .train-container.moving .train-smoke {
+            animation: smokeAnimation 1.8s infinite;
+            opacity: 0.8;
+        }
+
+        .train-container.moving .train-smoke:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .train-container.moving .train-smoke:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .train-container.moving .train-smoke:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .train-light {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .train-container.moving .train-light {
+            opacity: 0.8;
+        }
+
+        .speed-lines {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .train-container.moving .speed-lines {
+            opacity: 0.8;
+        }
+
+        .dark-section {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1c2125 100%);
+            /* Darker end for bg-dark gradient */
+            color: var(--bg-light);
+            /* Light text on dark bg */
+        }
+
+        .dual-tone-light {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #F5F1EA 100%);
+            /* Consistent with body */
+        }
+
+        .dual-tone-dark {
+            background: linear-gradient(135deg, #2A2F33 0%, #1c2125 100%);
+            /* var(--bg-dark) and darker */
+        }
+
+        .dual-tone-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            /* Primary gradient */
+        }
+
+        .hero {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding-top: 144px;
+            /* ADJUSTED for estimated total navbar height */
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-image: url('hero.png');
+            overflow: hidden;
+            left: 0;
+            right: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.35);
+            /* Slightly increased overlay for readability */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .news-ticker {
+            overflow: hidden;
+            height: 40px;
+            position: relative;
+        }
+
+        .news-ticker-content {
+            position: absolute;
+            animation: ticker 35s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-180%);
+            }
+        }
+
+        /* Adjusted for longer text */
+
+        .custom-input {
+            transition: all 0.3s ease;
+            border: 1px solid #ced4da;
+            /* Neutral border */
+            border-radius: 12px;
+            padding: 14px 16px;
+            outline: none;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            /* Lighter neutral gradient */
+        }
+
+        .custom-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(169, 68, 66, 0.15);
+            /* Primary color focus ring */
+            outline: none;
+            background: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 16px rgba(169, 68, 66, 0.3);
+            /* Primary color shadow */
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(169, 68, 66, 0.4);
+            /* Primary color shadow hover */
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 0.8;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-primary:focus::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(100, 100);
+                opacity: 0;
+            }
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            /* Text color is primary red */
+            border: 1px solid rgba(169, 68, 66, 0.3);
+            /* Border with primary red opacity */
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            /* Light primary bg on hover */
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(169, 68, 66, 0.2);
+            /* Primary color shadow */
+            border-color: var(--primary);
+        }
+
+        .modern-card {
+            background: linear-gradient(135deg, var(--card-bg-light) 0%, #F8F9FA 100%);
+            /* Light card gradient */
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .modern-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 16px 40px rgba(169, 68, 66, 0.15);
+            /* Primary color shadow */
+            border-color: rgba(169, 68, 66, 0.1);
+        }
+
+        .modern-card-dark {
+            background: linear-gradient(135deg, var(--card-bg-dark) 0%, #343A40 100%);
+            /* Dark card gradient */
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            color: var(--bg-light);
+            /* Light text for dark cards */
+        }
+
+        .modern-card-dark:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(169, 68, 66, 0.3);
+            /* Primary color border */
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            /* Slightly less transparent */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card-dark {
+            background: rgba(42, 47, 51, 0.75);
+            /* var(--bg-dark) with opacity */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-indicator {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-on-time {
+            background-color: var(--success);
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        .status-delayed {
+            background-color: var(--warning);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        .status-cancelled {
+            background-color: var(--error);
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px) translateX(0px)
+            }
+
+            25% {
+                transform: translateY(-15px) translateX(10px)
+            }
+
+            50% {
+                transform: translateY(0px) translateX(0px)
+            }
+
+            75% {
+                transform: translateY(15px) translateX(-10px)
+            }
+
+            100% {
+                transform: translateY(0px) translateX(0px)
+            }
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(169, 68, 66, 0.5);
+            /* Primary color glow */
+            animation: glow-primary 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-primary {
+
+            /* Renamed to avoid conflict if original glow is needed elsewhere */
+            from {
+                box-shadow: 0 0 12px rgba(169, 68, 66, 0.5);
+            }
+
+            to {
+                box-shadow: 0 0 25px rgba(169, 68, 66, 0.8), 0 0 40px rgba(169, 68, 66, 0.4);
+            }
+        }
+
+        .connection-card {
+            position: relative;
+            transition: all .4s ease;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .connection-card::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-light), #F5F1EA);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform .6s ease-out;
+            border-radius: 16px;
+        }
+
+        .connection-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .connection-card:hover .status-on-time {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, .7)
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(40, 167, 69, 0)
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0)
+            }
+        }
+
+        .connection-card:hover .train-indicator {
+            animation: slideRight 3s infinite linear;
+        }
+
+        /* train-indicator can be repurposed for any small animated element on card hover */
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-20px);
+                opacity: 0
+            }
+
+            10% {
+                opacity: 1
+            }
+
+            90% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translateX(120%);
+                opacity: 0
+            }
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-label {
+            position: absolute;
+            left: 16px;
+            top: 14px;
+            color: #6c757d;
+            font-size: .95rem;
+            pointer-events: none;
+            transition: all .3s ease;
+        }
+
+        .custom-input:focus+.input-label,
+        .custom-input:not(:placeholder-shown)+.input-label {
+            transform: translateY(-24px) scale(.85);
+            color: var(--primary);
+            /* Primary color for focused label */
+            background: linear-gradient(135deg, white 0%, var(--bg-light) 100%);
+            /* Match light bg */
+            padding: 0 8px;
+            font-weight: 600;
+        }
+
+        .search-box {
+            transition: all .4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .search-box:focus-within {
+            transform: scale(1.03);
+            box-shadow: 0 16px 40px rgba(169, 68, 66, .1);
+        }
+
+        /* Primary shadow */
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            /* Primary to Accent gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ced4da;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s ease;
+        }
+
+        .custom-checkbox:checked {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-color: var(--primary);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(169, 68, 66, .1);
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all .6s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes powerFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(.8)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        @keyframes powerGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, .3)
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, .8), 0 0 30px rgba(169, 68, 66, .4)
+            }
+
+            100% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, .3)
+            }
+        }
+
+        /* Primary in glow */
+        .power-text {
+            animation: powerFadeIn 1.2s cubic-bezier(.17, .67, .26, .97) forwards, powerGlow 3s infinite 1.2s;
+            opacity: 0;
+        }
+
+        .power-text:nth-child(2) {
+            animation-delay: .3s, 1.5s;
+        }
+
+        .power-text:nth-child(3) {
+            animation-delay: .6s, 1.8s;
+        }
+
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card-3d-inner {
+            transition: transform .6s cubic-bezier(.23, 1, .32, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+
+        .text-reveal-container {
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .text-reveal {
+            display: block;
+            transform: translateY(100%);
+        }
+
+        .train-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(217, 164, 119, .5) 50%, rgba(255, 255, 255, 0) 100%);
+            /* Accent color in line */
+            width: 80%;
+            top: 50%;
+            left: -100%;
+            animation: trainLine 2s linear infinite;
+        }
+
+        @keyframes trainLine {
+            0% {
+                left: -100%
+            }
+
+            100% {
+                left: 100%
+            }
+        }
+
+        .spotlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, 0) 60%);
+        }
+
+        .stats-section {
+            padding-top: 120px;
+            padding-bottom: 100px;
+            margin-top: 0;
+        }
+
+        @keyframes flipNumber {
+            0% {
+                transform: rotateX(0deg);
+                opacity: 1
+            }
+
+            50% {
+                transform: rotateX(90deg);
+                opacity: .3
+            }
+
+            100% {
+                transform: rotateX(0deg);
+                opacity: 1
+            }
+        }
+
+        .board-status {
+            display: inline-block;
+            background: rgba(0, 0, 0, .3);
+            border-radius: 4px;
+            font-size: .7rem;
+            padding: 2px 6px;
+            margin-top: 3px;
+            color: var(--success);
+            /* Default to success green */
+        }
+
+        .board-station.active .board-status {
+            background: rgba(169, 68, 66, .3);
+            animation: flipNumber 1.5s infinite;
+            animation-delay: .5s;
+        }
+
+        /* Primary color for active status */
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center mt-5">
+            <!-- Top Bar: Logo, Company Name, Language Selector -->
+            <div class="flex-shrink-0 mr-8 relative group">
+                <!-- Logo and Company Name Group -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-30 h-10 relative" style="left: 10;height: 90px;width: 100px;">
+                        <img src="logo.png" alt="Train Data Project Logo" class="w-full h-full object-contain">
+
+                    </div>
+                    <div class="absolute inset-0 border-2 border-[var(--primary)] opacity-0 group-hover:opacity-30 rounded-full
+                    transition-opacity duration-300 pointer-events-none"></div>
+                </div>
+
+
+            </div>
+
+            <!-- Departure Board Navigation (Railway Nav Container) -->
+            <div class="railway-nav-container">
+                <div class="departure-board">
+                    <div class="board-station station-home active" data-position="12.5" data-section="home">
+                        Home <div class="station-time">Welcome</div>
+                        <div class="board-status">ONLINE</div>
+                        <div class="station-connector"></div>
+                    </div>
+                    <div class="board-station" data-position="37.5" data-section="services">
+                        Services <div class="station-time">Explore</div>
+                        <div class="board-status">ACTIVE</div>
+                        <div class="station-connector"></div>
+                    </div>
+                    <div class="board-station" data-position="62.5" data-section="pricing">
+                        Pricing <div class="station-time">Details</div>
+                        <div class="board-status">CLEAR</div>
+                        <div class="station-connector"></div>
+                    </div>
+                    <div class="board-station" data-position="87.5" data-section="contact">
+                        Contact <div class="station-time">Connect</div>
+                        <div class="board-status">OPEN</div>
+                        <div class="station-connector"></div>
+                    </div>
+                </div>
+
+                <div id="train-container" class="train-container">
+                    <div class="train-smoke" style="left: 5px; top: 5px;"></div>
+                    <div class="train-smoke" style="left: 8px; top: 3px;"></div>
+                    <div class="train-smoke" style="left: 3px; top: 4px;"></div>
+                    <svg width="120" height="35" viewBox="0 0 120 35" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="trainBodyGradientNew" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--primary)" />
+                                <stop offset="100%" stop-color="var(--primary-dark)" />
+                            </linearGradient>
+                            <linearGradient id="trainRoofGradientNew" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#505050" />
+                                <stop offset="100%" stop-color="#6c757d" />
+                            </linearGradient>
+                            <linearGradient id="windowGradientNew" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#E0F2FE" />
+                                <stop offset="100%" stop-color="#BAE6FD" />
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="1.5" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                            <radialGradient id="metalGradientNew" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color="#999" />
+                                <stop offset="100%" stop-color="#666" />
+                            </radialGradient>
+                            <linearGradient id="wheelGradientNew" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#495057" />
+                                <stop offset="50%" stop-color="#343a40" />
+                                <stop offset="100%" stop-color="#495057" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="5" y="21" width="110" height="3" rx="1" fill="#222" />
+                        <g class="train-wheel">
+                            <circle cx="20" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="20" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="20" cy="26" r="0.8" fill="#111" />
+                            <line x1="20" y1="23.6" x2="20" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="17.6" y1="26" x2="22.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="18.5" y1="24.5" x2="21.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="18.5" y1="27.5" x2="21.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <g class="train-wheel">
+                            <circle cx="35" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="35" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="35" cy="26" r="0.8" fill="#111" />
+                            <line x1="35" y1="23.6" x2="35" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="32.6" y1="26" x2="37.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="33.5" y1="24.5" x2="36.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="33.5" y1="27.5" x2="36.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <g class="train-wheel">
+                            <circle cx="50" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="50" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="50" cy="26" r="0.8" fill="#111" />
+                            <line x1="50" y1="23.6" x2="50" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="47.6" y1="26" x2="52.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="48.5" y1="24.5" x2="51.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="48.5" y1="27.5" x2="51.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <g class="train-wheel">
+                            <circle cx="65" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="65" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="65" cy="26" r="0.8" fill="#111" />
+                            <line x1="65" y1="23.6" x2="65" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="62.6" y1="26" x2="67.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="63.5" y1="24.5" x2="66.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="63.5" y1="27.5" x2="66.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <g class="train-wheel">
+                            <circle cx="80" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="80" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="80" cy="26" r="0.8" fill="#111" />
+                            <line x1="80" y1="23.6" x2="80" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="77.6" y1="26" x2="82.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="78.5" y1="24.5" x2="81.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="78.5" y1="27.5" x2="81.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <g class="train-wheel">
+                            <circle cx="95" cy="26" r="3.5" fill="url(#wheelGradientNew)" stroke="#111"
+                                stroke-width="0.5" />
+                            <circle cx="95" cy="26" r="2.2" fill="url(#metalGradientNew)" stroke="#333"
+                                stroke-width="0.2" />
+                            <circle cx="95" cy="26" r="0.8" fill="#111" />
+                            <line x1="95" y1="23.6" x2="95" y2="28.4" stroke="#555" stroke-width="0.3" />
+                            <line x1="92.6" y1="26" x2="97.4" y2="26" stroke="#555" stroke-width="0.3" />
+                            <line x1="93.5" y1="24.5" x2="96.5" y2="27.5" stroke="#555" stroke-width="0.3" />
+                            <line x1="93.5" y1="27.5" x2="96.5" y2="24.5" stroke="#555" stroke-width="0.3" />
+                        </g>
+                        <rect x="16.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <rect x="31.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <rect x="46.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <rect x="61.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <rect x="76.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <rect x="91.5" y="21" width="7" height="1" rx="0.5" fill="#555" />
+                        <path d="M5,8 Q5,6 8,5 L112,5 Q115,6 115,8 L115,10 Q115,12 112,12 L8,12 Q5,12 5,10 Z"
+                            fill="url(#trainRoofGradientNew)" />
+                        <path
+                            d="M8,10 L112,10 Q114,10 114,13 L114,18 Q114,21 112,21 L8,21 Q6,21 6,18 L6,13 Q6,10 8,10 Z"
+                            fill="url(#trainBodyGradientNew)" />
+                        <path d="M6,13 Q6,11 9,10 L10,10 Q9,12 9,14 L8,14 Q6,14 6,13 Z" fill="#495057" />
+                        <path d="M114,13 Q114,11 111,10 L110,10 Q111,12 111,14 L112,14 Q114,14 114,13 Z"
+                            fill="#495057" />
+                        <path d="M9,14 L14,14 L14,19 L9,19 Q7,19 7,17 L7,16 Q7,14 9,14 Z" fill="url(#windowGradientNew)"
+                            opacity="0.9" />
+                        <rect x="18" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="30" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="42" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="54" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="66" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="78" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="90" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <rect x="102" y="14" width="8" height="5" rx="1" fill="url(#windowGradientNew)" opacity="0.9" />
+                        <line x1="6" y1="17" x2="114" y2="17" stroke="var(--primary-dark)" stroke-width="0.5" />
+                        <line x1="6" y1="19" x2="114" y2="19" stroke="var(--primary-dark)" stroke-width="0.5" />
+                        <rect x="60" y="11" width="6" height="6" rx="1" fill="var(--bg-light)" />
+                        <circle cx="7" cy="15" r="1" fill="#FFDF5E" stroke="#FFDF5E" stroke-width="0.2"
+                            class="train-light" filter="url(#glow)" opacity="0" />
+                        <circle cx="7" cy="18" r="1" fill="#FFDF5E" stroke="#FFDF5E" stroke-width="0.2"
+                            class="train-light" filter="url(#glow)" opacity="0" />
+                        <path d="M6,15 L0,12 L0,18 Z" fill="rgba(255,223,94,0.5)" class="train-light"
+                            filter="url(#glow)" opacity="0" />
+                        <g class="speed-lines" opacity="0">
+                            <line x1="5" y1="13" x2="-10" y2="13" stroke="var(--bg-light)" stroke-width="1"
+                                stroke-dasharray="3 2" />
+                            <line x1="5" y1="15" x2="-12" y2="15" stroke="var(--bg-light)" stroke-width="1"
+                                stroke-dasharray="4 2" />
+                            <line x1="5" y1="17" x2="-15" y2="17" stroke="var(--bg-light)" stroke-width="1"
+                                stroke-dasharray="5 2" />
+                        </g>
+                        <path d="M58,5 L58,3 L62,3 L62,5 M58,3 L55,0 M62,3 L65,0 M55,0 L65,0" stroke="#6c757d"
+                            stroke-width="0.8" fill="none" />
+                    </svg>
+                </div>
+                <div class="railway-track-container">
+                    <div class="railway-track">
+                        <div class="railway-rail railway-rail-top"></div>
+                        <div class="railway-rail railway-rail-bottom"></div>
+                        <div id="railway-sleepers"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section with Full-width Image, adjusted for fixed navbar -->
+        <section id="home" class="hero"> <!-- ID "home" for JS compatibility -->
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="hero-content text-center text-white">
+                    <h2 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+                        <span class="power-text block">Train Data Project</span>
+                        <span class="power-text block mt-2">Secure Canadian Cloud.</span> <!-- CONCISE HEADLINE 2 -->
+                    </h2>
+                    <!-- CONCISE SUB-HEADLINE PARAGRAPH -->
+                    <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto power-text opacity-80"
+                        style="animation-delay: 0.6s, 2.1s;">
+                        VMs, Servers & Workflows. Built for Canadian Business.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-6 sm:space-y-0 sm:space-x-6">
+                        <a href="#services" class="btn-primary flex items-center justify-center group">
+                            <svg class="w-6 h-6 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 12h14M12 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            Our Services
+                        </a>
+                        <a href="#pricing" class="btn-secondary flex items-center justify-center group">
+                            <svg class="w-6 h-6 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+                                </path>
+                            </svg>
+                            View Pricing
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated elements (Original structure) -->
+            <div class="absolute bottom-20 left-20 w-24 h-24 bg-[rgba(255,255,255,0.05)] rounded-full floating"
+                style="animation-delay: 0.5s"></div>
+            <div class="absolute top-40 right-20 w-36 h-36 bg-[rgba(255,255,255,0.05)] rounded-full floating"
+                style="animation-delay: 1s"></div>
+            <div class="absolute bottom-40 right-40 w-20 h-20 bg-[rgba(255,255,255,0.05)] rounded-full floating"
+                style="animation-delay: 1.5s"></div>
+
+            <!-- Spotlight effect for interactivity (Original structure) -->
+            <div class="spotlight"></div>
+        </section>
+
+        <div class="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] w-full py-2 text-white">
+            <!-- Use new primary colors -->
+            <div class="news-ticker">
+                <div class="news-ticker-content">
+                    Announcing Train Data Project: Your All-Canadian Cloud Solution! | Special introductory offers
+                    on
+                    VM plans | Secure your data on Canadian soil | ML/LLM workloads now supported with GPU options |
+                    Contact
+                    us for a free data repatriation consultation 🇨🇦
+                </div>
+            </div>
+        </div>
+
+        <section id="about" class="py-24 dual-tone-light relative">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2
+                        class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]">
+                        Canadian Cloud Expertise
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Born from the need for truly Canadian cloud solutions, we empower businesses to maintain digital
+                        sovereignty while achieving peak performance.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                    <div class="glass-card p-8 shadow-xl">
+                        <div class="flex items-center gap-x-4 mb-6">
+                            <div class="h-12 w-12 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5zm0 0V12" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900">Our Commitment</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            As a 100% Canadian-owned enterprise, we provide cloud infrastructure that never crosses
+                            borders. Our
+                            solutions are built for businesses that value:
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-x-3">
+                                <span class="text-[var(--primary)]">✓</span>
+                                <div>
+                                    <h4 class="font-semibold">Data Sovereignty</h4>
+                                    <p class="text-gray-600 text-sm">All data stored exclusively in Canadian data
+                                        centers</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-x-3">
+                                <span class="text-[var(--primary)]">✓</span>
+                                <div>
+                                    <h4 class="font-semibold">Compliance First</h4>
+                                    <p class="text-gray-600 text-sm">PIPEDA & provincial regulation adherence</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-x-3">
+                                <span class="text-[var(--primary)]">✓</span>
+                                <div>
+                                    <h4 class="font-semibold">Local Expertise</h4>
+                                    <p class="text-gray-600 text-sm">Canadian-based support team with <br>data residency
+                                        expertise</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="modern-card p-6">
+                            <div class="text-4xl font-bold text-[var(--primary)] mb-3">3</div>
+                            <div class="text-gray-600">Strategic Data Centers Across Canada</div>
+                            <div class="h-px bg-gray-200 my-4"></div>
+                            <p class="text-sm text-gray-600">Montreal, Toronto, and Calgary locations ensuring
+                                low-latency
+                                nationwide coverage</p>
+                        </div>
+
+                        <div class="modern-card p-6">
+                            <div class="text-4xl font-bold text-[var(--primary)] mb-3">128GB</div>
+                            <div class="text-gray-600">Max RAM per Node</div>
+                            <div class="h-px bg-gray-200 my-4"></div>
+                            <p class="text-sm text-gray-600">Enterprise-grade hardware for demanding workloads including
+                                ML/LLM
+                                processing</p>
+                        </div>
+
+                        <div class="modern-card p-6">
+                            <div class="text-4xl font-bold text-[var(--primary)] mb-3">RTX 4060</div>
+                            <div class="text-gray-600">GPU Acceleration Available</div>
+                            <div class="h-px bg-gray-200 my-4"></div>
+                            <p class="text-sm text-gray-600">Specialized nodes for AI/ML workloads and compute-intensive
+                                tasks
+                            </p>
+                        </div>
+
+                        <div class="modern-card p-6">
+                            <div class="text-4xl font-bold text-[var(--primary)] mb-3">24/7</div>
+                            <div class="text-gray-600">Canadian Support</div>
+                            <div class="h-px bg-gray-200 my-4"></div>
+                            <p class="text-sm text-gray-600">Bilingual technical support from our Vancouver and Toronto
+                                offices
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-shrink-0">
+                            <div class="h-32 w-32 bg-[var(--primary)]/10 rounded-2xl flex items-center justify-center">
+                                <svg class="w-16 h-16 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Data Repatriation Program</h3>
+                            <p class="text-gray-600 mb-6">
+                                Our team specializes in helping businesses transition from foreign cloud providers.
+                                Benefit
+                                from:
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-x-3">
+                                    <span class="text-[var(--primary)] mt-1">▸</span>
+                                    <div>
+                                        <h4 class="font-semibold">Risk Assessment</h4>
+                                        <p class="text-gray-600 text-sm">Compliance and security evaluation</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-x-3">
+                                    <span class="text-[var(--primary)] mt-1">▸</span>
+                                    <div>
+                                        <h4 class="font-semibold">Migration Planning</h4>
+                                        <p class="text-gray-600 text-sm">Phased workload transition strategy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="absolute inset-0 -z-10 overflow-hidden">
+                    <div class="absolute top-20 left-[10%] w-48 h-48 bg-[var(--primary)]/5 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-40 right-[15%] w-64 h-64 bg-[var(--accent)]/5 rounded-full blur-3xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="stats-section dual-tone-dark text-[var(--bg-light)] relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10">
+                <h2
+                    class="text-3xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--accent)]">
+                    Key Advantages of Train Data Project</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+                    <div class="text-center stat-item modern-card-dark p-6">
+                        <div class="text-4xl font-bold text-[var(--accent)] mb-3 counter" data-target="100">0</div>
+                        <div class="text-[var(--primary-light)] opacity-90"> % Canadian Owned</div>
+                    </div>
+                    <div class="text-center stat-item modern-card-dark p-6">
+                        <div class="text-4xl font-bold text-[var(--accent)] mb-3 counter" data-target="3">0</div>
+                        <div class="text-[var(--primary-light)] opacity-90">Data Centers in Canada</div>
+                    </div>
+                    <div class="text-center stat-item modern-card-dark p-6">
+                        <div class="text-4xl font-bold text-[var(--accent)] mb-3 counter" data-target="128">0</div>
+                        <div class="text-[var(--primary-light)] opacity-90">GB Max RAM/Node</div>
+                    </div>
+                    <div class="text-center stat-item modern-card-dark p-6">
+                        <div class="text-2xl font-bold text-[var(--accent)] mb-1 mt-2">RTX 4060</div>
+                        <div class="text-[var(--primary-light)] opacity-90 mt-3">GPU Options Available</div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+                <div
+                    class="absolute top-10 left-10 w-96 h-96 rounded-full bg-[var(--primary)] opacity-10 transform -translate-x-1/2 -translate-y-1/2 blur-3xl">
+                </div>
+                <div
+                    class="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-[var(--accent)] opacity-10 transform translate-x-1/2 translate-y-1/2 blur-3xl">
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="services" class="py-24 relative bg-gradient-to-b from-[var(--bg-light)_20%] to-[#f5f1fa]">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-x-4 mb-6">
+                        <div class="h-px w-16 bg-gradient-to-r from-transparent to-[var(--primary)]"></div>
+                        <span
+                            class="text-lg font-semibold tracking-wide uppercase text-[var(--primary)] bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]">
+                            Cloud Solutions
+                        </span>
+                        <div class="h-px w-16 bg-gradient-to-l from-transparent to-[var(--primary)]"></div>
+                    </div>
+                    <h2
+                        class="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]">
+                        Flexible Cloud Solutions
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Get your data and cloud infrastructure set up here in Canada. In a world with increasing
+                        geopolitical
+                        instability,
+                        let us help you bring your data and workloads home.
+                    </p>
+                </div>
+
+                <!-- Pricing Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-20">
+                    <!-- Starter Plan -->
+                    <div
+                        class="group relative bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[var(--primary-light)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-white/50 to-[#f8f9fa]/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl">
+                        </div>
+                        <div class="relative">
+                            <div class="flex items-center gap-x-4 mb-6">
+                                <div
+                                    class="h-12 w-12 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900">Starter</h3>
+                            </div>
+                            <div class="space-y-4 border-b border-gray-200/60 pb-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">vCPU</span>
+                                    <span class="font-semibold">2 Cores</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">RAM</span>
+                                    <span class="font-semibold">12 GB</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Storage</span>
+                                    <span class="font-semibold">64 GB SSD</span>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="text-4xl font-bold mb-4">$49<span class="text-lg text-gray-600">/mo</span>
+                                </div>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">With Windows 11</span>
+                                        <span class="font-semibold">$64</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">GPU Option</span>
+                                        <span class="text-red-500 font-medium">Not available</span>
+                                    </div>
+                                </div>
+                                <a href="#contact"
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] hover:opacity-90 transition-opacity">
+                                    Start Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Power Plan -->
+                    <div
+                        class="group relative bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[var(--primary-light)]">
+                        <div class="relative">
+                            <div class="flex items-center gap-x-4 mb-6">
+                                <div
+                                    class="h-12 w-12 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900">Power</h3>
+                            </div>
+                            <div class="space-y-4 border-b border-gray-200/60 pb-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">vCPU</span>
+                                    <span class="font-semibold">4 Cores</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">RAM</span>
+                                    <span class="font-semibold">24 GB</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Storage</span>
+                                    <span class="font-semibold">256 GB SSD</span>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="text-4xl font-bold mb-4">$99<span class="text-lg text-gray-600">/mo</span>
+                                </div>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">With Windows 11</span>
+                                        <span class="font-semibold">$114</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">GPU Option</span>
+                                        <span class="text-green-600 font-medium">$229</span>
+                                    </div>
+                                </div>
+                                <a href="#contact"
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] hover:opacity-90 transition-opacity">
+                                    Start Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Power+ Plan -->
+                    <div
+                        class="group relative bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[var(--primary-light)]">
+                        <div class="relative">
+                            <div class="flex items-center gap-x-4 mb-6">
+                                <div
+                                    class="h-12 w-12 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M12 16h.01" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900">Power+</h3>
+                            </div>
+                            <div class="space-y-4 border-b border-gray-200/60 pb-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">vCPU</span>
+                                    <span class="font-semibold">4 Cores</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">RAM</span>
+                                    <span class="font-semibold">24 GB</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Storage</span>
+                                    <span class="font-semibold">1 TB NVMe</span>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="text-4xl font-bold mb-4">$129<span class="text-lg text-gray-600">/mo</span>
+                                </div>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">With Windows 11</span>
+                                        <span class="font-semibold">$144</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">GPU Option</span>
+                                        <span class="text-green-600 font-medium">$259</span>
+                                    </div>
+                                </div>
+                                <a href="#contact"
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] hover:opacity-90 transition-opacity">
+                                    Start Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div
+                        class="group relative bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[var(--primary-light)]">
+                        <div class="relative">
+                            <div class="flex items-center gap-x-4 mb-6">
+                                <div
+                                    class="h-12 w-12 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
+                            </div>
+                            <div class="space-y-4 border-b border-gray-200/60 pb-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">vCPU</span>
+                                    <span class="font-semibold">6 Cores</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">RAM</span>
+                                    <span class="font-semibold">32 GB</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Storage</span>
+                                    <span class="font-semibold">512 GB NVMe</span>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="text-4xl font-bold mb-4">$159<span class="text-lg text-gray-600">/mo</span>
+                                </div>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">With Windows 11</span>
+                                        <span class="font-semibold">$174</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">GPU Option</span>
+                                        <span class="text-green-600 font-medium">$289</span>
+                                    </div>
+                                </div>
+                                <a href="#contact"
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] hover:opacity-90 transition-opacity">
+                                    Start Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Additional Content from Original -->
+                <div class="mt-16 text-center">
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        If you prefer going à la carte, spin up your required Virtual Machines directly through our
+                        portal.
+                    </p>
+                    <div class="mt-8 flex justify-center gap-4">
+                        <a href="#pricing" class="btn-primary px-8 py-3">
+                            Explore All Plans
+                        </a>
+                        <a href="#contact" class="btn-secondary px-8 py-3">
+                            Custom Solution
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative Background Elements -->
+            <div class="absolute inset-0 -z-10 overflow-hidden">
+                <div class="absolute top-20 left-[10%] w-48 h-48 bg-[var(--primary)]/5 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-40 right-[15%] w-64 h-64 bg-[var(--accent)]/5 rounded-full blur-3xl"></div>
+                <div
+                    class="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-r from-[var(--primary)]/10 to-[var(--accent)]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2">
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-24 dual-tone-dark text-[var(--bg-light)] relative">
+            <div class="container mx-auto px-4">
+                <h2
+                    class="text-4xl font-bold mb-3 text-center text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--accent)]">
+                    Dedicated Compute & Add-ons</h2>
+                <p class="text-center text-[var(--primary-light)] opacity-80 mb-10 max-w-3xl mx-auto">Speak with our
+                    specialists who can help you create a repatriation plan for the data and workflows in your business.
+                    Want a dedicated compute block? You can add dedicated compute block as a private cloud node to your
+                    private network. Fully managed VM infrastructure:</p>
+                <div class="max-w-5xl mx-auto mb-12">
+                    <div class="glass-card-dark p-8 shadow-xl">
+                        <h3
+                            class="text-2xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--accent)]">
+                            Dedicated Compute Units</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Unit</th>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Description</th>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Specs (Typical)</th>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            One-time Setup</th>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Price/mo (CAD)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-400">
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">CCU3</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">Entry-level compute
+                                            (desktop or microservices)</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">4 vCPU, 12–16GB RAM,
+                                            240–490GB Disk</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$150</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$39–49</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">CCU2</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">Mid-tier compute (small
+                                            business apps, servers)</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">4 vCPU, 64GB RAM, 240GB
+                                            Disk</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$749</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$129</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">CCU2+</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">Enhanced CCU2 w/ better
+                                            CPU and storage</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">8 vCPU, 64GB RAM, 900Gb
+                                            Disk</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$749</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$169</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">CCU1</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">High-capacity node
+                                            (multi-tenant or 25–50 desktops)</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">16 vCPU, 128GB RAM, 2Tb
+                                            Disk</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$1999</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">$299</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-5xl mx-auto mb-16">
+                    <div class="glass-card-dark p-8 shadow-xl">
+                        <h3
+                            class="text-2xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--accent)]">
+                            Optional Add-ons</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Feature</th>
+                                        <th
+                                            class="p-3 font-semibold uppercase text-gray-300 border-b border-[var(--card-bg-dark)]">
+                                            Add-on (CAD/month)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-400">
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">Weekly Backups</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">+$5</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">Nightly Backups</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">+$15</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">High Availability Disk
+                                        </td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">+$20</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">VM Failover Protect</td>
+                                        <td class="p-3 border-b border-[var(--card-bg-dark)]">+$20</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3
+                        class="text-2xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--accent)]">
+                        Benefits of Train Data Project</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div class="modern-card-dark p-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Cheaper than big providers like AWS or Google.</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Data is hosted on Canadian soil.</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Protected from trade instability and foreign interference.</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>(No dependence on foreign services that could be throttled or turned off)</li>
+                            </ul>
+                        </div>
+                        <div class="modern-card-dark p-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Local backups with secondary Canadian cloud backups at sites across Canada.
+                                </li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>High availability options (failover to other nodes).</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Segregated network (add VMs that all work together).</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>Protected by VPN (or RDP with brute-force deterrence).</li>
+                                <li class="flex items-start"><svg
+                                        class="w-5 h-5 mr-2 text-[var(--accent)] flex-shrink-0 mt-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>ML / LLM workload capable.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section id="contact" class="py-24 dual-tone-light relative">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold mb-3 text-center gradient-text">Get In Touch</h2>
+                <p class="text-center text-gray-700 mb-16 max-w-2xl mx-auto">Contact us today! Let's discuss your
+                    Canadian cloud needs.</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <form class="glass-card p-8 shadow-xl">
+                            <h3 class="text-2xl font-bold mb-6 gradient-text">Send us a message</h3>
+                            <div class="mb-5 input-wrapper"><input id="name" type="text"
+                                    class="custom-input block w-full" placeholder=" "><label class="input-label"
+                                    for="name">Name</label></div>
+                            <div class="mb-5 input-wrapper"><input id="email" type="email"
+                                    class="custom-input block w-full" placeholder=" "><label class="input-label"
+                                    for="email">Email</label></div>
+                            <div class="mb-5 input-wrapper"><select id="subject" class="custom-input block w-full">
+                                    <option value=""></option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="vm">VM Quotation</option>
+                                    <option value="dedicated">Dedicated Compute</option>
+                                    <option value="repatriation">Data Repatriation</option>
+                                    <option value="other">Other</option>
+                                </select><label class="input-label" for="subject">Subject</label></div>
+                            <div class="mb-8 input-wrapper"><textarea id="message" rows="5"
+                                    class="custom-input block w-full" placeholder=" "></textarea><label
+                                    class="input-label" for="message">Message</label></div>
+                            <button type="button" class="btn-primary w-full flex items-center justify-center group"><svg
+                                    class="w-6 h-6 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>Send Message</button>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="glass-card p-8 h-full shadow-xl">
+                            <h3 class="text-2xl font-bold mb-6 gradient-text">Contact Information</h3>
+                            <div class="space-y-8">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div
+                                            class="w-12 h-12 bg-[var(--primary-light)] rounded-xl flex items-center justify-center glow">
+                                            <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-[var(--secondary)] mb-1">Address</h4>
+                                        <p class="text-gray-700">Our address, City, Province<br>Canada, V5V 5V5</p>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div
+                                            class="w-12 h-12 bg-[var(--primary-light)] rounded-xl flex items-center justify-center glow">
+                                            <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-[var(--secondary)] mb-1">Email</h4>
+                                        <p class="text-gray-700">admin@[parent company].com</p>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div
+                                            class="w-12 h-12 bg-[var(--primary-light)] rounded-xl flex items-center justify-center glow">
+                                            <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-[var(--secondary)] mb-1">Office Hours</h4>
+                                        <p class="text-gray-700">Monday - Friday: 9:00 - 17:00 (PST)<br>Weekend: Closed
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="https://buy.[parent company].com/projects.html" target="_blank"
+                                class="mt-8 w-full py-4 bg-[var(--primary-light)] border border-[var(--primary)] rounded-xl text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-colors flex items-center justify-center group shadow-md"><svg
+                                    class="w-6 h-6 mr-2 text-[var(--primary)] group-hover:text-white transition-colors duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>Tell Us About Your Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gradient-to-r from-[var(--bg-dark)] to-[#1c2125] text-[var(--bg-light)] py-16">
+        <!-- New theme colors -->
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-30 h-10 relative" style="left: 10;height: 100px;width: 100px;">
+                            <img src="logo.png" alt="Train Data Project Logo" class="w-full h-full object-contain">
+                        
+                            </div>
+                       
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6">Your Canadian cloud solution for Virtual Machines, remote
+                        desktops, and dedicated compute. Data hosted on Canadian soil, by a Canadian company.</p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-[rgba(169,68,66,0.2)] flex items-center justify-center hover:bg-[rgba(169,68,66,0.4)] transition-colors border border-[rgba(169,68,66,0.2)]"><svg
+                                class="w-5 h-5 text-[var(--primary-light)]" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+                            </svg></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-[rgba(169,68,66,0.2)] flex items-center justify-center hover:bg-[rgba(169,68,66,0.4)] transition-colors border border-[rgba(169,68,66,0.2)]"><svg
+                                class="w-5 h-5 text-[var(--primary-light)]" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.016 10.016 0 01-3.127 1.195 4.922 4.922 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
+                            </svg></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-[rgba(169,68,66,0.2)] flex items-center justify-center hover:bg-[rgba(169,68,66,0.4)] transition-colors border border-[rgba(169,68,66,0.2)]"><svg
+                                class="w-5 h-5 text-[var(--primary-light)]" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+                            </svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase mb-6 text-[var(--accent)]">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#home"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Home</a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Services</a></li>
+                        <li><a href="#pricing"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Pricing</a></li>
+                        <li><a href="#contact"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase mb-6 text-[var(--accent)]">Resources</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>VM Specifications</a></li>
+                        <li><a href="#pricing"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Dedicated Compute Info</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Service Level Agreement</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Data Security Practices</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase mb-6 text-[var(--accent)]">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Privacy Policy</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Terms of Service</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Acceptable Use Policy</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition-colors flex items-center group"><svg
+                                    class="w-3 h-3 mr-2 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 Train Data Project. Powered by [parent company] Systems. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
+
+            const createRailwaySleepers = () => {
+                const sleepersContainer = document.getElementById('railway-sleepers');
+                if (sleepersContainer) {
+                    sleepersContainer.innerHTML = '';
+                    const trackWidth = document.querySelector('.railway-track').offsetWidth;
+                    const sleeperCount = Math.floor(trackWidth / 15);
+                    for (let i = 0; i < sleeperCount; i++) {
+                        const sleeper = document.createElement('div');
+                        sleeper.className = 'railway-sleeper';
+                        sleeper.style.left = (i * 15) + 7.5 + 'px';
+                        sleepersContainer.appendChild(sleeper);
+                    }
+                }
+            };
+            createRailwaySleepers();
+
+            window.addEventListener('scroll', function () {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) { navbar.classList.add('scrolled'); }
+                else { navbar.classList.remove('scrolled'); }
+            });
+
+            gsap.to('.parallax-bg', {
+                scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+                y: 200, ease: 'none'
+            });
+
+            const spotlight = document.querySelector('.spotlight');
+            if (spotlight) {
+                document.querySelector('.hero').addEventListener('mousemove', (e) => {
+                    const x = e.clientX / window.innerWidth * 100;
+                    const y = e.clientY / window.innerHeight * 100;
+                    spotlight.style.setProperty('--x', `${x}%`);
+                    spotlight.style.setProperty('--y', `${y}%`);
+                });
+            }
+
+            const stations = document.querySelectorAll('.board-station');
+            const train = document.getElementById('train-container');
+            const fixedHeaderHeight = 144; // ESTIMATED - INSPECT YOUR NAVBAR FOR ACCURATE VALUE
+
+            stations.forEach(station => {
+                station.addEventListener('click', function () {
+                    stations.forEach(s => s.classList.remove('active'));
+                    this.classList.add('active');
+                    train.classList.add('moving');
+                    const position = this.getAttribute('data-position');
+                    train.style.left = `calc(${position}% - 14px)`;
+                    const sectionId = this.getAttribute('data-section');
+                    if (sectionId) {
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            gsap.to(window, {
+                                duration: 0.8,
+                                scrollTo: { y: section, offsetY: fixedHeaderHeight }, // ADJUSTED OFFSET
+                                ease: "power2.inOut"
+                            });
+                        }
+                    }
+                    setTimeout(() => { train.classList.remove('moving'); }, 1000);
+                });
+            });
+
+            window.addEventListener('resize', () => { createRailwaySleepers(); });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        gsap.to(window, {
+                            duration: 0.8,
+                            scrollTo: { y: targetSection, offsetY: fixedHeaderHeight }, // ADJUSTED OFFSET
+                            ease: "power2.inOut"
+                        });
+                        const sectionId = targetId.substring(1);
+                        const matchingStation = document.querySelector(`.board-station[data-section="${sectionId}"]`);
+                        if (matchingStation) {
+                            stations.forEach(s => s.classList.remove('active'));
+                            matchingStation.classList.add('active');
+                            const position = matchingStation.getAttribute('data-position');
+                            train.classList.add('moving');
+                            train.style.left = `calc(${position}% - 14px)`;
+                            setTimeout(() => { train.classList.remove('moving'); }, 1000);
+                        }
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', function () {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= (sectionTop - (fixedHeaderHeight + 60))) { // Adjusted scroll trigger point
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                if (current) {
+                    stations.forEach(station => {
+                        station.classList.remove('active');
+                        if (station.getAttribute('data-section') === current) {
+                            station.classList.add('active');
+                            if (!train.classList.contains('moving')) {
+                                const position = station.getAttribute('data-position');
+                                train.style.left = `calc(${position}% - 14px)`;
+                            }
+                        }
+                    });
+                }
+            });
+
+            const statItems = document.querySelectorAll('.stat-item');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = entry.target.querySelectorAll('.counter');
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            if (!isNaN(target)) {
+                                gsap.fromTo(counter, { innerText: 0 }, {
+                                    innerText: target, duration: 2.5, ease: "power2.out", snap: { innerText: 1 },
+                                    onUpdate: function () { counter.innerHTML = Math.floor(counter.innerText); }
+                                });
+                            }
+                        });
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            statItems.forEach(item => { statsObserver.observe(item); });
+
+            gsap.utils.toArray('.modern-card, .modern-card-dark, .glass-card, .glass-card-dark').forEach(card => {
+                gsap.from(card, { y: 60, opacity: 0, duration: 0.8, scrollTrigger: { trigger: card, start: "top bottom-=100", toggleActions: "play none none none" } });
+            });
+            gsap.utils.toArray('.reveal-text').forEach(text => {
+                gsap.from(text, { y: 30, opacity: 0, duration: 0.6, scrollTrigger: { trigger: text, start: "top bottom-=120", toggleActions: "play none none none" } });
+            });
+
+            document.querySelectorAll('.card-3d').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const cardRect = card.getBoundingClientRect(); const x = e.clientX - cardRect.left; const y = e.clientY - cardRect.top;
+                    const centerX = cardRect.width / 2; const centerY = cardRect.height / 2;
+                    const rotateX = (y - centerY) / 10; const rotateY = (centerX - x) / 10;
+                    card.querySelector('.card-3d-inner').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => { card.querySelector('.card-3d-inner').style.transform = 'perspective(1000px) rotateX(0) rotateY(0)'; });
+            });
+
+            const formInputs = document.querySelectorAll('.custom-input');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', () => { input.parentElement.classList.add('focused'); });
+                input.addEventListener('blur', () => { input.parentElement.classList.remove('focused'); });
+            });
+
+            const boardStations = document.querySelectorAll('.board-station');
+            boardStations.forEach(station => {
+                const statusElement = station.querySelector('.board-status');
+                if (statusElement && station.classList.contains('active')) { statusElement.style.animationPlayState = 'running'; }
+            });
+        });
+    </script>
+</body>
+
+</html>
