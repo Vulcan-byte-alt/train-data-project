@@ -3274,24 +3274,23 @@
                 }
             }
 
-            // Railway Track Creation
+            // Generate railway sleepers
             const createRailwaySleepers = () => {
-                const railwayTrack = document.getElementById('railway-sleepers');
-                if (!railwayTrack) return;
+                const sleepersContainer = document.getElementById('railway-sleepers');
+                if (sleepersContainer) {
+                    sleepersContainer.innerHTML = '';
+                    const trackWidth = document.querySelector('.railway-track').offsetWidth;
+                    const sleeperCount = Math.floor(trackWidth / 15); // Spacing between sleepers
 
-                railwayTrack.innerHTML = '';
-                const trackWidth = railwayTrack.offsetWidth;
-                const sleeperCount = Math.floor(trackWidth / 20);
-
-                for (let i = 0; i <= sleeperCount; i++) {
-                    const sleeper = document.createElement('div');
-                    sleeper.className = 'railway-sleeper';
-                    sleeper.style.left = `${(i * 20)}px`;
-                    sleeper.style.top = '8px';
-                    railwayTrack.appendChild(sleeper);
+                    for (let i = 0; i < sleeperCount; i++) {
+                        const sleeper = document.createElement('div');
+                        sleeper.className = 'railway-sleeper';
+                        sleeper.style.left = (i * 15) + 7.5 + 'px'; // Even spacing
+                        sleepersContainer.appendChild(sleeper);
+                    }
                 }
             };
-
+            
             createRailwaySleepers();
 
             // Navbar Scroll Effect
