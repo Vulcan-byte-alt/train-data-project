@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
 
@@ -266,11 +267,98 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(30, 35, 40, 0.447), rgba(25, 28, 32, 0.397)),
-                url('hero.png');
+            overflow: hidden;
+        }
+
+        /* City Carousel Styles - IMPROVED */
+        .city-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .city-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-size: cover;
             background-position: center;
-            overflow: hidden;
+            transition: opacity 3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .city-slide.active {
+            opacity: 1;
+        }
+
+        
+
+        .city-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(30, 35, 40, 0.447), rgba(25, 28, 32, 0.397));
+            z-index: 1;
+        }
+
+        .city-slide-toronto {
+            background-image: url('hero.png');
+        }
+
+        .city-slide-vancouver {
+            background-image: url('vancouver.png');
+        }
+
+        .city-slide-montreal {
+            background-image: url('montreal.png');
+        }
+
+        .city-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .city-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .city-dot.active {
+            background: var(--primary);
+            border-color: white;
+            transform: scale(1.2);
+        }
+
+        .city-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 20;
+            backdrop-filter: blur(10px);
         }
 
         .hero-particles {
@@ -280,6 +368,7 @@
             right: 0;
             bottom: 0;
             overflow: hidden;
+            z-index: 2;
         }
 
         .particle {
@@ -317,6 +406,16 @@
             text-align: center;
             max-width: 1000px;
             padding: 0 2rem;
+            /* FIXED: Always centered for mobile */
+            margin: 0 auto;
+        }
+
+        /* FIXED: Add responsive margin only for larger screens */
+        @media (min-width: 1024px) {
+            .hero-content {
+                margin-left: 120px;
+                margin-right: auto;
+            }
         }
 
         .hero-headline {
@@ -361,7 +460,6 @@
             margin-bottom: 2.5rem;
             color: rgba(255, 255, 255, 0.9);
             max-width: 700px;
-            /* Increased for longer text */
             margin-left: auto;
             margin-right: auto;
             transform: translateY(30px);
@@ -646,7 +744,7 @@
 
         .custom-input:focus+.input-label,
         .custom-input:not(:placeholder-shown)+.input-label {
-            transform: translateY(-1.5rem) scale(0.85);
+            transform: translateY(-1.65rem) scale(0.85);
             color: var(--primary);
             font-weight: 600;
         }
@@ -1412,6 +1510,18 @@
             .pricing-card-highlight {
                 transform: scale(1);
             }
+
+            /* Mobile city indicators adjustment */
+            .city-indicator {
+                bottom: 20px;
+            }
+
+            .city-label {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
         }
 
         /* Gradient text for titles */
@@ -1484,6 +1594,41 @@
             width: 1.1rem;
             height: 1.1rem;
             color: var(--primary-light);
+        }
+
+        /* Enhanced CSS for better popup styling */
+        .custom-popup .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e0e0e0;
+        }
+
+        .custom-popup .leaflet-popup-content {
+            margin: 16px;
+            line-height: 1.4;
+        }
+
+        .custom-popup .leaflet-popup-tip {
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+
+        .leaflet-popup {
+            margin-bottom: 20px;
+        }
+
+        .legend {
+            line-height: 1.4;
+            font-family: inherit;
+        }
+
+        /* Ensure popups don't get cut off */
+        .leaflet-popup-pane {
+            z-index: 700;
+        }
+
+        .custom-marker {
+            z-index: 600;
         }
     </style>
 </head>
@@ -1638,16 +1783,37 @@
     </nav>
 
     <main>
-        <!-- Improved Hero Section -->
+        <!-- FIXED: Improved Hero Section with City Carousel -->
         <section id="home" class="hero">
+            <!-- IMPROVED: City Carousel Background -->
+            <div class="city-carousel">
+                <div class="city-slide city-slide-toronto active">
+                    <div class="city-label">Toronto Data Center</div>
+                </div>
+                <div class="city-slide city-slide-vancouver">
+                    <div class="city-label">Vancouver Data Center</div>
+                </div>
+                <div class="city-slide city-slide-montreal">
+                    <div class="city-label">Montreal Data Center</div>
+                </div>
+            </div>
+
+            <!-- ADDED: City Indicator Dots -->
+            <div class="city-indicator">
+                <div class="city-dot active" data-city="0"></div>
+                <div class="city-dot" data-city="1"></div>
+                <div class="city-dot" data-city="2"></div>
+            </div>
+
             <div class="hero-particles" id="particles-container"></div>
             <div class="container mx-auto px-4 relative z-10">
-                <div class="hero-content" style="margin-left: 120px;">
+                <div class="hero-content">
                     <h1 class="hero-headline mb-6" id="hero-headline">
                         <span class="block mt-2">Your Canadian <span class="highlight">Cloud Solution.</span></span>
                     </h1>
                     <p class="hero-subtext mb-8" id="hero-subtext">
-                        Secure Canadian cloud for your VMs, remote desktops, servers, and workflows—all with guaranteed data storage and
+                        Secure Canadian cloud for your VMs, remote desktops, servers, and workflows—all with guaranteed
+                        data storage and
                         corporate ownership in Canada.
                     </p>
 
@@ -1700,8 +1866,6 @@
                 </div>
             </div>
         </section>
-
-
 
         <!-- About Section -->
         <section id="about" class="section-padding light-section">
@@ -1870,7 +2034,6 @@
                                     <div class="testimonial-name">Sarah Thompson</div>
                                     <div class="testimonial-role">CTO, Maple Airlines</div>
                                 </div>
-                                <!-- <img src="air canada.png" alt="Maple Airlines Logo" class="testimonial-company"> -->
                             </div>
                         </div>
 
@@ -1891,7 +2054,6 @@
                                     <div class="testimonial-name">Michael George</div>
                                     <div class="testimonial-role">Head of IT Security, National Retail Co.</div>
                                 </div>
-                                <!-- <img src="canadian tire.png" alt="National Retail Co. Logo" class="testimonial-company"> -->
                             </div>
                         </div>
 
@@ -1912,7 +2074,6 @@
                                     <div class="testimonial-name">Jennifer Williams</div>
                                     <div class="testimonial-role">Operations Director, Canada Coffee Corp.</div>
                                 </div>
-                                <!-- <img src="tim hortons.png" alt="Canada Coffee Corp. Logo" class="testimonial-company"> -->
                             </div>
                         </div>
                     </div>
@@ -1925,8 +2086,6 @@
                 </div>
             </div>
         </section>
-
-
 
         <!-- Case Study Section (Redesigned) -->
         <section class="case-study-section">
@@ -2359,199 +2518,6 @@
                         <div id="map" style="width: 100%; height: 400px; border-radius: 8px;"></div>
                     </div>
                 </div>
-
-                <!-- Add Leaflet CSS and JS -->
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-                <script>
-                    // Initialize the map
-                    const map = L.map('map');
-
-                    // Add tile layer (map style)
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap contributors',
-                        maxZoom: 18
-                    }).addTo(map);
-
-                    // Custom red marker icon
-                    const customIcon = L.divIcon({
-                        className: 'custom-marker',
-                        html: `<div style="
-                        background: #dc3545;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 50%;
-                        border: 3px solid white;
-                        box-shadow: 0 3px 10px rgba(220,53,69,0.4);
-                        position: relative;
-                    ">
-                        <div style="
-                            width: 8px;
-                            height: 8px;
-                            background: white;
-                            border-radius: 50%;
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                        "></div>
-                    </div>`,
-                        iconSize: [30, 30],
-                        iconAnchor: [15, 15]
-                    });
-
-                    // Data center locations with detailed information
-                    const dataCenters = [
-                        {
-                            coords: [43.6532, -79.3832],
-                            title: "Toronto Data Center",
-                            content: `
-                            <div style="font-family: inherit; min-width: 220px;">
-                                <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Toronto Data Center</h3>
-                                <div style="margin-bottom: 8px;">
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🏢 Primary Location</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.999% Uptime</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🖥️ Full GPU Support</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🔒 Tier III Facility</p>
-                                </div>
-                            </div>
-                        `
-                        },
-                        {
-                            coords: [49.2827, -123.1207],
-                            title: "Vancouver Data Center",
-                            content: `
-                            <div style="font-family: inherit; min-width: 220px;">
-                                <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Vancouver Data Center</h3>
-                                <div style="margin-bottom: 8px;">
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🌊 West Coast Location</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🌱 Eco-Friendly Power</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">⛰️ Disaster Recovery</p>
-                                </div>
-                            </div>
-                        `
-                        },
-                        {
-                            coords: [45.5017, -73.5673],
-                            title: "Montreal Data Center",
-                            content: `
-                            <div style="font-family: inherit; min-width: 220px;">
-                                <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Montreal Data Center</h3>
-                                <div style="margin-bottom: 8px;">
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🏙️ East Coast Location</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">🇫🇷 Bilingual Support</p>
-                                    <p style="margin: 4px 0; color: #666; font-size: 13px;">❄️ Natural Cooling</p>
-                                </div>
-                            </div>
-                        `
-                        }
-                    ];
-
-                    // Create marker group to fit bounds
-                    const markerGroup = L.featureGroup();
-
-                    // Add markers to the map
-                    dataCenters.forEach(center => {
-                        const marker = L.marker(center.coords, { icon: customIcon });
-
-                        // Bind popup with content and better positioning
-                        marker.bindPopup(center.content, {
-                            maxWidth: 280,
-                            minWidth: 220,
-                            className: 'custom-popup',
-                            offset: [0, -10], // Offset popup upward
-                            autoPan: true, // Auto pan to keep popup in view
-                            keepInView: true // Keep popup in view
-                        });
-
-                        // Add marker to both map and group
-                        marker.addTo(map);
-                        markerGroup.addLayer(marker);
-
-                        // Open popup on hover
-                        marker.on('mouseover', function () {
-                            this.openPopup();
-                        });
-
-                        // Close popup when mouse leaves after delay
-                        marker.on('mouseout', function () {
-                            setTimeout(() => {
-                                this.closePopup();
-                            }, 2000);
-                        });
-                    });
-
-                    // Fit map to show all markers with padding
-                    map.fitBounds(markerGroup.getBounds(), {
-                        padding: [30, 30], // Add padding around the bounds
-                        maxZoom: 5 // Don't zoom in too much
-                    });
-
-                    // Optional: Add a legend with red styling
-                    const legend = L.control({ position: 'bottomright' });
-                    legend.onAdd = function (map) {
-                        const div = L.DomUtil.create('div', 'legend');
-                        div.innerHTML = `
-                        <div style="
-                            background: white;
-                            padding: 12px;
-                            border-radius: 8px;
-                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                            font-size: 12px;
-                            color: #666;
-                            margin-bottom:30px;
-                        ">
-                            <div style="margin-bottom: 8px; font-weight: 600; color: #2c3e50;">Canadian Data Centers</div>
-                            <div style="display: flex; align-items: center; margin: 4px 0;">
-                                <div style="width: 12px; height: 12px; background: #dc3545; border-radius: 50%; margin-right: 8px; border: 1px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);"></div>
-                                Active Locations
-                            </div>
-                        </div>
-                    `;
-                        return div;
-                    };
-                    legend.addTo(map);
-                </script>
-
-                <!-- Enhanced CSS for better popup styling -->
-                <style>
-                    .custom-popup .leaflet-popup-content-wrapper {
-                        border-radius: 12px;
-                        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                        border: 1px solid #e0e0e0;
-                    }
-
-                    .custom-popup .leaflet-popup-content {
-                        margin: 16px;
-                        line-height: 1.4;
-                    }
-
-                    .custom-popup .leaflet-popup-tip {
-                        background: white;
-                        border: 1px solid #e0e0e0;
-                    }
-
-                    .leaflet-popup {
-                        margin-bottom: 20px;
-                    }
-
-                    .legend {
-                        line-height: 1.4;
-                        font-family: inherit;
-                    }
-
-                    /* Ensure popups don't get cut off */
-                    .leaflet-popup-pane {
-                        z-index: 700;
-                    }
-
-                    .custom-marker {
-                        z-index: 600;
-                    }
-                </style>
             </div>
         </section>
 
@@ -2971,7 +2937,7 @@
                                     Send Message
                                 </button>
                             </form>
-                            <a href="https://buy.[parent company].com/projects.com" target="_blank"
+                            <a href="https://buy.[parent company].com/projects.html" target="_blank"
                                 rel="noopener noreferrer"
                                 class="btn btn-outline w-full mt-4 py-3 text-md font-semibold">
                                 Click here to tell us about your project
@@ -3007,7 +2973,6 @@
                                             <h4 class="text-lg font-bold text-gray-900 mb-2">Our Canadian Office</h4>
                                             <p class="text-gray-700 mb-1">Our address, City, Province, Canada, V5V 5V5
                                             </p>
-                                            <!-- <p class="text-gray-700 mb-2">Toronto, ON, M5V 3X9, Canada</p> -->
                                             <p class="text-sm text-[var(--primary)] font-medium">🍁 Proudly Canadian
                                                 Owned &
                                                 Operated</p>
@@ -3031,7 +2996,7 @@
                                             <h4 class="text-lg font-bold text-gray-900 mb-2">Call Us</h4>
                                             <p class="text-gray-700 hover:text-[var(--primary)] transition-colors mb-1">
                                                 <a href="tel:+1-555-123-4567" class="text-xl font-semibold">+1 (555)
-                                                    123-4567</a> <!-- Placeholder number -->
+                                                    123-4567</a>
                                             </p>
                                             <p class="text-sm text-gray-600">Mon-Fri: 8am-8pm (EST)</p>
                                         </div>
@@ -3138,7 +3103,8 @@
                 <!-- Company Info -->
                 <div class="md:col-span-2 lg:col-span-1">
                     <div class="flex items-center space-x-3 mb-4">
-                        <img src="logo.png" alt="Train Data Project Logo" class="h-10 object-contain" style="height:50px">
+                        <img src="logo.png" alt="Train Data Project Logo" class="h-10 object-contain"
+                            style="height:50px">
                         <div>
                             <h3 class="text-base font-bold text-white">Train Data Project</h3>
                             <p class="text-[var(--accent)] text-xs font-medium">Your Canadian Cloud Solution</p>
@@ -3247,9 +3213,49 @@
         </div>
     </footer>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
+
+            // IMPROVED: City Carousel Implementation with smoother transitions
+            const citySlides = document.querySelectorAll('.city-slide');
+            const cityDots = document.querySelectorAll('.city-dot');
+            let currentCitySlide = 0;
+
+            function showCitySlide(index) {
+                // Remove active and next classes from all slides
+                citySlides.forEach((slide, i) => {
+                    slide.classList.remove('active', 'next');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else if (i === (index + 1) % citySlides.length) {
+                        slide.classList.add('next');
+                    }
+                });
+
+                cityDots.forEach(dot => dot.classList.remove('active'));
+
+                // Show current slide
+                cityDots[index].classList.add('active');
+
+                currentCitySlide = index;
+            }
+
+            // City dot click handlers
+            cityDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showCitySlide(index);
+                });
+            });
+
+            // Auto-rotate city carousel with improved timing
+            setInterval(() => {
+                const nextIndex = (currentCitySlide + 1) % citySlides.length;
+                showCitySlide(nextIndex);
+            }, 6000); // Slower transition for better UX
 
             // Hero Animation
             const heroAnimation = gsap.timeline();
@@ -3290,7 +3296,7 @@
                     }
                 }
             };
-            
+
             createRailwaySleepers();
 
             // Navbar Scroll Effect
@@ -3546,7 +3552,6 @@
             });
 
             // Calculator Tool
-
             const calculateButton = document.getElementById('calculate-button');
             const calculatorResult = document.getElementById('calculator-result');
             const savingsAmount = document.getElementById('savings-amount');
@@ -3576,7 +3581,7 @@
                     const percentage = Math.round(savingsRate * 100);
 
                     // Update the results
-                    savingsAmount.textContent = `${Math.round(savings).toLocaleString()}`;
+                    savingsAmount.textContent = `$${Math.round(savings).toLocaleString()}`;
                     savingsPercentage.textContent = `${percentage}% monthly savings`;
 
                     // Show the results
@@ -3585,11 +3590,159 @@
             }
 
             // Calculate initial values on page load
-            document.addEventListener('DOMContentLoaded', function () {
-                if (calculateButton) {
-                    calculateButton.click();
-                }
+            if (calculateButton) {
+                calculateButton.click();
+            }
+
+            // Initialize the map
+            const map = L.map('map');
+
+            // Add tile layer (map style)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            // Custom red marker icon
+            const customIcon = L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="
+                                                background: #dc3545;
+                                                width: 24px;
+                                                height: 24px;
+                                                border-radius: 50%;
+                                                border: 3px solid white;
+                                                box-shadow: 0 3px 10px rgba(220,53,69,0.4);
+                                                position: relative;
+                                            ">
+                                                <div style="
+                                                    width: 8px;
+                                                    height: 8px;
+                                                    background: white;
+                                                    border-radius: 50%;
+                                                    position: absolute;
+                                                    top: 50%;
+                                                    left: 50%;
+                                                    transform: translate(-50%, -50%);
+                                                "></div>
+                                            </div>`,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
             });
+
+            // Data center locations with detailed information
+            const dataCenters = [
+                {
+                    coords: [43.6532, -79.3832],
+                    title: "Toronto Data Center",
+                    content: `
+                                                    <div style="font-family: inherit; min-width: 220px;">
+                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Toronto Data Center</h3>
+                                                        <div style="margin-bottom: 8px;">
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🏢 Primary Location</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.999% Uptime</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🖥️ Full GPU Support</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🔒 Tier III Facility</p>
+                                                        </div>
+                                                    </div>
+                                                `
+                },
+                {
+                    coords: [49.2827, -123.1207],
+                    title: "Vancouver Data Center",
+                    content: `
+                                                    <div style="font-family: inherit; min-width: 220px;">
+                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Vancouver Data Center</h3>
+                                                        <div style="margin-bottom: 8px;">
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🌊 West Coast Location</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🌱 Eco-Friendly Power</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⛰️ Disaster Recovery</p>
+                                                        </div>
+                                                    </div>
+                                                `
+                },
+                {
+                    coords: [45.5017, -73.5673],
+                    title: "Montreal Data Center",
+                    content: `
+                                                    <div style="font-family: inherit; min-width: 220px;">
+                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Montreal Data Center</h3>
+                                                        <div style="margin-bottom: 8px;">
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🏙️ East Coast Location</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🇫🇷 Bilingual Support</p>
+                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">❄️ Natural Cooling</p>
+                                                        </div>
+                                                    </div>
+                                                `
+                }
+            ];
+
+            // Create marker group to fit bounds
+            const markerGroup = L.featureGroup();
+
+            // Add markers to the map
+            dataCenters.forEach(center => {
+                const marker = L.marker(center.coords, { icon: customIcon });
+
+                // Bind popup with content and better positioning
+                marker.bindPopup(center.content, {
+                    maxWidth: 280,
+                    minWidth: 220,
+                    className: 'custom-popup',
+                    offset: [0, -10], // Offset popup upward
+                    autoPan: true, // Auto pan to keep popup in view
+                    keepInView: true // Keep popup in view
+                });
+
+                // Add marker to both map and group
+                marker.addTo(map);
+                markerGroup.addLayer(marker);
+
+                // Open popup on hover
+                marker.on('mouseover', function () {
+                    this.openPopup();
+                });
+
+                // Close popup when mouse leaves after delay
+                marker.on('mouseout', function () {
+                    setTimeout(() => {
+                        this.closePopup();
+                    }, 2000);
+                });
+            });
+
+            // Fit map to show all markers with padding
+            map.fitBounds(markerGroup.getBounds(), {
+                padding: [30, 30], // Add padding around the bounds
+                maxZoom: 5 // Don't zoom in too much
+            });
+
+            // Optional: Add a legend with red styling
+            const legend = L.control({ position: 'bottomright' });
+            legend.onAdd = function (map) {
+                const div = L.DomUtil.create('div', 'legend');
+                div.innerHTML = `
+                                                <div style="
+                                                    background: white;
+                                                    padding: 12px;
+                                                    border-radius: 8px;
+                                                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                                    font-size: 12px;
+                                                    color: #666;
+                                                    margin-bottom:30px;
+                                                ">
+                                                    <div style="margin-bottom: 8px; font-weight: 600; color: #2c3e50;">Canadian Data Centers</div>
+                                                    <div style="display: flex; align-items: center; margin: 4px 0;">
+                                                        <div style="width: 12px; height: 12px; background: #dc3545; border-radius: 50%; margin-right: 8px; border: 1px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);"></div>
+                                                        Active Locations
+                                                    </div>
+                                                </div>
+                                            `;
+                return div;
+            };
+            legend.addTo(map);
 
             // Chat Widget
             const chatButton = document.getElementById('chat-button');
@@ -3615,8 +3768,8 @@
                         const userMessage = document.createElement('div');
                         userMessage.style.cssText = 'text-align: right; padding: 10px; margin-bottom: 10px;';
                         userMessage.innerHTML = `<div style="display: inline-block; background: rgba(54, 69, 79, 0.1); padding: 10px; border-radius: 10px; max-width: 80%; text-align: left;">
-                                                                                                <strong>You:</strong> ${message}
-                                                                                            </div>`;
+                                                                                                                                        <strong>You:</strong> ${message}
+                                                                                                                                    </div>`;
                         chatMessages.appendChild(userMessage);
 
                         // Clear input
@@ -3654,7 +3807,7 @@
                 const updateLabel = () => {
                     if (label && label.classList.contains('input-label')) {
                         if (input.value || input.matches(':focus') || (input.type === 'select-one' && input.selectedIndex !== 0 && input.value !== "")) {
-                            label.style.transform = 'translateY(-1.5rem) scale(0.85)';
+                            label.style.transform = 'translateY(-1.65rem) scale(0.85)';
                             label.style.color = 'var(--primary)';
                             label.style.fontWeight = '600';
                         } else {
@@ -3733,7 +3886,7 @@
                     const label = input.nextElementSibling;
                     if (label && label.classList.contains('input-label')) {
                         if (input.value || (input.type === 'select-one' && input.selectedIndex !== 0 && input.value !== "")) {
-                            label.style.transform = 'translateY(-1.5rem) scale(0.85)';
+                            label.style.transform = 'translateY(-1.65rem) scale(0.85)';
                             label.style.color = 'var(--primary)';
                             label.style.fontWeight = '600';
                         }
