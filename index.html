@@ -2108,6 +2108,34 @@
                 gap: 0.5rem;
             }
 
+            .footer-section .grid {
+            text-align: center;
+        }
+
+        /* Center the social media icons */
+        .footer-section .flex.space-x-3 {
+            justify-content: center;
+        }
+
+        /* Target the bottom section of the footer containing the copyright */
+        .footer-section .border-t > .flex {
+            flex-direction: column; /* Stack items vertically */
+            align-items: center;     /* Center them horizontally */
+            text-align: center;      /* Center the text within each item */
+            gap: 1.5rem;             /* Add space between stacked items */
+        }
+        
+        /* Override the desktop-specific text alignment on the copyright block */
+        .footer-section .md\\:text-left {
+            text-align: center;
+        }
+
+        /* Stack the "Serving Canada" and "PIPEDA Compliant" lines */
+        .footer-section .flex.items-center.space-x-4 {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
             /* FIXED: Chat Widget Mobile - Fix send button */
             .chat-widget {
                 bottom: 15px;
