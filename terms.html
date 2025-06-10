@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Train Data Project</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            background: white;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .legal-content a:hover {
+            color: var(--primary-dark);
+        }
+
+        .effective-date {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .legal-content {
+                margin: 1rem;
+                padding: 80px 1.5rem 2rem;
+            }
+
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.3rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="Train Data Project Logo" class="h-10 object-contain">
+                <div>
+                    <div class="text-white font-bold text-lg">Train Data Project</div>
+                    <div class="text-xs text-gray-300">Your Canadian Cloud Solution</div>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="legal-content">
+        <h1>Terms of Service</h1>
+        <p class="effective-date"><strong>Effective Date:</strong> January 15, 2025</p>
+        
+        <p>Welcome to <strong>Train Data Project</strong>, a service provided by <strong>[parent company]</strong>. By using our services, you agree to the following terms and conditions.</p>
+
+        <h2>1. Service Overview</h2>
+        <p>Train Data Project provides subscription-based access to Canadian-hosted virtual infrastructure and cloud services ("Services"). Services may include virtual machines, remote desktops, dedicated compute units, storage, networking, GPU resources, and technical support.</p>
+
+        <h2>2. Subscription and Billing</h2>
+        <ul>
+            <li>All Services are <strong>pre-billed monthly</strong>, based on your selected subscription tier or dedicated compute unit.</li>
+            <li>Any <strong>technical support hours, one-off services, or additional resources</strong> provided in the prior month will be <strong>invoiced together with your next month's subscription</strong>.</li>
+            <li>Failure to pay by the due date may result in suspension or termination of services.</li>
+            <li>All billing is conducted in Canadian dollars (CAD) to provide pricing stability for Canadian businesses.</li>
+        </ul>
+
+        <h2>3. Acceptable Use</h2>
+        <p>You agree not to use the Services for:</p>
+        <ul>
+            <li>Any <strong>illegal, harmful, or abusive activities</strong>, including unauthorized access, spam, malware, or prohibited content</li>
+            <li>Hosting services or files in violation of applicable laws, PIPEDA, or third-party rights</li>
+            <li>Cryptocurrency mining without explicit written permission</li>
+            <li>Disrupting or interfering with other users or the integrity of the Train Data Project infrastructure</li>
+            <li>Attempting to access data centers or physical infrastructure without authorization</li>
+        </ul>
+        <p>We reserve the right to suspend or terminate services in response to misuse or violation of Canadian laws.</p>
+
+        <h2>4. Data Ownership and Privacy</h2>
+        <ul>
+            <li>You retain ownership of all data stored or processed using our infrastructure.</li>
+            <li>We will not access or use your data except as necessary to provide and support the Services.</li>
+            <li>Your data will remain in <strong>Canada at all times</strong> unless otherwise requested in writing.</li>
+            <li>All data is subject to Canadian privacy laws including PIPEDA and provincial privacy legislation.</li>
+            <li>We do not and will not transfer data outside of Canadian borders without explicit consent.</li>
+        </ul>
+        <p>See our <a href="privacy-policy.html">Privacy Policy</a> for more information.</p>
+
+        <h2>5. Support and Modifications</h2>
+        <ul>
+            <li>Basic support is included with all plans.</li>
+            <li>Support is available <strong>Monday to Friday, 9 a.m. – 5 p.m. EST</strong>, excluding statutory holidays.</li>
+            <li>Emergency support is available 24/7 for critical infrastructure issues.</li>
+            <li>Additional support, migration assistance, or modification work will be billed hourly as disclosed in your invoice.</li>
+            <li>Bilingual support (English and French) is available upon request.</li>
+        </ul>
+
+        <h2>6. Service Availability and SLA</h2>
+        <ul>
+            <li>We target 99.9% uptime for standard services and 99.99% for high-availability configurations.</li>
+            <li>Planned maintenance will be announced at least 48 hours in advance.</li>
+            <li>Emergency maintenance may occur with minimal notice to protect service integrity.</li>
+            <li>Specific service level agreements (SLAs) apply to dedicated compute units and enterprise plans.</li>
+        </ul>
+
+        <h2>7. Data Center and Infrastructure</h2>
+        <ul>
+            <li>All services operate from our Canadian data centers in Toronto, Vancouver, and Montreal.</li>
+            <li>Infrastructure includes enterprise-grade firewalls, monitoring, and backup systems.</li>
+            <li>Regular security updates and patches are applied to maintain system integrity.</li>
+            <li>Physical security measures protect all data center facilities.</li>
+        </ul>
+
+        <h2>8. Limitation of Liability</h2>
+        <ul>
+            <li>Services are provided "<strong>as is</strong>" with no warranties beyond what is required by Canadian consumer protection laws.</li>
+            <li>We are <strong>not liable for indirect or consequential damages</strong>, including data loss or business interruption.</li>
+            <li>Our total liability is limited to the <strong>amount paid by you in the past 12 months</strong> or $1,000 CAD, whichever is greater.</li>
+            <li>You are responsible for maintaining appropriate backups of your data.</li>
+        </ul>
+
+        <h2>9. Termination</h2>
+        <ul>
+            <li>You may cancel your subscription anytime, effective at the end of the current billing period.</li>
+            <li>We may suspend or terminate service for non-payment, violation of these terms, or illegal activity.</li>
+            <li>Upon termination, your data may be retained for up to 30 days for recovery purposes, after which it will be securely deleted.</li>
+            <li>You are responsible for downloading your data before termination.</li>
+        </ul>
+
+        <h2>10. Changes to Terms</h2>
+        <p>We may update these Terms from time to time to reflect changes in our services, Canadian law, or regulatory requirements. Significant changes will be communicated via email or through our website at least 30 days in advance. Continued use after updates indicates your acceptance.</p>
+
+        <h2>11. Governing Law and Dispute Resolution</h2>
+        <p>These Terms are governed by the laws of <strong>Canada and the Province of [Insert Province]</strong>. Any disputes will be resolved through binding arbitration in accordance with Canadian arbitration rules, or in the courts of [Insert Province], Canada.</p>
+
+        <h2>12. Canadian Sovereignty</h2>
+        <p>Train Data Project is proudly Canadian-owned and operated. We are committed to digital sovereignty and ensuring that Canadian data remains within Canadian borders, subject to Canadian laws and regulations.</p>
+
+        <h2>13. Contact Information</h2>
+        <p>For questions about these Terms of Service, contact us at:</p>
+        <ul>
+            <li><strong>Email:</strong> admin@[parent company].com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+            <li><strong>Mailing Address:</strong> [parent company], [Address], [City], [Province], Canada</li>
+        </ul>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p><strong>🍁 Train Data Project - Proudly Canadian Owned & Operated</strong></p>
+            <p style="font-size: 0.9rem; color: #666;">Serving Canadian businesses with secure, sovereign cloud infrastructure</p>
+        </div>
+    </main>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                // Enable all cookies/analytics here
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                // Disable non-essential cookies here
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function() {
+                // You can expand this to show a detailed cookie settings modal
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+    </script>
+</body>
+
+</html>
