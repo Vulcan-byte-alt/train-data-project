@@ -296,7 +296,7 @@
             opacity: 1;
         }
 
-        
+
 
         .city-slide::before {
             content: '';
@@ -406,11 +406,9 @@
             text-align: center;
             max-width: 1000px;
             padding: 0 2rem;
-            /* FIXED: Always centered for mobile */
             margin: 0 auto;
         }
 
-        /* FIXED: Add responsive margin only for larger screens */
         @media (min-width: 1024px) {
             .hero-content {
                 margin-left: 120px;
@@ -1470,60 +1468,6 @@
             background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero-headline {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtext {
-                font-size: 1rem;
-            }
-
-            .trust-badges {
-                gap: 0.8rem;
-            }
-
-            .trust-badge {
-                min-width: 120px;
-                padding: 0.8rem;
-            }
-
-            .btn-hero {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .testimonial-card {
-                padding: 1.5rem;
-            }
-
-            .pricing-card-highlight {
-                transform: scale(1);
-            }
-
-            /* Mobile city indicators adjustment */
-            .city-indicator {
-                bottom: 20px;
-            }
-
-            .city-label {
-                top: 10px;
-                right: 10px;
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-        }
-
         /* Gradient text for titles */
         .gradient-text {
             background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -1629,6 +1573,708 @@
 
         .custom-marker {
             z-index: 600;
+        }
+
+        /* ============================================ */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ============================================ */
+
+        /* Mobile First - Global Adjustments */
+        @media (max-width: 767px) {
+
+            /* Container and spacing adjustments */
+            .container-custom {
+                padding: 0 1rem;
+            }
+
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            /* Navbar Mobile Fixes */
+            .navbar {
+                padding: 0.5rem 0;
+            }
+
+            .navbar .container {
+                padding: 0 0.5rem;
+            }
+
+            /* Railway Navigation Mobile */
+            .railway-nav-container {
+                height: 70px;
+            }
+
+            .departure-board {
+                width: 95%;
+                padding: 3px;
+                margin-top: 3px;
+            }
+
+            .board-station {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                min-width: 80px;
+                margin: 0 2px;
+            }
+
+            .station-time {
+                font-size: 0.6rem;
+            }
+
+            .train-container {
+                width: 80px;
+                height: 25px;
+                bottom: 12px;
+            }
+
+            .train-container svg {
+                width: 80px;
+                height: 25px;
+            }
+
+            /* Hero Section Mobile */
+            .hero {
+                height: 100vh;
+                padding-top: 70px;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+                max-width: 100%;
+            }
+
+            .hero-headline {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                line-height: 1.1;
+            }
+
+            .hero-subtext {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+                padding: 0 0.5rem;
+            }
+
+            .btn-hero {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                margin: 0.5rem 0.3rem;
+                width: calc(50% - 0.6rem);
+                display: inline-block;
+                text-align: center;
+            }
+
+            /* City carousel mobile - FIXED: Smaller dots */
+            .city-indicator {
+                bottom: 20px;
+                gap: 6px;
+                /* Reduced from 10px */
+            }
+
+            .city-dot {
+                width: 8px;
+                /* Reduced from 12px */
+                height: 8px;
+                /* Reduced from 12px */
+                border: 1px solid rgba(255, 255, 255, 0.6);
+                /* Thinner border */
+            }
+
+            .city-label {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            /* Trust Badges Mobile */
+            .trust-badges {
+                padding: 1rem 0;
+                gap: 0.5rem;
+            }
+
+            .trust-badge {
+                min-width: 100px;
+                padding: 0.8rem 0.5rem;
+                flex: 1;
+                max-width: none;
+            }
+
+            .trust-badge-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .trust-badge-number {
+                font-size: 1.5rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .trust-badge-label {
+                font-size: 0.65rem;
+            }
+
+            /* Typography Mobile */
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .section-badge {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            /* Stats Section Mobile */
+            .stat-number {
+                font-size: 2.5rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+            }
+
+            .stat-sublabel {
+                font-size: 0.7rem;
+            }
+
+            /* Services/Pricing Cards Mobile */
+            .modern-card,
+            .modern-card-dark {
+                margin-bottom: 1.5rem;
+            }
+
+            .pricing-card-highlight {
+                transform: scale(1);
+                margin: 1.5rem 0;
+            }
+
+            .popular-badge {
+                right: 15px;
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+
+            /* Testimonial Section Mobile - FIXED: Better centering and smaller dots */
+            .testimonial-section {
+                padding: 60px 0;
+            }
+
+            .testimonial-container {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+                margin: 0.5rem;
+                border-radius: 12px;
+            }
+
+            .testimonial-quote {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+
+            .testimonial-quote::before {
+                font-size: 3rem;
+                top: -1.5rem;
+                left: -0.5rem;
+            }
+
+            .testimonial-author {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                align-items: center;
+                /* FIXED: Center alignment */
+                justify-content: center;
+                /* FIXED: Center alignment */
+            }
+
+            .testimonial-avatar {
+                margin: 0 auto 0.5rem;
+            }
+
+            .testimonial-info {
+                text-align: center;
+                width: 100%;
+                /* FIXED: Full width for better centering */
+            }
+
+            .testimonial-company {
+                margin: 0.5rem auto 0;
+            }
+
+            .testimonial-nav {
+                margin-top: 1rem;
+            }
+
+            /* FIXED: Smaller testimonial dots on mobile */
+            .testimonial-dot {
+                width: 8px;
+                /* Reduced from 10px */
+                height: 8px;
+                /* Reduced from 10px */
+                margin: 0 4px;
+                /* Reduced spacing */
+            }
+
+            /* Case Study Cards Mobile */
+            .case-study-card {
+                margin-bottom: 2rem;
+            }
+
+            .case-study-image {
+                height: 150px;
+            }
+
+            .case-study-content {
+                padding: 1.25rem;
+            }
+
+            .case-study-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .case-study-description {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .case-study-metrics {
+                gap: 0.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .case-study-metric {
+                min-width: 100%;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #E5E7EB;
+            }
+
+            .case-study-metric:last-child {
+                border-bottom: none;
+            }
+
+            .metric-value {
+                font-size: 1.25rem;
+            }
+
+            /* FAQ Section Mobile */
+            .faq-container {
+                padding: 0 0.5rem;
+            }
+
+            .faq-question {
+                padding: 1rem;
+                font-size: 0.95rem;
+                flex-direction: column;
+                text-align: left;
+                gap: 0.5rem;
+            }
+
+            .faq-icon {
+                align-self: flex-end;
+                width: 20px;
+                height: 20px;
+            }
+
+            .faq-answer {
+                padding: 0 1rem;
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 1rem 1rem;
+            }
+
+            /* FIXED: Comparison Table Mobile - Better spacing */
+            .comparison-table {
+                font-size: 0.75rem;
+                /* Smaller font */
+                min-width: 600px;
+                /* Ensure horizontal scroll */
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.6rem 0.4rem;
+                /* Better padding */
+                word-wrap: break-word;
+                min-width: 120px;
+                /* Minimum width for columns */
+            }
+
+            .comparison-table th {
+                font-size: 0.7rem;
+                line-height: 1.2;
+            }
+
+            .comparison-table td {
+                font-size: 0.7rem;
+                line-height: 1.3;
+            }
+
+            .comparison-section .overflow-x-auto {
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 10px;
+                /* Space for scrollbar */
+            }
+
+            /* Calculator Tool Mobile */
+            .calculator-tool {
+                padding: 1.25rem;
+                margin-top: 2rem;
+            }
+
+            .calculator-title {
+                font-size: 1.15rem;
+                margin-bottom: 1rem;
+            }
+
+            .calculator-input,
+            .calculator-select {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .result-amount {
+                font-size: 1.75rem;
+            }
+
+            /* Forms Mobile */
+            .custom-input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.95rem;
+            }
+
+            .input-label {
+                font-size: 0.9rem;
+                left: 1.1rem;
+                top: 0.75rem;
+            }
+
+            /* Contact Section Mobile */
+            .contact-form-container {
+                margin-bottom: 2rem;
+            }
+
+            /* Map Mobile */
+            .data-center-map {
+                height: 250px;
+                margin-top: 2rem;
+            }
+
+            /* FIXED: Dedicated Compute Tables Mobile - Better spacing and readability */
+            .dark-section table {
+                font-size: 0.75rem;
+                /* Smaller font for better fit */
+                min-width: 600px;
+                /* Enable horizontal scroll */
+            }
+
+            .dark-section th,
+            .dark-section td {
+                padding: 0.7rem 0.4rem;
+                /* Better padding */
+                line-height: 1.3;
+                word-wrap: break-word;
+            }
+
+            .dark-section th {
+                font-size: 0.7rem;
+                font-weight: 600;
+            }
+
+            .dark-section td {
+                font-size: 0.7rem;
+            }
+
+            .dark-section .overflow-x-auto {
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 15px;
+                /* Space for scrollbar */
+                margin-bottom: 10px;
+            }
+
+            /* Make table cells more readable on mobile */
+            .dark-section .modern-card-dark {
+                padding: 1rem;
+                /* Reduced padding */
+            }
+
+            /* FIXED: Footer Mobile - Better alignment */
+            .footer-section {
+                padding: 40px 0 20px;
+            }
+
+            .footer-section .grid {
+                gap: 2rem;
+                text-align: center;
+                /* Center align all footer content on mobile */
+            }
+
+            .footer-section h4 {
+                font-size: 0.85rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .footer-section ul {
+                text-align: center;
+                /* Center align lists */
+            }
+
+            .footer-section ul li {
+                margin-bottom: 0.5rem;
+            }
+
+            .footer-section a {
+                font-size: 0.85rem;
+            }
+
+            .footer-social-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .footer-social-icon svg {
+                width: 1rem;
+                height: 1rem;
+            }
+
+            /* FIXED: Footer bottom section alignment */
+            .footer-section .border-t {
+                text-align: center;
+            }
+
+            .footer-section .flex.flex-col.md\\:flex-row {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-section .flex.items-center.space-x-4 {
+                flex-direction: column;
+                space-x: 0;
+                gap: 0.5rem;
+            }
+
+            /* Chat Widget Mobile */
+            .chat-widget {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .chat-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .chat-container {
+                width: 280px;
+                height: 350px;
+                bottom: 60px;
+                right: -15px;
+            }
+
+            .chat-messages {
+                height: 240px;
+            }
+
+            /* Button Mobile */
+            .btn {
+                padding: 0.7rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            /* Misc Mobile Fixes */
+            .maple-leaf {
+                width: 30px;
+                height: 30px;
+            }
+
+            .particle {
+                display: none;
+                /* Hide particles on mobile for performance */
+            }
+        }
+
+        /* Tablet Adjustments */
+        @media (min-width: 768px) and (max-width: 1023px) {
+
+            .hero-headline {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtext {
+                font-size: 1.1rem;
+            }
+
+            .trust-badge {
+                min-width: 130px;
+            }
+
+            .testimonial-card {
+                padding: 1.75rem;
+            }
+
+            .case-study-metrics {
+                gap: 1rem;
+            }
+
+            .pricing-card-highlight {
+                transform: scale(1.02);
+            }
+        }
+
+        /* Large Mobile/Small Tablet (Portrait) */
+        @media (max-width: 480px) {
+
+            .hero-headline {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtext {
+                font-size: 0.95rem;
+            }
+
+            .btn-hero {
+                width: 100%;
+                margin: 0.3rem 0;
+            }
+
+            .trust-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .trust-badge {
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .testimonial-quote {
+                font-size: 0.95rem;
+            }
+
+            .case-study-title {
+                font-size: 1rem;
+            }
+
+            .comparison-table {
+                font-size: 0.7rem;
+            }
+
+            /* Smaller dots for very small screens */
+            .city-dot,
+            .testimonial-dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        /* Very Small Devices */
+        @media (max-width: 360px) {
+
+            .container-custom {
+                padding: 0 0.75rem;
+            }
+
+            .hero-headline {
+                font-size: 2rem;
+            }
+
+            .hero-subtext {
+                font-size: 0.9rem;
+            }
+
+            .board-station {
+                font-size: 0.7rem;
+                padding: 4px 6px;
+                min-width: 70px;
+            }
+
+            .station-time {
+                font-size: 0.55rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .chat-container {
+                width: 260px;
+                right: -25px;
+            }
+
+            /* Even smaller dots for very small devices */
+            .city-dot,
+            .testimonial-dot {
+                width: 5px;
+                height: 5px;
+            }
+        }
+
+        /* Accessibility and Touch Improvements */
+        @media (max-width: 767px) {
+
+            /* Better touch targets */
+            .btn,
+            .board-station,
+            .faq-question,
+            .testimonial-dot,
+            .city-dot {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Exception for dots - they can be smaller but still touchable */
+            .testimonial-dot,
+            .city-dot {
+                min-height: 32px;
+                min-width: 32px;
+                padding: 8px;
+                /* Add padding to make them easier to touch */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Better scroll behavior */
+            .testimonial-wrapper,
+            .overflow-x-auto {
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Focus states for mobile */
+            .custom-input:focus,
+            .calculator-input:focus,
+            .calculator-select:focus {
+                transform: scale(1.02);
+            }
         }
     </style>
 </head>
@@ -2874,7 +3520,7 @@
 
                     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <!-- Contact Form -->
-                        <div class="modern-card p-8 shadow-xl">
+                        <div class="modern-card p-8 shadow-xl contact-form-container">
                             <div class="mb-8">
                                 <h3 class="text-2xl font-bold mb-3 gradient-text">Send Us a Message</h3>
                                 <p class="text-gray-600">Fill out the form below and we'll get back to you within 24
@@ -3607,25 +4253,25 @@
             const customIcon = L.divIcon({
                 className: 'custom-marker',
                 html: `<div style="
-                                                background: #dc3545;
-                                                width: 24px;
-                                                height: 24px;
-                                                border-radius: 50%;
-                                                border: 3px solid white;
-                                                box-shadow: 0 3px 10px rgba(220,53,69,0.4);
-                                                position: relative;
-                                            ">
-                                                <div style="
-                                                    width: 8px;
-                                                    height: 8px;
-                                                    background: white;
-                                                    border-radius: 50%;
-                                                    position: absolute;
-                                                    top: 50%;
-                                                    left: 50%;
-                                                    transform: translate(-50%, -50%);
-                                                "></div>
-                                            </div>`,
+                    background: #dc3545;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    box-shadow: 0 3px 10px rgba(220,53,69,0.4);
+                    position: relative;
+                ">
+                    <div style="
+                        width: 8px;
+                        height: 8px;
+                        background: white;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    "></div>
+                </div>`,
                 iconSize: [30, 30],
                 iconAnchor: [15, 15]
             });
@@ -3636,46 +4282,46 @@
                     coords: [43.6532, -79.3832],
                     title: "Toronto Data Center",
                     content: `
-                                                    <div style="font-family: inherit; min-width: 220px;">
-                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Toronto Data Center</h3>
-                                                        <div style="margin-bottom: 8px;">
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🏢 Primary Location</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.999% Uptime</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🖥️ Full GPU Support</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🔒 Tier III Facility</p>
-                                                        </div>
-                                                    </div>
-                                                `
+                        <div style="font-family: inherit; min-width: 220px;">
+                            <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Toronto Data Center</h3>
+                            <div style="margin-bottom: 8px;">
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🏢 Primary Location</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.999% Uptime</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🖥️ Full GPU Support</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🔒 Tier III Facility</p>
+                            </div>
+                        </div>
+                    `
                 },
                 {
                     coords: [49.2827, -123.1207],
                     title: "Vancouver Data Center",
                     content: `
-                                                    <div style="font-family: inherit; min-width: 220px;">
-                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Vancouver Data Center</h3>
-                                                        <div style="margin-bottom: 8px;">
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🌊 West Coast Location</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🌱 Eco-Friendly Power</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⛰️ Disaster Recovery</p>
-                                                        </div>
-                                                    </div>
-                                                `
+                        <div style="font-family: inherit; min-width: 220px;">
+                            <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Vancouver Data Center</h3>
+                            <div style="margin-bottom: 8px;">
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🌊 West Coast Location</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🌱 Eco-Friendly Power</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">⛰️ Disaster Recovery</p>
+                            </div>
+                        </div>
+                    `
                 },
                 {
                     coords: [45.5017, -73.5673],
                     title: "Montreal Data Center",
                     content: `
-                                                    <div style="font-family: inherit; min-width: 220px;">
-                                                        <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Montreal Data Center</h3>
-                                                        <div style="margin-bottom: 8px;">
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🏙️ East Coast Location</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">🇫🇷 Bilingual Support</p>
-                                                            <p style="margin: 4px 0; color: #666; font-size: 13px;">❄️ Natural Cooling</p>
-                                                        </div>
-                                                    </div>
-                                                `
+                        <div style="font-family: inherit; min-width: 220px;">
+                            <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">Montreal Data Center</h3>
+                            <div style="margin-bottom: 8px;">
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🏙️ East Coast Location</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">⚡ 99.99% Uptime</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">🇫🇷 Bilingual Support</p>
+                                <p style="margin: 4px 0; color: #666; font-size: 13px;">❄️ Natural Cooling</p>
+                            </div>
+                        </div>
+                    `
                 }
             ];
 
@@ -3724,22 +4370,22 @@
             legend.onAdd = function (map) {
                 const div = L.DomUtil.create('div', 'legend');
                 div.innerHTML = `
-                                                <div style="
-                                                    background: white;
-                                                    padding: 12px;
-                                                    border-radius: 8px;
-                                                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                                    font-size: 12px;
-                                                    color: #666;
-                                                    margin-bottom:30px;
-                                                ">
-                                                    <div style="margin-bottom: 8px; font-weight: 600; color: #2c3e50;">Canadian Data Centers</div>
-                                                    <div style="display: flex; align-items: center; margin: 4px 0;">
-                                                        <div style="width: 12px; height: 12px; background: #dc3545; border-radius: 50%; margin-right: 8px; border: 1px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);"></div>
-                                                        Active Locations
-                                                    </div>
-                                                </div>
-                                            `;
+                    <div style="
+                        background: white;
+                        padding: 12px;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                        font-size: 12px;
+                        color: #666;
+                        margin-bottom:30px;
+                    ">
+                        <div style="margin-bottom: 8px; font-weight: 600; color: #2c3e50;">Canadian Data Centers</div>
+                        <div style="display: flex; align-items: center; margin: 4px 0;">
+                            <div style="width: 12px; height: 12px; background: #dc3545; border-radius: 50%; margin-right: 8px; border: 1px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2);"></div>
+                            Active Locations
+                        </div>
+                    </div>
+                `;
                 return div;
             };
             legend.addTo(map);
@@ -3768,8 +4414,8 @@
                         const userMessage = document.createElement('div');
                         userMessage.style.cssText = 'text-align: right; padding: 10px; margin-bottom: 10px;';
                         userMessage.innerHTML = `<div style="display: inline-block; background: rgba(54, 69, 79, 0.1); padding: 10px; border-radius: 10px; max-width: 80%; text-align: left;">
-                                                                                                                                        <strong>You:</strong> ${message}
-                                                                                                                                    </div>`;
+                            <strong>You:</strong> ${message}
+                        </div>`;
                         chatMessages.appendChild(userMessage);
 
                         // Clear input
