@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility | DataCaboose</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            background: white;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .legal-content h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .legal-content a:hover {
+            color: var(--primary-dark);
+        }
+
+        .effective-date {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .accessibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .accessibility-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .accessibility-card h4 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .accessibility-card h4 i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .wcag-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .wcag-table th {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .wcag-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .wcag-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .conformance-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .conformance-aa {
+            background: #10b981;
+            color: white;
+        }
+
+        .conformance-aaa {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .conformance-partial {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .tools-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tools-section h4 {
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-list {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-list h4 {
+            color: #065f46;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .legal-content {
+                border: 2px solid #000;
+            }
+            
+            .highlight-box {
+                border: 2px solid var(--primary);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .legal-content {
+                margin: 1rem;
+                padding: 80px 1.5rem 2rem;
+            }
+
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.3rem;
+            }
+
+            .accessibility-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wcag-table {
+                font-size: 0.9rem;
+            }
+
+            .wcag-table th,
+            .wcag-table td {
+                padding: 0.5rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Ensure sufficient color contrast */
+        .legal-content a {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Simple Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="w-30 h-30 relative" style="height: 70px;">
+                <img src="logo.png" alt="DataCaboose Logo" class="w-full h-full object-contain">
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent" role="dialog" aria-label="Cookie consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="legal-content">
+        <h1>Accessibility Statement</h1>
+        <p class="effective-date"><strong>Last Updated:</strong> January 15, 2025</p>
+        
+        <p>DataCaboose is committed to ensuring digital accessibility for all users, including people with disabilities. We strive to provide an inclusive experience that enables everyone to access our Canadian cloud services effectively and efficiently.</p>
+
+        <div class="highlight-box">
+            <p>♿ <strong>Accessibility First:</strong> We believe technology should be accessible to everyone. Our commitment goes beyond compliance to create truly inclusive digital experiences.</p>
+        </div>
+
+        <h2>1. Our Accessibility Commitment</h2>
+
+        <h3>1.1 Our Promise</h3>
+        <p>DataCaboose is dedicated to:</p>
+        <ul>
+            <li>Providing equal access to information and functionality</li>
+            <li>Meeting or exceeding Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards</li>
+            <li>Complying with the Accessible Canada Act and provincial accessibility legislation</li>
+            <li>Continuously improving our digital accessibility</li>
+            <li>Training our team on accessibility best practices</li>
+        </ul>
+
+        <h3>1.2 Accessibility Standards</h3>
+        <p>Our digital properties conform to the following standards:</p>
+        <ul>
+            <li><strong>WCAG 2.1 Level AA:</strong> Web Content Accessibility Guidelines</li>
+            <li><strong>Section 508:</strong> U.S. federal accessibility standards</li>
+            <li><strong>EN 301 549:</strong> European accessibility standard</li>
+            <li><strong>AODA:</strong> Accessibility for Ontarians with Disabilities Act</li>
+            <li><strong>Accessible Canada Act:</strong> Federal accessibility legislation</li>
+        </ul>
+
+        <h2>2. WCAG 2.1 Compliance Status</h2>
+
+        <table class="wcag-table">
+            <thead>
+                <tr>
+                    <th>WCAG Principle</th>
+                    <th>Guidelines</th>
+                    <th>Conformance Level</th>
+                    <th>Implementation Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Perceivable</strong></td>
+                    <td>Information must be presentable in ways users can perceive</td>
+                    <td><span class="conformance-badge conformance-aa">AA</span></td>
+                    <td>Fully Implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Operable</strong></td>
+                    <td>User interface components must be operable</td>
+                    <td><span class="conformance-badge conformance-aa">AA</span></td>
+                    <td>Fully Implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Understandable</strong></td>
+                    <td>Information and UI operation must be understandable</td>
+                    <td><span class="conformance-badge conformance-aa">AA</span></td>
+                    <td>Fully Implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Robust</strong></td>
+                    <td>Content must be robust enough for various assistive technologies</td>
+                    <td><span class="conformance-badge conformance-aa">AA</span></td>
+                    <td>Fully Implemented</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Accessibility Features</h2>
+
+        <div class="accessibility-grid">
+            <div class="accessibility-card">
+                <h4><i class="fas fa-eye" aria-hidden="true"></i>Visual Accessibility</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>High contrast color schemes</li>
+                    <li>Scalable text and UI elements</li>
+                    <li>Alternative text for images</li>
+                    <li>Clear visual hierarchy</li>
+                    <li>Support for zoom up to 200%</li>
+                </ul>
+            </div>
+
+            <div class="accessibility-card">
+                <h4><i class="fas fa-keyboard" aria-hidden="true"></i>Keyboard Navigation</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>Full keyboard accessibility</li>
+                    <li>Visible focus indicators</li>
+                    <li>Logical tab order</li>
+                    <li>Skip navigation links</li>
+                    <li>Keyboard shortcuts</li>
+                </ul>
+            </div>
+
+            <div class="accessibility-card">
+                <h4><i class="fas fa-volume-up" aria-hidden="true"></i>Screen Reader Support</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>Semantic HTML markup</li>
+                    <li>ARIA labels and descriptions</li>
+                    <li>Proper heading structure</li>
+                    <li>Screen reader announcements</li>
+                    <li>Compatible with NVDA, JAWS, VoiceOver</li>
+                </ul>
+            </div>
+
+            <div class="accessibility-card">
+                <h4><i class="fas fa-mobile-alt" aria-hidden="true"></i>Mobile Accessibility</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>Touch-friendly interface</li>
+                    <li>Minimum 44px touch targets</li>
+                    <li>Gesture alternatives</li>
+                    <li>Portrait and landscape support</li>
+                    <li>Voice control compatibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>4. DataCaboose Platform Accessibility</h2>
+
+        <div class="feature-list">
+            <h4>Customer Portal Features</h4>
+            <ul>
+                <li>Fully keyboard navigable dashboard</li>
+                <li>High contrast mode toggle</li>
+                <li>Text size adjustment controls</li>
+                <li>Screen reader optimized forms</li>
+                <li>Alternative text for all graphics and charts</li>
+                <li>Consistent navigation structure</li>
+                <li>Error messages with clear instructions</li>
+                <li>Time-out warnings and extensions</li>
+            </ul>
+        </div>
+
+        <div class="feature-list">
+            <h4>Management Console Accessibility</h4>
+            <ul>
+                <li>ARIA-compliant interface components</li>
+                <li>Keyboard shortcuts for common actions</li>
+                <li>Status announcements for screen readers</li>
+                <li>Accessible data tables with proper headers</li>
+                <li>Color-blind friendly data visualizations</li>
+                <li>Progress indicators with text alternatives</li>
+                <li>Contextual help and documentation</li>
+                <li>Adjustable refresh rates</li>
+            </ul>
+        </div>
+
+        <h2>5. Assistive Technology Support</h2>
+
+        <h3>5.1 Screen Readers</h3>
+        <p>DataCaboose is tested and optimized for:</p>
+        <ul>
+            <li><strong>NVDA (Windows):</strong> Full compatibility with latest version</li>
+            <li><strong>JAWS (Windows):</strong> Comprehensive support for all features</li>
+            <li><strong>VoiceOver (macOS/iOS):</strong> Native support for Apple devices</li>
+            <li><strong>TalkBack (Android):</strong> Mobile accessibility support</li>
+            <li><strong>Orca (Linux):</strong> Open-source screen reader compatibility</li>
+        </ul>
+
+        <h3>5.2 Voice Control Software</h3>
+        <ul>
+            <li><strong>Dragon NaturallySpeaking:</strong> Voice navigation and control</li>
+            <li><strong>Windows Speech Recognition:</strong> Built-in Windows accessibility</li>
+            <li><strong>Voice Control (macOS):</strong> Apple's voice navigation system</li>
+            <li><strong>Voice Access (Android):</strong> Google's voice control solution</li>
+        </ul>
+
+        <h3>5.3 Alternative Input Devices</h3>
+        <ul>
+            <li>Switch navigation devices</li>
+            <li>Eye-tracking systems</li>
+            <li>Head-mouse devices</li>
+            <li>Specialized keyboards</li>
+            <li>Joystick and gamepad controllers</li>
+        </ul>
+
+        <h2>6. Canadian Accessibility Legislation Compliance</h2>
+
+        <h3>6.1 Accessible Canada Act</h3>
+        <p>DataCaboose complies with the Accessible Canada Act by:</p>
+        <ul>
+            <li>Publishing this accessibility statement</li>
+            <li>Maintaining an accessibility plan</li>
+            <li>Providing multiple ways to receive feedback</li>
+            <li>Training employees on accessibility</li>
+            <li>Implementing accessibility policies and procedures</li>
+            <li>Regular accessibility audits and assessments</li>
+        </ul>
+
+        <h3>6.2 Provincial Accessibility Laws</h3>
+        <p><strong>Accessibility for Ontarians with Disabilities Act (AODA):</strong></p>
+        <ul>
+            <li>WCAG 2.0 Level AA compliance for web content</li>
+            <li>Accessible customer service standards</li>
+            <li>Workplace accessibility policies</li>
+            <li>Procurement accessibility considerations</li>
+        </ul>
+
+        <p><strong>Accessibility Standards Canada (ASC):</strong></p>
+        <ul>
+            <li>Following emerging federal accessibility standards</li>
+            <li>Participating in accessibility standard development</li>
+            <li>Implementing best practices for digital accessibility</li>
+        </ul>
+
+        <h2>7. Testing and Quality Assurance</h2>
+
+        <h3>7.1 Regular Testing Methods</h3>
+        <ul>
+            <li><strong>Automated Testing:</strong> axe-core, Pa11y, and Lighthouse accessibility audits</li>
+            <li><strong>Manual Testing:</strong> Keyboard navigation, screen reader testing, color contrast verification</li>
+            <li><strong>User Testing:</strong> Testing with actual users who have disabilities</li>
+            <li><strong>Third-Party Audits:</strong> Annual accessibility assessments by certified experts</li>
+        </ul>
+
+        <h3>7.2 Accessibility Testing Tools</h3>
+        <div class="tools-section">
+            <h4>Our Testing Toolkit</h4>
+            <ul>
+                <li><strong>axe DevTools:</strong> Automated accessibility testing</li>
+                <li><strong>WAVE:</strong> Web accessibility evaluation tool</li>
+                <li><strong>Colour Contrast Analyser:</strong> Color contrast validation</li>
+                <li><strong>Accessibility Insights:</strong> Microsoft's accessibility testing tool</li>
+                <li><strong>Pa11y Command Line:</strong> Automated accessibility testing for CI/CD</li>
+            </ul>
+        </div>
+
+        <h2>8. Known Issues and Limitations</h2>
+
+        <h3>8.1 Current Limitations</h3>
+        <p>We are actively working to address the following known issues:</p>
+        <ul>
+            <li><strong>Legacy Systems Integration:</strong> Some older third-party integrations may have limited accessibility features</li>
+            <li><strong>Complex Data Visualizations:</strong> Some advanced charts may require additional navigation methods</li>
+            <li><strong>PDF Documents:</strong> Working to ensure all downloadable PDFs meet accessibility standards</li>
+        </ul>
+
+        <h3>8.2 Workarounds and Alternatives</h3>
+        <ul>
+            <li>Alternative data formats available upon request</li>
+            <li>Phone and email support for complex tasks</li>
+            <li>Screen reader compatible alternative views for charts</li>
+            <li>Accessible PDF versions of all documentation</li>
+        </ul>
+
+        <h2>9. Accessibility Support and Feedback</h2>
+
+        <h3>9.1 Getting Help</h3>
+        <p>If you experience accessibility barriers while using DataCaboose services:</p>
+        <ul>
+            <li><strong>Accessibility Support Line:</strong> +1 (555) 123-4567 ext. 3</li>
+            <li><strong>Email:</strong> accessibility@datacaboose.com</li>
+            <li><strong>TTY/TDD:</strong> +1 (555) 123-4568</li>
+            <li><strong>Live Chat:</strong> Available with screen reader support</li>
+            <li><strong>Video Relay Service:</strong> ASL interpretation available</li>
+        </ul>
+
+        <h3>9.2 Feedback and Improvement</h3>
+        <p>We welcome feedback about accessibility. Please let us know:</p>
+        <ul>
+            <li>Accessibility barriers you encounter</li>
+            <li>Suggestions for improvement</li>
+            <li>Positive experiences with accessible features</li>
+            <li>Requests for alternative formats</li>
+        </ul>
+
+        <h3>9.3 Response Commitment</h3>
+        <ul>
+            <li><strong>Accessibility Issues:</strong> Response within 24 hours</li>
+            <li><strong>Alternative Formats:</strong> Provided within 48 hours</li>
+            <li><strong>Technical Support:</strong> Priority handling for accessibility-related issues</li>
+            <li><strong>Escalation Process:</strong> Direct access to accessibility team lead</li>
+        </ul>
+
+        <h2>10. Training and Awareness</h2>
+
+        <h3>10.1 Staff Training Program</h3>
+        <ul>
+            <li><strong>Accessibility Awareness:</strong> All employees receive basic accessibility training</li>
+            <li><strong>Development Team:</strong> Specialized training on accessible design and development</li>
+            <li><strong>Customer Service:</strong> Training on assistive technology and communication methods</li>
+            <li><strong>Management:</strong> Leadership training on accessibility compliance and culture</li>
+        </ul>
+
+        <h3>10.2 Ongoing Education</h3>
+        <ul>
+            <li>Monthly accessibility newsletters and updates</li>
+            <li>Regular webinars on accessibility best practices</li>
+            <li>Conference attendance and industry participation</li>
+            <li>Partnerships with disability advocacy organizations</li>
+        </ul>
+
+        <h2>11. Accessibility Roadmap</h2>
+
+        <h3>11.1 Short-term Goals (Next 6 Months)</h3>
+        <ul>
+            <li>Complete WCAG 2.1 Level AAA assessment for critical user paths</li>
+            <li>Implement voice navigation features</li>
+            <li>Enhance mobile accessibility features</li>
+            <li>Launch accessibility feedback portal</li>
+        </ul>
+
+        <h3>11.2 Long-term Goals (Next 2 Years)</h3>
+        <ul>
+            <li>Achieve WCAG 2.2 compliance</li>
+            <li>Implement AI-powered accessibility features</li>
+            <li>Develop accessibility API for third-party integrations</li>
+            <li>Create comprehensive accessibility documentation</li>
+        </ul>
+
+        <h2>12. Resources and Additional Information</h2>
+
+        <h3>12.1 Accessibility Resources</h3>
+        <ul>
+            <li><strong>Web Content Accessibility Guidelines:</strong> <a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1 Quick Reference</a></li>
+            <li><strong>Accessible Canada Act:</strong> <a href="https://laws-lois.justice.gc.ca/eng/acts/A-0.6/">Full Legislative Text</a></li>
+            <li><strong>Government of Canada Accessibility:</strong> <a href="https://www.canada.ca/en/employment-social-development/programs/accessible-people-disabilities.html">Accessibility Resources</a></li>
+            <li><strong>AODA Information:</strong> <a href="https://www.ontario.ca/page/about-accessibility-laws">Ontario Accessibility Laws</a></li>
+        </ul>
+
+        <h3>12.2 Assistive Technology Support</h3>
+        <ul>
+            <li><strong>NVDA Screen Reader:</strong> <a href="https://www.nvaccess.org/">Free download and support</a></li>
+            <li><strong>JAWS Information:</strong> <a href="https://www.freedomscientific.com/products/software/jaws/">Freedom Scientific JAWS</a></li>
+            <li><strong>Apple Accessibility:</strong> <a href="https://www.apple.com/accessibility/">VoiceOver and other features</a></li>
+            <li><strong>Google Accessibility:</strong> <a href="https://www.google.com/accessibility/">Android accessibility tools</a></li>
+        </ul>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p><strong>♿ DataCaboose - Accessible Technology for All Canadians</strong></p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to digital inclusion and accessibility since 2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This accessibility statement was last reviewed on January 15, 2025, and will be updated regularly to reflect our ongoing improvements.</p>
+        </div>
+    </main>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function() {
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+
+        // Accessibility enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Announce page content to screen readers
+            const pageTitle = document.querySelector('h1').textContent;
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-label', `Page loaded: ${pageTitle}`);
+            announcement.style.position = 'absolute';
+            announcement.style.left = '-9999px';
+            announcement.textContent = `${pageTitle} page has loaded`;
+            document.body.appendChild(announcement);
+
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Press 'h' to jump to next heading
+                if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                    const currentIndex = Array.from(headings).findIndex(h => h === document.activeElement);
+                    const nextIndex = currentIndex + 1;
+                    if (nextIndex < headings.length) {
+                        headings[nextIndex].focus();
+                        headings[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        e.preventDefault();
+                    }
+                }
+                
+                // Press 'l' to jump to next link
+                if (e.key === 'l' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    const links = document.querySelectorAll('a[href]');
+                    const currentIndex = Array.from(links).findIndex(l => l === document.activeElement);
+                    const nextIndex = currentIndex + 1;
+                    if (nextIndex < links.length) {
+                        links[nextIndex].focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            // Improve focus management for screen readers
+            const focusableElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusableElements.forEach(element => {
+                element.addEventListener('focus', function() {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

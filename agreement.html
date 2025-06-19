@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Level Agreement | DataCaboose</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            background: white;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .legal-content h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .legal-content a:hover {
+            color: var(--primary-dark);
+        }
+
+        .effective-date {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .sla-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sla-table th {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .sla-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .sla-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-green { background: #10b981; }
+        .status-yellow { background: #f59e0b; }
+        .status-red { background: #ef4444; }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .legal-content {
+                margin: 1rem;
+                padding: 80px 1.5rem 2rem;
+            }
+
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.3rem;
+            }
+
+            .sla-table {
+                font-size: 0.9rem;
+            }
+
+            .sla-table th,
+            .sla-table td {
+                padding: 0.5rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="w-30 h-30 relative" style="height: 70px;">
+                <img src="logo.png" alt="DataCaboose Logo" class="w-full h-full object-contain">
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="legal-content">
+        <h1>Service Level Agreement</h1>
+        <p class="effective-date"><strong>Effective Date:</strong> January 15, 2025</p>
+        
+        <p>This Service Level Agreement ("SLA") describes the performance standards DataCaboose commits to providing for our Canadian cloud infrastructure services. This SLA applies to all DataCaboose virtual machines, dedicated compute units, and related services.</p>
+
+        <div class="highlight-box">
+            <p>🍁 Our commitment: World-class reliability with guaranteed Canadian data residency and 24/7 bilingual support.</p>
+        </div>
+
+        <h2>1. Service Availability Commitments</h2>
+        
+        <h3>1.1 Uptime Guarantees</h3>
+        <table class="sla-table">
+            <thead>
+                <tr>
+                    <th>Service Tier</th>
+                    <th>Monthly Uptime Commitment</th>
+                    <th>Maximum Downtime</th>
+                    <th>Service Credit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Standard VMs</td>
+                    <td>99.9%</td>
+                    <td>43.8 minutes</td>
+                    <td>10% monthly fee</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Dedicated Compute (CCU1/CCU2)</td>
+                    <td>99.95%</td>
+                    <td>21.9 minutes</td>
+                    <td>25% monthly fee</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>High Availability Add-on</td>
+                    <td>99.99%</td>
+                    <td>4.38 minutes</td>
+                    <td>50% monthly fee</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>1.2 Network Performance</h3>
+        <ul>
+            <li><strong>Network Availability:</strong> 99.9% monthly uptime</li>
+            <li><strong>Inter-Data Center Latency:</strong> &lt;50ms between Toronto, Vancouver, and Montreal</li>
+            <li><strong>Internet Connectivity:</strong> Multiple Tier 1 Canadian ISP connections with automatic failover</li>
+            <li><strong>Bandwidth Guarantee:</strong> Full provisioned bandwidth available 99.5% of the time</li>
+        </ul>
+
+        <h2>2. Performance Standards</h2>
+
+        <h3>2.1 Compute Performance</h3>
+        <ul>
+            <li><strong>CPU Performance:</strong> Consistent performance within 5% of specified vCPU allocation</li>
+            <li><strong>Memory Allocation:</strong> Full RAM allocation guaranteed at all times</li>
+            <li><strong>Storage I/O:</strong> Minimum 1000 IOPS for standard VMs, 5000+ IOPS for dedicated compute</li>
+            <li><strong>Boot Time:</strong> VM startup within 3 minutes for standard configurations</li>
+        </ul>
+
+        <h3>2.2 Storage Performance</h3>
+        <table class="sla-table">
+            <thead>
+                <tr>
+                    <th>Storage Type</th>
+                    <th>Read IOPS</th>
+                    <th>Write IOPS</th>
+                    <th>Latency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Standard SSD</td>
+                    <td>1,000+</td>
+                    <td>800+</td>
+                    <td>&lt;10ms</td>
+                </tr>
+                <tr>
+                    <td>NVMe SSD</td>
+                    <td>5,000+</td>
+                    <td>4,000+</td>
+                    <td>&lt;2ms</td>
+                </tr>
+                <tr>
+                    <td>High Availability Storage</td>
+                    <td>3,000+</td>
+                    <td>2,500+</td>
+                    <td>&lt;5ms</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Support Response Times</h2>
+
+        <h3>3.1 Support Tiers</h3>
+        <table class="sla-table">
+            <thead>
+                <tr>
+                    <th>Priority Level</th>
+                    <th>Definition</th>
+                    <th>Response Time</th>
+                    <th>Resolution Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="status-indicator status-red"></span>Critical (P1)</td>
+                    <td>Service completely unavailable</td>
+                    <td>15 minutes</td>
+                    <td>4 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-yellow"></span>High (P2)</td>
+                    <td>Significant service degradation</td>
+                    <td>1 hour</td>
+                    <td>8 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Medium (P3)</td>
+                    <td>Minor issues or general inquiries</td>
+                    <td>4 hours</td>
+                    <td>24 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Low (P4)</td>
+                    <td>Feature requests, documentation</td>
+                    <td>24 hours</td>
+                    <td>72 hours</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.2 Support Channels</h3>
+        <ul>
+            <li><strong>24/7 Phone Support:</strong> +1 (555) 123-4567 (English and French)</li>
+            <li><strong>Emergency Escalation:</strong> Automatic escalation for P1 issues</li>
+            <li><strong>Ticket System:</strong> Web-based support portal with real-time updates</li>
+            <li><strong>Live Chat:</strong> Available during business hours (9 AM - 5 PM EST)</li>
+        </ul>
+
+        <h2>4. Backup and Recovery</h2>
+
+        <h3>4.1 Backup Service Levels</h3>
+        <ul>
+            <li><strong>Weekly Backups:</strong> 99.5% success rate, 4-week retention</li>
+            <li><strong>Nightly Backups:</strong> 99.9% success rate, 30-day retention</li>
+            <li><strong>Backup Verification:</strong> Automated integrity checks on all backups</li>
+            <li><strong>Cross-Region Backup:</strong> Secondary backup storage in alternate Canadian data center</li>
+        </ul>
+
+        <h3>4.2 Disaster Recovery</h3>
+        <ul>
+            <li><strong>Recovery Time Objective (RTO):</strong> 4 hours for critical systems</li>
+            <li><strong>Recovery Point Objective (RPO):</strong> 24 hours maximum data loss for weekly backups, 1 hour for nightly backups</li>
+            <li><strong>Failover Testing:</strong> Quarterly disaster recovery tests</li>
+            <li><strong>Geographic Redundancy:</strong> Data replicated across multiple Canadian regions</li>
+        </ul>
+
+        <h2>5. Security and Compliance</h2>
+
+        <h3>5.1 Security Standards</h3>
+        <ul>
+            <li><strong>Data Encryption:</strong> AES-256 encryption at rest, TLS 1.3 in transit</li>
+            <li><strong>Network Security:</strong> DDoS protection, intrusion detection, firewall management</li>
+            <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access</li>
+            <li><strong>Vulnerability Management:</strong> Monthly security scans, patch management within 48 hours of critical updates</li>
+        </ul>
+
+        <h3>5.2 Compliance Commitments</h3>
+        <ul>
+            <li><strong>PIPEDA Compliance:</strong> Full adherence to Canadian privacy legislation</li>
+            <li><strong>Data Residency:</strong> 100% Canadian data storage guarantee</li>
+            <li><strong>Audit Compliance:</strong> Annual third-party security audits</li>
+            <li><strong>Incident Reporting:</strong> Security incidents reported within 2 hours of detection</li>
+        </ul>
+
+        <h2>6. Maintenance and Updates</h2>
+
+        <h3>6.1 Scheduled Maintenance</h3>
+        <ul>
+            <li><strong>Maintenance Windows:</strong> Sundays 2:00 AM - 6:00 AM EST</li>
+            <li><strong>Advance Notice:</strong> Minimum 72 hours notice for all maintenance</li>
+            <li><strong>Emergency Maintenance:</strong> Immediate notification with detailed impact assessment</li>
+            <li><strong>Maintenance Impact:</strong> Maximum 2 hours downtime per month for scheduled maintenance</li>
+        </ul>
+
+        <h3>6.2 Software Updates</h3>
+        <ul>
+            <li><strong>Operating System Updates:</strong> Customer-controlled update scheduling</li>
+            <li><strong>Security Patches:</strong> Critical patches applied within 48 hours (with customer approval)</li>
+            <li><strong>Infrastructure Updates:</strong> Zero-downtime updates where possible</li>
+            <li><strong>Version Support:</strong> Minimum 12 months support for all software versions</li>
+        </ul>
+
+        <h2>7. Service Credits and Remedies</h2>
+
+        <h3>7.1 Service Credit Calculation</h3>
+        <p>Service credits are calculated based on the monthly service fee for affected services:</p>
+        <ul>
+            <li><strong>99.0% - 99.89% uptime:</strong> 10% service credit</li>
+            <li><strong>95.0% - 98.99% uptime:</strong> 25% service credit</li>
+            <li><strong>Below 95.0% uptime:</strong> 50% service credit</li>
+        </ul>
+
+        <h3>7.2 Service Credit Process</h3>
+        <ul>
+            <li><strong>Claim Period:</strong> Service credits must be requested within 30 days of the incident</li>
+            <li><strong>Credit Application:</strong> Credits applied to the following month's invoice</li>
+            <li><strong>Maximum Credits:</strong> Total monthly credits cannot exceed 100% of monthly service fees</li>
+            <li><strong>Exclusions:</strong> Credits do not apply during scheduled maintenance or customer-caused outages</li>
+        </ul>
+
+        <h2>8. Monitoring and Reporting</h2>
+
+        <h3>8.1 System Monitoring</h3>
+        <ul>
+            <li><strong>24/7 Monitoring:</strong> Automated monitoring of all infrastructure components</li>
+            <li><strong>Real-time Alerts:</strong> Immediate notification of service issues</li>
+            <li><strong>Performance Metrics:</strong> Continuous monitoring of CPU, memory, storage, and network</li>
+            <li><strong>Status Page:</strong> Public status dashboard at status.datacaboose.com</li>
+        </ul>
+
+        <h3>8.2 Reporting</h3>
+        <ul>
+            <li><strong>Monthly SLA Reports:</strong> Detailed uptime and performance reports</li>
+            <li><strong>Quarterly Business Reviews:</strong> Service performance analysis and optimization recommendations</li>
+            <li><strong>Incident Reports:</strong> Post-incident analysis and prevention measures</li>
+            <li><strong>Capacity Planning:</strong> Proactive monitoring and scaling recommendations</li>
+        </ul>
+
+        <h2>9. Exclusions and Limitations</h2>
+
+        <h3>9.1 SLA Exclusions</h3>
+        <p>This SLA does not apply to service interruptions caused by:</p>
+        <ul>
+            <li>Scheduled maintenance performed within defined maintenance windows</li>
+            <li>Customer-initiated changes or misconfigurations</li>
+            <li>Third-party software issues outside DataCaboose control</li>
+            <li>Internet service provider issues affecting customer connectivity</li>
+            <li>Force majeure events (natural disasters, government actions, etc.)</li>
+            <li>DDoS attacks or other malicious activities targeting customer infrastructure</li>
+            <li>Customer violations of our Acceptable Use Policy</li>
+        </ul>
+
+        <h3>9.2 SLA Scope</h3>
+        <ul>
+            <li>SLA commitments apply only to DataCaboose-managed infrastructure</li>
+            <li>Customer applications and data are the customer's responsibility</li>
+            <li>Third-party integrations and external dependencies are excluded</li>
+            <li>Performance guarantees are based on baseline configurations</li>
+        </ul>
+
+        <h2>10. Contact and Escalation</h2>
+
+        <h3>10.1 SLA Inquiries</h3>
+        <p>For questions about this SLA or to request service credits:</p>
+        <ul>
+            <li><strong>Email:</strong> sla@datacaboose.com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+            <li><strong>Support Portal:</strong> support.datacaboose.com</li>
+        </ul>
+
+        <h3>10.2 Escalation Process</h3>
+        <ul>
+            <li><strong>Level 1:</strong> Technical Support Team</li>
+            <li><strong>Level 2:</strong> Senior Engineering Team</li>
+            <li><strong>Level 3:</strong> Management Escalation</li>
+            <li><strong>Executive Escalation:</strong> CTO/CEO involvement for critical issues</li>
+        </ul>
+
+        <h2>11. SLA Modifications</h2>
+        <p>DataCaboose may modify this SLA with 30 days advance notice. Significant changes affecting service levels will include:</p>
+        <ul>
+            <li>Email notification to all active customers</li>
+            <li>Updated SLA posted on our website</li>
+            <li>Option for customers to terminate services without penalty if they disagree with changes</li>
+            <li>Grandfathering of existing commitments for existing customers (minimum 12 months)</li>
+        </ul>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p><strong>🍁 DataCaboose - Your Reliable Canadian Cloud Partner</strong></p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to excellence in Canadian cloud infrastructure since 2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This SLA is governed by Canadian law and supersedes all previous service level agreements.</p>
+        </div>
+    </main>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function() {
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+    </script>
+</body>
+
+</html>

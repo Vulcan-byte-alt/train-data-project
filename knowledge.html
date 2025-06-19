@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base | DataCaboose</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .kb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .kb-header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .kb-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(169, 68, 66, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 1.2rem;
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(54, 69, 79, 0.15);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 0;
+        }
+
+        .category-description {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .article-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .article-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .article-link i {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Downloads Section */
+        .downloads-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .download-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(169, 68, 66, 0.1);
+        }
+
+        .download-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .download-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+
+        .download-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin: 0;
+        }
+
+        .download-meta {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .download-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .article-content {
+            line-height: 1.7;
+        }
+
+        .article-content h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content ul {
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .article-content pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .kb-content {
+                margin: 1rem;
+                padding: 80px 1rem 2rem;
+            }
+
+            .kb-header {
+                padding: 2rem 1rem;
+            }
+
+            .kb-header h1 {
+                font-size: 2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .downloads-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="DataCaboose Logo" class="h-10 object-contain">
+                <div>
+                    <div class="text-white font-bold text-lg">DataCaboose</div>
+                    <div class="text-xs text-gray-300">Your Canadian Cloud Solution</div>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="kb-content">
+        <!-- Header -->
+        <div class="kb-header">
+            <h1>Knowledge Base</h1>
+            <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 0;">
+                Everything you need to know about DataCaboose cloud services. Find guides, tutorials, and resources to help you get the most out of your Canadian cloud infrastructure.
+            </p>
+            
+            <!-- Search -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search articles, guides, and documentation..." id="search-input">
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories-grid">
+            <!-- Getting Started -->
+            <div class="category-card" data-category="getting-started">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h2 class="category-title">Getting Started</h2>
+                </div>
+                <p class="category-description">
+                    New to DataCaboose? Start here for account setup, first VM deployment, and basic configuration.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="account-setup"><i class="fas fa-chevron-right"></i>Setting Up Your DataCaboose Account</a></li>
+                    <li><a href="#" class="article-link" data-article="first-vm"><i class="fas fa-chevron-right"></i>Deploying Your First Virtual Machine</a></li>
+                    <li><a href="#" class="article-link" data-article="networking-basics"><i class="fas fa-chevron-right"></i>Networking Basics for Beginners</a></li>
+                    <li><a href="#" class="article-link" data-article="billing-overview"><i class="fas fa-chevron-right"></i>Understanding Your Billing Dashboard</a></li>
+                </ul>
+            </div>
+
+            <!-- Migration -->
+            <div class="category-card" data-category="migration">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h2 class="category-title">Data Migration</h2>
+                </div>
+                <p class="category-description">
+                    Step-by-step guides for migrating from other cloud providers to DataCaboose.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="aws-migration"><i class="fas fa-chevron-right"></i>Migrating from AWS to DataCaboose</a></li>
+                    <li><a href="#" class="article-link" data-article="azure-migration"><i class="fas fa-chevron-right"></i>Migrating from Microsoft Azure</a></li>
+                    <li><a href="#" class="article-link" data-article="gcp-migration"><i class="fas fa-chevron-right"></i>Migrating from Google Cloud Platform</a></li>
+                    <li><a href="#" class="article-link" data-article="data-transfer"><i class="fas fa-chevron-right"></i>Large Data Transfer Best Practices</a></li>
+                </ul>
+            </div>
+
+            <!-- Technical Guides -->
+            <div class="category-card" data-category="technical">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h2 class="category-title">Technical Guides</h2>
+                </div>
+                <p class="category-description">
+                    Advanced configuration, automation, and optimization guides for power users.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="gpu-setup"><i class="fas fa-chevron-right"></i>GPU Instance Setup for AI/ML Workloads</a></li>
+                    <li><a href="#" class="article-link" data-article="load-balancing"><i class="fas fa-chevron-right"></i>Setting Up Load Balancing</a></li>
+                    <li><a href="#" class="article-link" data-article="backup-automation"><i class="fas fa-chevron-right"></i>Automated Backup Configuration</a></li>
+                    <li><a href="#" class="article-link" data-article="monitoring-setup"><i class="fas fa-chevron-right"></i>Infrastructure Monitoring Setup</a></li>
+                </ul>
+            </div>
+
+            <!-- Security -->
+            <div class="category-card" data-category="security">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 class="category-title">Security & Compliance</h2>
+                </div>
+                <p class="category-description">
+                    Security best practices, compliance guidelines, and PIPEDA requirements.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="pipeda-compliance"><i class="fas fa-chevron-right"></i>PIPEDA Compliance Best Practices</a></li>
+                    <li><a href="#" class="article-link" data-article="firewall-config"><i class="fas fa-chevron-right"></i>Firewall Configuration Guide</a></li>
+                    <li><a href="#" class="article-link" data-article="ssl-certificates"><i class="fas fa-chevron-right"></i>SSL Certificate Management</a></li>
+                    <li><a href="#" class="article-link" data-article="vpn-setup"><i class="fas fa-chevron-right"></i>VPN Setup for Secure Access</a></li>
+                </ul>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="category-card" data-category="troubleshooting">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h2 class="category-title">Troubleshooting</h2>
+                </div>
+                <p class="category-description">
+                    Common issues, error messages, and step-by-step solutions.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="connection-issues"><i class="fas fa-chevron-right"></i>VM Connection Issues</a></li>
+                    <li><a href="#" class="article-link" data-article="performance-issues"><i class="fas fa-chevron-right"></i>Performance Troubleshooting</a></li>
+                    <li><a href="#" class="article-link" data-article="storage-issues"><i class="fas fa-chevron-right"></i>Storage and Disk Issues</a></li>
+                    <li><a href="#" class="article-link" data-article="network-issues"><i class="fas fa-chevron-right"></i>Network Connectivity Problems</a></li>
+                </ul>
+            </div>
+
+            <!-- API Documentation -->
+            <div class="category-card" data-category="api">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h2 class="category-title">API & Automation</h2>
+                </div>
+                <p class="category-description">
+                    API documentation, automation scripts, and integration guides.
+                </p>
+                <ul class="article-list">
+                    <li><a href="#" class="article-link" data-article="api-quickstart"><i class="fas fa-chevron-right"></i>API Quick Start Guide</a></li>
+                    <li><a href="#" class="article-link" data-article="terraform-guide"><i class="fas fa-chevron-right"></i>Infrastructure as Code with Terraform</a></li>
+                    <li><a href="#" class="article-link" data-article="ansible-automation"><i class="fas fa-chevron-right"></i>Automation with Ansible</a></li>
+                    <li><a href="#" class="article-link" data-article="ci-cd-integration"><i class="fas fa-chevron-right"></i>CI/CD Pipeline Integration</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Downloads Section -->
+        <div class="downloads-section">
+            <h2 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem;">Downloads & Resources</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">
+                Download helpful resources, tools, and documentation to enhance your DataCaboose experience.
+            </p>
+            
+            <div class="downloads-grid">
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">Migration Planning Guide</h4>
+                            <p class="download-meta">PDF • 2.4 MB • Updated Jan 2025</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Comprehensive 50-page guide for planning your migration to DataCaboose from other cloud providers.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('migration-guide.pdf')">
+                        <i class="fas fa-download"></i>Download PDF
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">API Client Libraries</h4>
+                            <p class="download-meta">ZIP • 1.8 MB • Updated Jan 2025</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Python, JavaScript, and Go client libraries for the DataCaboose API with examples and documentation.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('api-libraries.zip')">
+                        <i class="fas fa-download"></i>Download Libraries
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">Network Configuration Templates</h4>
+                            <p class="download-meta">ZIP • 512 KB • Updated Dec 2024</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Pre-configured network templates for common use cases including VPN, load balancing, and security groups.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('network-templates.zip')">
+                        <i class="fas fa-download"></i>Download Templates
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">Security Hardening Scripts</h4>
+                            <p class="download-meta">ZIP • 256 KB • Updated Jan 2025</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Automated security hardening scripts for Ubuntu, CentOS, and Windows Server installations.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('security-scripts.zip')">
+                        <i class="fas fa-download"></i>Download Scripts
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">Monitoring Dashboards</h4>
+                            <p class="download-meta">JSON • 128 KB • Updated Dec 2024</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Pre-built Grafana dashboards for monitoring DataCaboose infrastructure and applications.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('monitoring-dashboards.json')">
+                        <i class="fas fa-download"></i>Download Dashboards
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <div>
+                            <h4 class="download-title">Cost Calculator Spreadsheet</h4>
+                            <p class="download-meta">XLSX • 94 KB • Updated Jan 2025</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
+                        Interactive Excel spreadsheet to calculate costs and plan your DataCaboose infrastructure budget.
+                    </p>
+                    <a href="#" class="download-btn" onclick="downloadFile('cost-calculator.xlsx')">
+                        <i class="fas fa-download"></i>Download Calculator
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Article Modal -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="article-content-container" class="article-content">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function() {
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+
+        // Article content database
+        const articles = {
+            'account-setup': {
+                title: 'Setting Up Your DataCaboose Account',
+                content: `
+                    <h3>Creating Your Account</h3>
+                    <p>Getting started with DataCaboose is simple and secure. Follow these steps to create your account and begin your journey to Canadian data sovereignty:</p>
+                    
+                    <h3>Step 1: Registration</h3>
+                    <ul>
+                        <li>Visit <a href="https://datacaboose.com/signup">datacaboose.com/signup</a></li>
+                        <li>Choose between Individual or Business account types</li>
+                        <li>Provide your email address and create a strong password</li>
+                        <li>Verify your email address through the confirmation link</li>
+                    </ul>
+
+                    <h3>Step 2: Identity Verification</h3>
+                    <p>To ensure security and compliance with Canadian regulations:</p>
+                    <ul>
+                        <li>Provide your full legal name and Canadian address</li>
+                        <li>For business accounts, include company registration details</li>
+                        <li>Upload government-issued photo ID (Canadian preferred)</li>
+                        <li>Verification typically completes within 24 hours</li>
+                    </ul>
+
+                    <h3>Step 3: Payment Setup</h3>
+                    <ul>
+                        <li>Add a Canadian credit card or bank account</li>
+                        <li>Set your billing preferences (monthly or annual)</li>
+                        <li>Choose your billing address within Canada</li>
+                        <li>All charges will be in Canadian dollars (CAD)</li>
+                    </ul>
+
+                    <h3>Step 4: Data Center Selection</h3>
+                    <p>Choose your primary data center location:</p>
+                    <ul>
+                        <li><strong>Toronto:</strong> Central Canada, lowest latency for Ontario/Quebec</li>
+                        <li><strong>Vancouver:</strong> West Coast, optimal for BC and western provinces</li>
+                        <li><strong>Montreal:</strong> Eastern Canada, bilingual support available</li>
+                    </ul>
+
+                    <h3>Security Features</h3>
+                    <p>Your account includes these security features by default:</p>
+                    <ul>
+                        <li>Two-factor authentication (2FA) - <strong>strongly recommended</strong></li>
+                        <li>API key management for programmatic access</li>
+                        <li>Activity logging and audit trails</li>
+                        <li>IP address whitelisting for enhanced security</li>
+                    </ul>
+
+                    <h3>Next Steps</h3>
+                    <p>Once your account is set up:</p>
+                    <ul>
+                        <li>Explore the dashboard and familiarize yourself with the interface</li>
+                        <li>Review our <a href="#" data-article="first-vm">First VM Deployment</a> guide</li>
+                        <li>Join our community forum for tips and best practices</li>
+                        <li>Contact support at +1 (555) 123-4567 if you need assistance</li>
+                    </ul>
+                `
+            },
+            'first-vm': {
+                title: 'Deploying Your First Virtual Machine',
+                content: `
+                    <h3>Quick Start: Your First VM</h3>
+                    <p>Deploy your first virtual machine on DataCaboose in under 10 minutes with our streamlined process.</p>
+
+                    <h3>Prerequisites</h3>
+                    <ul>
+                        <li>Verified DataCaboose account</li>
+                        <li>Valid payment method on file</li>
+                        <li>Basic understanding of operating systems</li>
+                    </ul>
+
+                    <h3>Step 1: Choose Your Configuration</h3>
+                    <p>From your dashboard, click "Create New VM" and select:</p>
+                    <ul>
+                        <li><strong>Instance Type:</strong> Start with "Power" for balanced performance</li>
+                        <li><strong>Operating System:</strong> Ubuntu 22.04 LTS (recommended for beginners)</li>
+                        <li><strong>Storage:</strong> 256GB SSD (expandable later)</li>
+                        <li><strong>Data Center:</strong> Your preferred Canadian location</li>
+                    </ul>
+
+                    <h3>Step 2: Network Configuration</h3>
+                    <ul>
+                        <li><strong>Public IP:</strong> Assign a public IP for internet access</li>
+                        <li><strong>Firewall:</strong> Use the default security group initially</li>
+                        <li><strong>SSH Keys:</strong> Upload your public SSH key for secure access</li>
+                    </ul>
+
+                    <h3>Step 3: Security Setup</h3>
+                    <pre><code># Generate SSH key pair (if needed)
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+# Copy public key content
+cat ~/.ssh/id_rsa.pub</code></pre>
+
+                    <h3>Step 4: Launch and Connect</h3>
+                    <p>After clicking "Launch VM":</p>
+                    <ul>
+                        <li>Wait 2-3 minutes for the VM to initialize</li>
+                        <li>Note the assigned public IP address</li>
+                        <li>Connect via SSH: <code>ssh ubuntu@your-vm-ip</code></li>
+                        <li>Update the system: <code>sudo apt update && sudo apt upgrade -y</code></li>
+                    </ul>
+
+                    <h3>Initial Configuration</h3>
+                    <p>Secure your new VM:</p>
+                    <pre><code># Create a new user account
+sudo adduser yourusername
+sudo usermod -aG sudo yourusername
+
+# Configure firewall
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https</code></pre>
+
+                    <h3>Monitoring Your VM</h3>
+                    <ul>
+                        <li>Use the DataCaboose dashboard to monitor CPU, memory, and disk usage</li>
+                        <li>Set up alerts for resource thresholds</li>
+                        <li>Configure automated backups from the dashboard</li>
+                    </ul>
+
+                    <h3>Common First Steps</h3>
+                    <ul>
+                        <li>Install a web server: <code>sudo apt install nginx</code></li>
+                        <li>Set up a domain name pointing to your VM's IP</li>
+                        <li>Configure SSL certificates for secure connections</li>
+                        <li>Install monitoring tools like htop: <code>sudo apt install htop</code></li>
+                    </ul>
+
+                    <h3>Need Help?</h3>
+                    <p>If you encounter issues:</p>
+                    <ul>
+                        <li>Check our <a href="#" data-article="connection-issues">Connection Troubleshooting</a> guide</li>
+                        <li>Use the built-in console access from the dashboard</li>
+                        <li>Contact our support team for assistance</li>
+                    </ul>
+                `
+            },
+            'aws-migration': {
+                title: 'Migrating from AWS to DataCaboose',
+                content: `
+                    <h3>AWS to DataCaboose Migration Guide</h3>
+                    <p>Migrate your workloads from AWS to DataCaboose while ensuring data sovereignty and potentially reducing costs by 20-30%.</p>
+
+                    <h3>Pre-Migration Planning</h3>
+                    <ul>
+                        <li><strong>Inventory Assessment:</strong> Document all AWS resources (EC2, RDS, S3, etc.)</li>
+                        <li><strong>Dependency Mapping:</strong> Identify service dependencies and data flows</li>
+                        <li><strong>Cost Analysis:</strong> Compare current AWS costs with DataCaboose pricing</li>
+                        <li><strong>Compliance Review:</strong> Ensure Canadian data residency requirements</li>
+                    </ul>
+
+                    <h3>Service Mapping</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <tr style="background: #f3f4f6;">
+                            <th style="padding: 0.75rem; border: 1px solid #e5e7eb;">AWS Service</th>
+                            <th style="padding: 0.75rem; border: 1px solid #e5e7eb;">DataCaboose Equivalent</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">EC2 Instances</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">Virtual Machines (Standard/Power/Pro)</td>
+                        </tr>
+                        <tr style="background: #f9fafb;">
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">RDS Databases</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">Dedicated Compute + Database Software</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">S3 Storage</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">Block Storage + Backup Services</td>
+                        </tr>
+                        <tr style="background: #f9fafb;">
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">VPC/Security Groups</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">Private Networks + Firewalls</td>
+                        </tr>
+                    </table>
+
+                    <h3>Phase 1: Data Migration</h3>
+                    <p>Start with non-critical data and applications:</p>
+                    <pre><code># Install AWS CLI and configure access
+aws configure
+
+# Create data backup and transfer
+aws s3 sync s3://your-bucket ./local-backup/
+rsync -avz ./local-backup/ user@datacaboose-vm:/data/</code></pre>
+
+                    <h3>Phase 2: Application Migration</h3>
+                    <ul>
+                        <li><strong>Create VM Images:</strong> Export AMIs and convert to compatible formats</li>
+                        <li><strong>Network Configuration:</strong> Replicate VPC structure with DataCaboose private networks</li>
+                        <li><strong>Load Balancer Setup:</strong> Configure traffic distribution for high availability</li>
+                        <li><strong>DNS Migration:</strong> Update records to point to DataCaboose infrastructure</li>
+                    </ul>
+
+                    <h3>Phase 3: Database Migration</h3>
+                    <p>For RDS to DataCaboose database migration:</p>
+                    <pre><code># Export RDS database
+mysqldump -h rds-endpoint -u username -p database_name > backup.sql
+
+# Import to DataCaboose MySQL instance
+mysql -h datacaboose-db-ip -u username -p database_name < backup.sql</code></pre>
+
+                    <h3>Phase 4: Testing and Validation</h3>
+                    <ul>
+                        <li>Conduct parallel testing with AWS and DataCaboose environments</li>
+                        <li>Validate application functionality and performance</li>
+                        <li>Test backup and disaster recovery procedures</li>
+                        <li>Verify security configurations and access controls</li>
+                    </ul>
+
+                    <h3>Phase 5: Cutover and Go-Live</h3>
+                    <ul>
+                        <li>Schedule maintenance window for final data sync</li>
+                        <li>Update DNS records to DataCaboose infrastructure</li>
+                        <li>Monitor systems closely for 48 hours post-migration</li>
+                        <li>Communicate with stakeholders about the successful migration</li>
+                    </ul>
+
+                    <h3>Post-Migration Optimization</h3>
+                    <ul>
+                        <li><strong>Cost Monitoring:</strong> Track actual costs vs. projections</li>
+                        <li><strong>Performance Tuning:</strong> Optimize VM configurations based on usage</li>
+                        <li><strong>Security Hardening:</strong> Implement DataCaboose-specific security best practices</li>
+                        <li><strong>Compliance Validation:</strong> Confirm Canadian data residency requirements are met</li>
+                    </ul>
+
+                    <h3>Common Migration Challenges</h3>
+                    <ul>
+                        <li><strong>Service Dependencies:</strong> AWS-specific services may need alternatives</li>
+                        <li><strong>Data Transfer Time:</strong> Large datasets may require physical transfer methods</li>
+                        <li><strong>Application Modifications:</strong> Some code changes may be needed for optimization</li>
+                        <li><strong>Staff Training:</strong> Team members need DataCaboose platform training</li>
+                    </ul>
+
+                    <h3>Migration Support</h3>
+                    <p>DataCaboose offers comprehensive migration assistance:</p>
+                    <ul>
+                        <li>Free migration assessment and planning consultation</li>
+                        <li>Dedicated migration specialist assignment</li>
+                        <li>24/7 support during critical migration phases</li>
+                        <li>Post-migration optimization recommendations</li>
+                    </ul>
+                `
+            },
+            'pipeda-compliance': {
+                title: 'PIPEDA Compliance Best Practices',
+                content: `
+                    <h3>PIPEDA Compliance with DataCaboose</h3>
+                    <p>Ensure your organization meets Canadian privacy requirements with DataCaboose's built-in PIPEDA compliance features.</p>
+
+                    <h3>Understanding PIPEDA</h3>
+                    <p>The Personal Information Protection and Electronic Documents Act (PIPEDA) governs how private sector organizations collect, use, and disclose personal information in Canada.</p>
+
+                    <h3>Key PIPEDA Principles</h3>
+                    <ul>
+                        <li><strong>Accountability:</strong> Organizations must be responsible for personal information under their control</li>
+                        <li><strong>Identifying Purposes:</strong> Purposes for collecting personal information must be identified</li>
+                        <li><strong>Consent:</strong> Knowledge and consent required for collection, use, or disclosure</li>
+                        <li><strong>Limiting Collection:</strong> Collection limited to what is necessary for identified purposes</li>
+                        <li><strong>Limiting Use, Disclosure, and Retention:</strong> Personal information shall not be used or disclosed for purposes other than those for which it was collected</li>
+                        <li><strong>Accuracy:</strong> Personal information must be as accurate, complete, and up-to-date as necessary</li>
+                        <li><strong>Safeguards:</strong> Personal information must be protected by appropriate safeguards</li>
+                        <li><strong>Openness:</strong> Organizations must make information available about their policies and practices</li>
+                        <li><strong>Individual Access:</strong> Individuals have the right to access their personal information</li>
+                        <li><strong>Challenging Compliance:</strong> Individuals must be able to challenge an organization's compliance</li>
+                    </ul>
+
+                    <h3>DataCaboose PIPEDA Features</h3>
+                    <ul>
+                        <li><strong>Canadian Data Residency:</strong> All data remains within Canadian borders</li>
+                        <li><strong>Encryption:</strong> AES-256 encryption at rest and TLS 1.3 in transit</li>
+                        <li><strong>Access Controls:</strong> Role-based access control and audit logging</li>
+                        <li><strong>Data Portability:</strong> Easy export of customer data in standard formats</li>
+                        <li><strong>Right to be Forgotten:</strong> Secure data deletion upon request</li>
+                        <li><strong>Breach Notification:</strong> Automated breach detection and notification systems</li>
+                    </ul>
+
+                    <h3>Implementation Checklist</h3>
+                    <p>Use this checklist to ensure PIPEDA compliance:</p>
+
+                    <h4>Data Collection and Consent</h4>
+                    <ul>
+                        <li>☐ Clearly identify purposes for personal information collection</li>
+                        <li>☐ Obtain meaningful consent before collecting personal information</li>
+                        <li>☐ Provide clear, understandable privacy policies</li>
+                        <li>☐ Limit collection to what is necessary for identified purposes</li>
+                    </ul>
+
+                    <h4>Data Storage and Security</h4>
+                    <ul>
+                        <li>☐ Store all personal information on DataCaboose Canadian servers</li>
+                        <li>☐ Enable encryption for all sensitive data</li>
+                        <li>☐ Implement strong access controls and authentication</li>
+                        <li>☐ Regular security assessments and updates</li>
+                    </ul>
+
+                    <h4>Data Management</h4>
+                    <ul>
+                        <li>☐ Maintain accurate and up-to-date personal information</li>
+                        <li>☐ Establish data retention and deletion policies</li>
+                        <li>☐ Document all data processing activities</li>
+                        <li>☐ Train staff on privacy and data protection requirements</li>
+                    </ul>
+
+                    <h4>Individual Rights</h4>
+                    <ul>
+                        <li>☐ Provide mechanisms for individuals to access their data</li>
+                        <li>☐ Enable data portability and correction requests</li>
+                        <li>☐ Implement data deletion procedures</li>
+                        <li>☐ Establish complaint handling procedures</li>
+                    </ul>
+
+                    <h3>DataCaboose Compliance Tools</h3>
+                    <pre><code># Data export API example
+curl -X GET "https://api.datacaboose.com/v1/data-export" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "user123", "format": "json"}'
+
+# Data deletion API example
+curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "user123", "confirm": true}'</code></pre>
+
+                    <h3>Compliance Documentation</h3>
+                    <p>Maintain these documents for PIPEDA compliance:</p>
+                    <ul>
+                        <li><strong>Privacy Policy:</strong> Public-facing document outlining data practices</li>
+                        <li><strong>Data Processing Records:</strong> Internal documentation of all processing activities</li>
+                        <li><strong>Consent Records:</strong> Documentation of consent obtained from individuals</li>
+                        <li><strong>Security Incident Log:</strong> Record of all security incidents and responses</li>
+                        <li><strong>Staff Training Records:</strong> Documentation of privacy training provided to employees</li>
+                    </ul>
+
+                    <h3>Breach Response Procedure</h3>
+                    <p>In case of a data breach:</p>
+                    <ol>
+                        <li><strong>Immediate Response (within 1 hour):</strong> Contain the breach and assess scope</li>
+                        <li><strong>Risk Assessment (within 24 hours):</strong> Evaluate potential harm to individuals</li>
+                        <li><strong>Authority Notification (within 72 hours):</strong> Report to Privacy Commissioner if significant harm possible</li>
+                        <li><strong>Individual Notification:</strong> Notify affected individuals if significant harm likely</li>
+                        <li><strong>Documentation:</strong> Record all breach details and response actions</li>
+                    </ol>
+
+                    <h3>Regular Compliance Reviews</h3>
+                    <ul>
+                        <li><strong>Quarterly:</strong> Review access controls and permissions</li>
+                        <li><strong>Semi-annually:</strong> Conduct privacy impact assessments</li>
+                        <li><strong>Annually:</strong> Full PIPEDA compliance audit</li>
+                        <li><strong>As needed:</strong> Review procedures when processing changes</li>
+                    </ul>
+
+                    <h3>Getting Help</h3>
+                    <p>DataCaboose provides compliance support:</p>
+                    <ul>
+                        <li>Compliance consultation services</li>
+                        <li>Privacy impact assessment assistance</li>
+                        <li>Staff training on Canadian privacy laws</li>
+                        <li>24/7 incident response support</li>
+                    </ul>
+
+                    <p>For detailed compliance assistance, contact our Privacy Team at privacy@datacaboose.com</p>
+                `
+            }
+        };
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const categoryCards = document.querySelectorAll('.category-card');
+        const articleLinks = document.querySelectorAll('.article-link');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                // Show all categories when search is empty
+                categoryCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+
+            categoryCards.forEach(card => {
+                const title = card.querySelector('.category-title').textContent.toLowerCase();
+                const description = card.querySelector('.category-description').textContent.toLowerCase();
+                const articles = Array.from(card.querySelectorAll('.article-link')).map(link => 
+                    link.textContent.toLowerCase()
+                ).join(' ');
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || articles.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('article-modal');
+        const modalContent = document.getElementById('article-content-container');
+        const closeBtn = document.querySelector('.modal-close');
+
+        // Article link handlers
+        articleLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const articleId = this.getAttribute('data-article');
+                showArticle(articleId);
+            });
+        });
+
+        function showArticle(articleId) {
+            const article = articles[articleId];
+            if (article) {
+                modalContent.innerHTML = `
+                    <h2 style="color: var(--primary); margin-bottom: 1rem;">${article.title}</h2>
+                    ${article.content}
+                `;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Download functionality
+        function downloadFile(filename) {
+            // Simulate file download
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = filename;
+            
+            // Show download started message
+            alert(`Download started: ${filename}\n\nIn a real implementation, this would download the actual file.`);
+        }
+
+        // Handle article links within modal content
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[data-article]')) {
+                e.preventDefault();
+                const articleId = e.target.getAttribute('data-article');
+                showArticle(articleId);
+            }
+        });
+    </script>
+</body>
+
+</html>

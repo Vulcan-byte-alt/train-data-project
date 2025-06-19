@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIPEDA Compliance | DataCaboose</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            background: white;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .legal-content h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .legal-content a:hover {
+            color: var(--primary-dark);
+        }
+
+        .effective-date {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .compliance-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .compliance-card h4 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .compliance-card h4 i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .principle-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .principle-table th {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .principle-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .principle-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .status-compliant {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-implemented {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-automated {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .checklist {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .checklist h4 {
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .legal-content {
+                margin: 1rem;
+                padding: 80px 1.5rem 2rem;
+            }
+
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.3rem;
+            }
+
+            .compliance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principle-table {
+                font-size: 0.9rem;
+            }
+
+            .principle-table th,
+            .principle-table td {
+                padding: 0.5rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="w-30 h-30 relative" style="height: 70px;">
+                <img src="logo.png" alt="DataCaboose Logo" class="w-full h-full object-contain">
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="legal-content">
+        <h1>PIPEDA Compliance</h1>
+        <p class="effective-date"><strong>Last Updated:</strong> January 15, 2025</p>
+        
+        <p>DataCaboose is fully committed to compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and other applicable Canadian privacy laws. This page outlines our comprehensive approach to privacy protection and how we help our customers achieve and maintain compliance.</p>
+
+        <div class="highlight-box">
+            <p>🍁 <strong>100% Canadian Privacy Protection:</strong> Your data never leaves Canada, ensuring full compliance with PIPEDA and protection from foreign surveillance laws.</p>
+        </div>
+
+        <h2>1. Understanding PIPEDA</h2>
+
+        <h3>1.1 What is PIPEDA?</h3>
+        <p>The Personal Information Protection and Electronic Documents Act (PIPEDA) is Canada's federal privacy law that governs how private sector organizations collect, use, and disclose personal information in the course of commercial activities. It applies to all provinces and territories, except where substantially similar provincial legislation exists.</p>
+
+        <h3>1.2 PIPEDA's Ten Fair Information Principles</h3>
+        <table class="principle-table">
+            <thead>
+                <tr>
+                    <th>Principle</th>
+                    <th>Description</th>
+                    <th>DataCaboose Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Accountability</strong></td>
+                    <td>Organizations are responsible for personal information under their control</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Chief Privacy Officer appointed</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Identifying Purposes</strong></td>
+                    <td>Purposes for collecting personal information must be identified</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Clear data collection notices</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Consent</strong></td>
+                    <td>Knowledge and consent required for collection, use, or disclosure</td>
+                    <td><span class="status-badge status-implemented">Automated</span>Consent management system</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Limiting Collection</strong></td>
+                    <td>Collection limited to what is necessary for identified purposes</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Data minimization practices</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Limiting Use, Disclosure, and Retention</strong></td>
+                    <td>Information used only for purposes for which it was collected</td>
+                    <td><span class="status-badge status-automated">Automated</span>Purpose limitation controls</td>
+                </tr>
+                <tr>
+                    <td><strong>6. Accuracy</strong></td>
+                    <td>Personal information must be accurate, complete, and up-to-date</td>
+                    <td><span class="status-badge status-implemented">Tools Available</span>Customer data correction tools</td>
+                </tr>
+                <tr>
+                    <td><strong>7. Safeguards</strong></td>
+                    <td>Personal information protected by appropriate safeguards</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>AES-256 encryption, access controls</td>
+                </tr>
+                <tr>
+                    <td><strong>8. Openness</strong></td>
+                    <td>Information available about policies and practices</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Public privacy policy and practices</td>
+                </tr>
+                <tr>
+                    <td><strong>9. Individual Access</strong></td>
+                    <td>Individuals have the right to access their personal information</td>
+                    <td><span class="status-badge status-automated">Self-Service</span>Customer portal access</td>
+                </tr>
+                <tr>
+                    <td><strong>10. Challenging Compliance</strong></td>
+                    <td>Individuals can challenge an organization's compliance</td>
+                    <td><span class="status-badge status-implemented">Available</span>Complaint handling procedures</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. DataCaboose PIPEDA Compliance Framework</h2>
+
+        <div class="compliance-grid">
+            <div class="compliance-card">
+                <h4><i class="fas fa-shield-alt"></i>Data Protection</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>AES-256 encryption at rest</li>
+                    <li>TLS 1.3 encryption in transit</li>
+                    <li>Hardware security modules (HSMs)</li>
+                    <li>Zero-knowledge architecture options</li>
+                    <li>Secure key management</li>
+                </ul>
+            </div>
+
+            <div class="compliance-card">
+                <h4><i class="fas fa-maple-leaf"></i>Data Sovereignty</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>100% Canadian data residency</li>
+                    <li>No cross-border data transfers</li>
+                    <li>Canadian-owned infrastructure</li>
+                    <li>Governed by Canadian law</li>
+                    <li>Protected from foreign surveillance</li>
+                </ul>
+            </div>
+
+            <div class="compliance-card">
+                <h4><i class="fas fa-user-check"></i>Individual Rights</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>Right of access (automated)</li>
+                    <li>Right to correction</li>
+                    <li>Right to data portability</li>
+                    <li>Right to deletion</li>
+                    <li>Consent withdrawal mechanisms</li>
+                </ul>
+            </div>
+
+            <div class="compliance-card">
+                <h4><i class="fas fa-gavel"></i>Governance</h4>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                    <li>Chief Privacy Officer oversight</li>
+                    <li>Privacy impact assessments</li>
+                    <li>Regular compliance audits</li>
+                    <li>Staff privacy training</li>
+                    <li>Incident response procedures</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>3. How DataCaboose Helps You Achieve PIPEDA Compliance</h2>
+
+        <h3>3.1 Built-in Compliance Features</h3>
+        <ul>
+            <li><strong>Canadian Data Residency Guarantee:</strong> All customer data remains within Canadian borders</li>
+            <li><strong>Encryption by Default:</strong> All data encrypted using industry-leading standards</li>
+            <li><strong>Access Controls:</strong> Role-based permissions and multi-factor authentication</li>
+            <li><strong>Audit Logging:</strong> Comprehensive logs of all data access and processing activities</li>
+            <li><strong>Data Backup and Recovery:</strong> Secure, encrypted backups with configurable retention</li>
+            <li><strong>Breach Detection:</strong> Automated monitoring and immediate notification systems</li>
+        </ul>
+
+        <h3>3.2 Customer Self-Service Tools</h3>
+        <ul>
+            <li><strong>Data Export API:</strong> Allow customers to export their personal information</li>
+            <li><strong>Data Correction Portal:</strong> Enable customers to update their information</li>
+            <li><strong>Consent Management:</strong> Track and manage consent for different data uses</li>
+            <li><strong>Data Deletion Tools:</strong> Secure deletion upon customer request</li>
+            <li><strong>Privacy Dashboard:</strong> Visibility into data processing activities</li>
+        </ul>
+
+        <h2>4. PIPEDA Compliance Checklist for Customers</h2>
+
+        <div class="checklist">
+            <h4>Data Collection and Consent</h4>
+            <ul>
+                <li>Identify and document all purposes for personal information collection</li>
+                <li>Obtain meaningful consent before collecting personal information</li>
+                <li>Provide clear, understandable privacy notices</li>
+                <li>Limit collection to what is necessary for identified purposes</li>
+                <li>Implement consent tracking and management systems</li>
+            </ul>
+        </div>
+
+        <div class="checklist">
+            <h4>Data Storage and Processing</h4>
+            <ul>
+                <li>Store all personal information on DataCaboose Canadian servers</li>
+                <li>Enable encryption for all sensitive data</li>
+                <li>Implement strong access controls and authentication</li>
+                <li>Regular security assessments and updates</li>
+                <li>Document all data processing activities</li>
+            </ul>
+        </div>
+
+        <div class="checklist">
+            <h4>Individual Rights Management</h4>
+            <ul>
+                <li>Provide mechanisms for individuals to access their data</li>
+                <li>Enable data correction and update procedures</li>
+                <li>Implement data portability features</li>
+                <li>Establish secure data deletion procedures</li>
+                <li>Create complaint handling and resolution processes</li>
+            </ul>
+        </div>
+
+        <h2>5. Breach Notification and Response</h2>
+
+        <h3>5.1 DataCaboose Breach Response</h3>
+        <p>In the event of a privacy breach affecting DataCaboose systems:</p>
+        <ul>
+            <li><strong>Immediate Response (within 1 hour):</strong> Contain the breach and assess scope</li>
+            <li><strong>Customer Notification (within 2 hours):</strong> Notify affected customers of potential impact</li>
+            <li><strong>Risk Assessment (within 24 hours):</strong> Evaluate potential harm to individuals</li>
+            <li><strong>Authority Reporting (within 72 hours):</strong> Report to Privacy Commissioner if required</li>
+            <li><strong>Individual Notification:</strong> Assist customers in notifying affected individuals if required</li>
+        </ul>
+
+        <h3>5.2 Customer Breach Obligations</h3>
+        <p>Under PIPEDA, organizations must:</p>
+        <ul>
+            <li>Report material breaches to the Privacy Commissioner of Canada</li>
+            <li>Notify affected individuals if the breach creates a real risk of significant harm</li>
+            <li>Maintain records of all breaches</li>
+            <li>Take steps to reduce harm and prevent future breaches</li>
+        </ul>
+
+        <h2>6. Provincial Privacy Laws</h2>
+
+        <h3>6.1 Quebec (Bill 64 - Law 25)</h3>
+        <p>DataCaboose supports compliance with Quebec's modernized privacy law:</p>
+        <ul>
+            <li>Enhanced consent requirements for sensitive personal information</li>
+            <li>Privacy by design and by default implementations</li>
+            <li>Data protection impact assessments for high-risk processing</li>
+            <li>Mandatory breach notification requirements</li>
+            <li>Right to data portability and de-indexing</li>
+        </ul>
+
+        <h3>6.2 British Columbia (PIPA)</h3>
+        <p>Compliance features for BC's Personal Information Protection Act:</p>
+        <ul>
+            <li>Notification requirements for data collection</li>
+            <li>Consent for disclosure to third parties</li>
+            <li>Individual access and correction rights</li>
+            <li>Retention and disposal requirements</li>
+        </ul>
+
+        <h3>6.3 Alberta (PIPA)</h3>
+        <p>Support for Alberta's privacy requirements:</p>
+        <ul>
+            <li>Purpose specification at collection</li>
+            <li>Consent requirements for use and disclosure</li>
+            <li>Accuracy and retention obligations</li>
+            <li>Individual access rights</li>
+        </ul>
+
+        <h2>7. International Privacy Framework Alignment</h2>
+
+        <h3>7.1 GDPR Considerations</h3>
+        <p>For organizations with EU data subjects, DataCaboose provides:</p>
+        <ul>
+            <li>Data Processing Agreements (DPAs) for international transfers</li>
+            <li>Right to be forgotten implementation</li>
+            <li>Data portability in machine-readable formats</li>
+            <li>Privacy by design technical measures</li>
+        </ul>
+
+        <h3>7.2 CCPA/CPRA Compliance Support</h3>
+        <p>For California privacy law requirements:</p>
+        <ul>
+            <li>Consumer rights request handling</li>
+            <li>Do Not Sell opt-out mechanisms</li>
+            <li>Detailed privacy disclosures</li>
+            <li>Data inventory and mapping tools</li>
+        </ul>
+
+        <h2>8. Compliance Support Services</h2>
+
+        <h3>8.1 Professional Services</h3>
+        <ul>
+            <li><strong>Privacy Impact Assessments:</strong> Expert evaluation of data processing risks</li>
+            <li><strong>Compliance Audits:</strong> Comprehensive review of privacy practices</li>
+            <li><strong>Policy Development:</strong> Customized privacy policies and procedures</li>
+            <li><strong>Staff Training:</strong> Privacy awareness and compliance training</li>
+            <li><strong>Incident Response:</strong> 24/7 breach response and management</li>
+        </ul>
+
+        <h3>8.2 Technical Integration</h3>
+        <ul>
+            <li><strong>API Integration:</strong> Connect existing systems with DataCaboose compliance tools</li>
+            <li><strong>Data Migration:</strong> Secure transfer from non-compliant systems</li>
+            <li><strong>Monitoring Setup:</strong> Automated compliance monitoring and reporting</li>
+            <li><strong>Custom Development:</strong> Tailored solutions for unique compliance requirements</li>
+        </ul>
+
+        <h2>9. Ongoing Compliance Management</h2>
+
+        <h3>9.1 Regular Reviews</h3>
+        <ul>
+            <li><strong>Monthly:</strong> Security and access control reviews</li>
+            <li><strong>Quarterly:</strong> Privacy impact assessments for new processing</li>
+            <li><strong>Semi-annually:</strong> Policy and procedure updates</li>
+            <li><strong>Annually:</strong> Comprehensive compliance audit</li>
+        </ul>
+
+        <h3>9.2 Continuous Improvement</h3>
+        <ul>
+            <li>Regular updates to reflect changes in privacy laws</li>
+            <li>Integration of new privacy-enhancing technologies</li>
+            <li>Customer feedback incorporation</li>
+            <li>Industry best practice adoption</li>
+        </ul>
+
+        <h2>10. Getting Help with PIPEDA Compliance</h2>
+
+        <h3>10.1 DataCaboose Privacy Team</h3>
+        <p>Our privacy experts are available to help:</p>
+        <ul>
+            <li><strong>Email:</strong> privacy@datacaboose.com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567 ext. 2</li>
+            <li><strong>Privacy Officer:</strong> Available for consultations</li>
+            <li><strong>Support Portal:</strong> compliance.datacaboose.com</li>
+        </ul>
+
+        <h3>10.2 Resources and Documentation</h3>
+        <ul>
+            <li><strong>Compliance Guides:</strong> Step-by-step implementation guides</li>
+            <li><strong>Template Documents:</strong> Privacy policies, consent forms, breach procedures</li>
+            <li><strong>Training Materials:</strong> Staff education resources</li>
+            <li><strong>Webinars:</strong> Regular privacy law updates and best practices</li>
+        </ul>
+
+        <h3>10.3 External Resources</h3>
+        <ul>
+            <li><strong>Privacy Commissioner of Canada:</strong> <a href="https://www.priv.gc.ca">priv.gc.ca</a></li>
+            <li><strong>PIPEDA Compliance Help:</strong> Official government guidance</li>
+            <li><strong>Provincial Privacy Commissioners:</strong> Regional privacy authorities</li>
+            <li><strong>Privacy Professional Organizations:</strong> IAPP, CIPP/C certification</li>
+        </ul>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p><strong>🍁 DataCaboose - Your PIPEDA Compliance Partner</strong></p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to Canadian privacy protection and data sovereignty since 2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This information is provided for guidance only and does not constitute legal advice. Consult with qualified privacy counsel for specific compliance requirements.</p>
+        </div>
+    </main>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function() {
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+    </script>
+</body>
+
+</html>

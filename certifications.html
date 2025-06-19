@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications | DataCaboose</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #A94442;
+            --primary-dark: #8C3330;
+            --primary-light: #F8D7DA;
+            --secondary: #36454F;
+            --accent: #D9A477;
+            --bg-dark: #2A2F33;
+            --bg-light: #FDFBF7;
+            --bg-light-alt: #F5F1EA;
+            --card-bg-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
+            line-height: 1.7;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Simple Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(42, 47, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        /* Content styling */
+        .cert-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cert-header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cert-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .effective-date {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Certification Cards */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .certification-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(54, 69, 79, 0.15);
+        }
+
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .cert-header-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cert-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .cert-info h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .cert-issuer {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-date {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        .cert-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-renewal {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pending {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .cert-description {
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cert-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cert-features li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .cert-features li::before {
+            content: "✓";
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .cert-actions {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cert-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .cert-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .cert-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cert-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .cert-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cert-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Compliance Summary */
+        .compliance-summary {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .compliance-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .compliance-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .compliance-title {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .compliance-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* Certification Timeline */
+        .timeline-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(54, 69, 79, 0.08);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Cookie Consent Popup */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .cert-content {
+                margin: 1rem;
+                padding: 80px 1rem 2rem;
+            }
+
+            .cert-header {
+                padding: 2rem 1rem;
+            }
+
+            .cert-header h1 {
+                font-size: 2rem;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .compliance-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .cert-header-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cert-logo {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .cert-actions {
+                flex-direction: column;
+            }
+
+            .cert-btn {
+                justify-content: center;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="w-30 h-30 relative" style="height: 70px;">
+                <img src="logo.png" alt="DataCaboose Logo" class="w-full h-full object-contain">
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <a href="index.html" class="text-white">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div>
+                <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
+                <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="cert-content">
+        <!-- Header -->
+        <div class="cert-header">
+            <h1>Certifications & Compliance</h1>
+            <p class="effective-date"><strong>Last Updated:</strong> January 15, 2025</p>
+            <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 0;">
+                DataCaboose maintains the highest standards of security, privacy, and operational excellence through
+                rigorous certification processes and continuous compliance monitoring.
+            </p>
+
+            <div class="highlight-box" style="margin-top: 1.5rem;">
+                <p>🏆 <strong>Trust Through Verification:</strong> Our certifications demonstrate our commitment to
+                    protecting your data and providing reliable Canadian cloud services.</p>
+            </div>
+        </div>
+
+        <!-- Compliance Summary -->
+        <div class="compliance-summary">
+            <h2 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; text-align: center;">Compliance
+                Overview</h2>
+            <p style="text-align: center; color: #6b7280; margin-bottom: 1.5rem;">
+                DataCaboose meets or exceeds industry standards for security, privacy, and operational excellence.
+            </p>
+
+            <div class="compliance-grid">
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="compliance-title">Security</div>
+                    <div class="compliance-description">SOC 2 Type II, ISO 27001, CSA STAR</div>
+                </div>
+
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="compliance-title">Privacy</div>
+                    <div class="compliance-description">PIPEDA, GDPR-ready, Provincial Laws</div>
+                </div>
+
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="compliance-title">Payment Security</div>
+                    <div class="compliance-description">PCI DSS Level 1, SOX Controls</div>
+                </div>
+
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-maple-leaf"></i>
+                    </div>
+                    <div class="compliance-title">Canadian Standards</div>
+                    <div class="compliance-description">Accessible Canada Act, CRA Requirements</div>
+                </div>
+
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="compliance-title">International</div>
+                    <div class="compliance-description">ISO Standards, NIST Framework</div>
+                </div>
+
+                <div class="compliance-item">
+                    <div class="compliance-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="compliance-title">Operations</div>
+                    <div class="compliance-description">ITIL, SAS 70, SSAE 16</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certifications Grid -->
+        <div class="certifications-grid">
+            <!-- SOC 2 Type II -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>SOC 2 Type II</h3>
+                        <div class="cert-issuer">American Institute of CPAs (AICPA)</div>
+                        <div class="cert-date">Valid: Jan 2024 - Jan 2025</div>
+                        <span class="cert-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    SOC 2 Type II certification validates our security, availability, processing integrity,
+                    confidentiality, and privacy controls over a 12-month period.
+                </div>
+                <ul class="cert-features">
+                    <li>Security controls and procedures verified</li>
+                    <li>Availability and system performance validated</li>
+                    <li>Data processing integrity confirmed</li>
+                    <li>Customer data confidentiality assured</li>
+                    <li>Privacy protection measures certified</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary" onclick="downloadCert('soc2-type2.pdf')">
+                        <i class="fas fa-download"></i>View Certificate
+                    </a>
+                    <a href="#" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- ISO 27001 -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>ISO 27001:2013</h3>
+                        <div class="cert-issuer">International Organization for Standardization</div>
+                        <div class="cert-date">Valid: Mar 2024 - Mar 2027</div>
+                        <span class="cert-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    ISO 27001 certification demonstrates our commitment to information security management and
+                    systematic approach to managing sensitive information.
+                </div>
+                <ul class="cert-features">
+                    <li>Information Security Management System (ISMS)</li>
+                    <li>Risk assessment and treatment processes</li>
+                    <li>Security policy and procedures</li>
+                    <li>Incident management and business continuity</li>
+                    <li>Continuous improvement framework</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary" onclick="downloadCert('iso27001.pdf')">
+                        <i class="fas fa-download"></i>View Certificate
+                    </a>
+                    <a href="#" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- PCI DSS -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>PCI DSS Level 1</h3>
+                        <div class="cert-issuer">Payment Card Industry Security Standards Council</div>
+                        <div class="cert-date">Valid: Jun 2024 - Jun 2025</div>
+                        <span class="cert-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    PCI DSS Level 1 compliance ensures the highest level of payment card data security for organizations
+                    processing over 6 million transactions annually.
+                </div>
+                <ul class="cert-features">
+                    <li>Secure network and systems maintenance</li>
+                    <li>Cardholder data protection protocols</li>
+                    <li>Vulnerability management program</li>
+                    <li>Strong access control measures</li>
+                    <li>Regular monitoring and testing procedures</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary" onclick="downloadCert('pci-dss.pdf')">
+                        <i class="fas fa-download"></i>View Certificate
+                    </a>
+                    <a href="#" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- CSA STAR -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>CSA STAR Level 2</h3>
+                        <div class="cert-issuer">Cloud Security Alliance</div>
+                        <div class="cert-date">Valid: Sep 2024 - Sep 2025</div>
+                        <span class="cert-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    CSA STAR Level 2 certification validates our cloud security controls using the Cloud Controls Matrix
+                    (CCM) and provides third-party assessment.
+                </div>
+                <ul class="cert-features">
+                    <li>Cloud security controls assessment</li>
+                    <li>Governance and risk management</li>
+                    <li>Data security and encryption practices</li>
+                    <li>Identity and access management</li>
+                    <li>Infrastructure and network security</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary" onclick="downloadCert('csa-star.pdf')">
+                        <i class="fas fa-download"></i>View Certificate
+                    </a>
+                    <a href="#" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- PIPEDA Compliance -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>PIPEDA Compliance</h3>
+                        <div class="cert-issuer">Privacy Commissioner of Canada</div>
+                        <div class="cert-date">Assessed: Dec 2024</div>
+                        <span class="cert-status status-active">Compliant</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    Full compliance with Personal Information Protection and Electronic Documents Act (PIPEDA) and
+                    Canadian federal privacy requirements.
+                </div>
+                <ul class="cert-features">
+                    <li>Canadian data residency guarantee</li>
+                    <li>Privacy impact assessment completion</li>
+                    <li>Individual rights implementation</li>
+                    <li>Breach notification procedures</li>
+                    <li>Data protection officer appointment</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary" onclick="downloadCert('pipeda-compliance.pdf')">
+                        <i class="fas fa-download"></i>View Report
+                    </a>
+                    <a href="pipeda-compliance.html" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Accessible Canada Act -->
+            <div class="certification-card">
+                <div class="cert-header-section">
+                    <div class="cert-logo">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3>Accessible Canada Act</h3>
+                        <div class="cert-issuer">Accessibility Standards Canada</div>
+                        <div class="cert-date">Assessed: Nov 2024</div>
+                        <span class="cert-status status-active">Compliant</span>
+                    </div>
+                </div>
+                <div class="cert-description">
+                    Compliance with federal accessibility legislation ensuring barrier-free access to our services for
+                    all Canadians.
+                </div>
+                <ul class="cert-features">
+                    <li>WCAG 2.1 Level AA compliance</li>
+                    <li>Accessibility plan publication</li>
+                    <li>Feedback process implementation</li>
+                    <li>Staff accessibility training</li>
+                    <li>Barrier identification and removal</li>
+                </ul>
+                <div class="cert-actions">
+                    <a href="#" class="cert-btn cert-btn-primary"
+                        onclick="downloadCert('accessibility-compliance.pdf')">
+                        <i class="fas fa-download"></i>View Report
+                    </a>
+                    <a href="accessibility.html" class="cert-btn cert-btn-secondary">
+                        <i class="fas fa-info-circle"></i>Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certification Timeline -->
+        <div class="timeline-section">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.8rem;">Certification Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2025</div>
+                    <div class="timeline-title">SOC 2 Type II Renewal</div>
+                    <div class="timeline-description">Successfully renewed SOC 2 Type II certification with zero
+                        findings, demonstrating continuous improvement in security controls.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">December 2024</div>
+                    <div class="timeline-title">PIPEDA Compliance Assessment</div>
+                    <div class="timeline-description">Completed comprehensive PIPEDA compliance review with Privacy
+                        Commissioner's office, confirming full adherence to Canadian privacy laws.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">November 2024</div>
+                    <div class="timeline-title">Accessibility Certification</div>
+                    <div class="timeline-description">Achieved Accessible Canada Act compliance certification, ensuring
+                        barrier-free access to all DataCaboose services.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">September 2024</div>
+                    <div class="timeline-title">CSA STAR Level 2</div>
+                    <div class="timeline-description">Earned Cloud Security Alliance STAR Level 2 certification,
+                        validating cloud security controls and governance practices.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2024</div>
+                    <div class="timeline-title">PCI DSS Level 1</div>
+                    <div class="timeline-description">Achieved highest level of PCI DSS certification for payment card
+                        data security, enabling secure billing and payment processing.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2024</div>
+                    <div class="timeline-title">ISO 27001:2013</div>
+                    <div class="timeline-description">Successfully obtained ISO 27001 certification for Information
+                        Security Management System, demonstrating systematic approach to security.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2024</div>
+                    <div class="timeline-title">Initial SOC 2 Type II</div>
+                    <div class="timeline-description">Completed first SOC 2 Type II audit with clean opinion,
+                        establishing foundation for security and availability controls.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Certifications -->
+        <div class="compliance-summary">
+            <h2 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem;">Upcoming Certifications</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">
+                We're continuously expanding our certification portfolio to meet evolving security and compliance
+                requirements.
+            </p>
+
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="cert-header-section">
+                        <div class="cert-logo">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>FedRAMP Moderate</h3>
+                            <div class="cert-issuer">U.S. General Services Administration</div>
+                            <div class="cert-date">Target: Q3 2025</div>
+                            <span class="cert-status status-pending">In Progress</span>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        Federal Risk and Authorization Management Program certification for cloud services used by U.S.
+                        government agencies.
+                    </div>
+                    <ul class="cert-features">
+                        <li>Enhanced security controls implementation</li>
+                        <li>Continuous monitoring program</li>
+                        <li>Government-grade security standards</li>
+                        <li>Third-party assessment organization review</li>
+                    </ul>
+                </div>
+
+                <div class="certification-card">
+                    <div class="cert-header-section">
+                        <div class="cert-logo">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>HIPAA Compliance</h3>
+                            <div class="cert-issuer">Health Insurance Portability and Accountability Act</div>
+                            <div class="cert-date">Target: Q2 2025</div>
+                            <span class="cert-status status-pending">Planning Phase</span>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        Healthcare data protection compliance for organizations handling protected health information
+                        (PHI).
+                    </div>
+                    <ul class="cert-features">
+                        <li>Administrative safeguards implementation</li>
+                        <li>Physical safeguards deployment</li>
+                        <li>Technical safeguards configuration</li>
+                        <li>Business associate agreements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Information -->
+        <div class="compliance-summary">
+            <h2 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem;">Audit & Assessment Information
+            </h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1.5rem;">
+                <div>
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem;">Independent Auditors</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><strong>SOC 2:</strong> Deloitte Canada</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>ISO 27001:</strong> BSI Group Canada</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>PCI DSS:</strong> Trustwave Canada</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>CSA STAR:</strong> A-LIGN Canada</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem;">Assessment Frequency</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><strong>Annual:</strong> SOC 2, PCI DSS, CSA STAR</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Triennial:</strong> ISO 27001 (with annual
+                            surveillance)</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Ongoing:</strong> PIPEDA, Accessibility compliance
+                        </li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Quarterly:</strong> Internal security assessments
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem;">Transparency</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">📄 Certificates available for download</li>
+                        <li style="margin-bottom: 0.5rem;">📊 Annual compliance reports</li>
+                        <li style="margin-bottom: 0.5rem;">🔍 Third-party validation</li>
+                        <li style="margin-bottom: 0.5rem;">📈 Continuous improvement tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Cookie Consent Logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
+
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
+
+            declineBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+
+            settingsBtn.addEventListener('click', function () {
+                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            });
+        });
+
+        // Certificate download functionality
+        function downloadCert(filename) {
+            // Simulate certificate download
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = filename;
+
+            // Show download started message
+            alert(`Certificate download started: ${filename}\n\nIn a real implementation, this would download the actual certificate file.`);
+        }
+
+        // Add smooth scrolling for internal links
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animate cards on scroll (optional enhancement)
+            const cards = document.querySelectorAll('.certification-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                cardObserver.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>
