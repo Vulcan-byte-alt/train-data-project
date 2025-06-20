@@ -166,6 +166,54 @@
             background: #f8f9fa;
         }
 
+        /* Mobile Cards for SLA Tables - Hidden by default */
+        .sla-cards {
+            display: none;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .sla-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .sla-card-header {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .sla-card-body {
+            padding: 1rem;
+        }
+
+        .sla-card-row {
+            margin-bottom: 1rem;
+        }
+
+        .sla-card-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .sla-card-label {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .sla-card-value {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
         .status-indicator {
             display: inline-block;
             width: 12px;
@@ -485,13 +533,14 @@
                 font-size: 1.3rem;
             }
 
+            /* Hide tables on mobile and show cards */
             .sla-table {
-                font-size: 0.9rem;
+                display: none;
             }
 
-            .sla-table th,
-            .sla-table td {
-                padding: 0.5rem;
+            .sla-cards {
+                display: flex;
+                flex-direction: column;
             }
 
             .cookie-buttons {
@@ -687,6 +736,8 @@
         <h2>1. Service Availability Commitments</h2>
 
         <h3>1.1 Uptime Guarantees</h3>
+
+        <!-- Desktop Table -->
         <table class="sla-table">
             <thead>
                 <tr>
@@ -718,6 +769,65 @@
             </tbody>
         </table>
 
+        <!-- Mobile Cards -->
+        <div class="sla-cards">
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-green"></span>Standard VMs</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Monthly Uptime Commitment:</span>
+                        <div class="sla-card-value">99.9%</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Maximum Downtime:</span>
+                        <div class="sla-card-value">43.8 minutes</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Service Credit:</span>
+                        <div class="sla-card-value">10% monthly fee</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-green"></span>Dedicated Compute
+                    (CCU1/CCU2)</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Monthly Uptime Commitment:</span>
+                        <div class="sla-card-value">99.95%</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Maximum Downtime:</span>
+                        <div class="sla-card-value">21.9 minutes</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Service Credit:</span>
+                        <div class="sla-card-value">25% monthly fee</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-green"></span>High Availability Add-on
+                </div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Monthly Uptime Commitment:</span>
+                        <div class="sla-card-value">99.99%</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Maximum Downtime:</span>
+                        <div class="sla-card-value">4.38 minutes</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Service Credit:</span>
+                        <div class="sla-card-value">50% monthly fee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h3>1.2 Network Performance</h3>
         <ul>
             <li><strong>Network Availability:</strong> 99.9% monthly uptime</li>
@@ -738,6 +848,8 @@
         </ul>
 
         <h3>2.2 Storage Performance</h3>
+
+        <!-- Desktop Table -->
         <table class="sla-table">
             <thead>
                 <tr>
@@ -769,9 +881,68 @@
             </tbody>
         </table>
 
+        <!-- Mobile Cards -->
+        <div class="sla-cards">
+            <div class="sla-card">
+                <div class="sla-card-header">Standard SSD</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Read IOPS:</span>
+                        <div class="sla-card-value">1,000+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Write IOPS:</span>
+                        <div class="sla-card-value">800+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Latency:</span>
+                        <div class="sla-card-value">&lt;10ms</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header">NVMe SSD</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Read IOPS:</span>
+                        <div class="sla-card-value">5,000+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Write IOPS:</span>
+                        <div class="sla-card-value">4,000+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Latency:</span>
+                        <div class="sla-card-value">&lt;2ms</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header">High Availability Storage</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Read IOPS:</span>
+                        <div class="sla-card-value">3,000+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Write IOPS:</span>
+                        <div class="sla-card-value">2,500+</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Latency:</span>
+                        <div class="sla-card-value">&lt;5ms</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h2>3. Support Response Times</h2>
 
         <h3>3.1 Support Tiers</h3>
+
+        <!-- Desktop Table -->
         <table class="sla-table">
             <thead>
                 <tr>
@@ -808,6 +979,81 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Mobile Cards -->
+        <div class="sla-cards">
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-red"></span>Critical (P1)</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Definition:</span>
+                        <div class="sla-card-value">Service completely unavailable</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Response Time:</span>
+                        <div class="sla-card-value">15 minutes</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Resolution Target:</span>
+                        <div class="sla-card-value">4 hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-yellow"></span>High (P2)</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Definition:</span>
+                        <div class="sla-card-value">Significant service degradation</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Response Time:</span>
+                        <div class="sla-card-value">1 hour</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Resolution Target:</span>
+                        <div class="sla-card-value">8 hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-green"></span>Medium (P3)</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Definition:</span>
+                        <div class="sla-card-value">Minor issues or general inquiries</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Response Time:</span>
+                        <div class="sla-card-value">4 hours</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Resolution Target:</span>
+                        <div class="sla-card-value">24 hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sla-card">
+                <div class="sla-card-header"><span class="status-indicator status-green"></span>Low (P4)</div>
+                <div class="sla-card-body">
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Definition:</span>
+                        <div class="sla-card-value">Feature requests, documentation</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Response Time:</span>
+                        <div class="sla-card-value">24 hours</div>
+                    </div>
+                    <div class="sla-card-row">
+                        <span class="sla-card-label">Resolution Target:</span>
+                        <div class="sla-card-value">72 hours</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h3>3.2 Support Channels</h3>
         <ul>
@@ -973,129 +1219,129 @@
 
     <script>
         const cookieConsent = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-            const settingsBtn = document.getElementById('cookie-settings');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+        const settingsBtn = document.getElementById('cookie-settings');
 
-            // Check if user has already made a choice
-            const cookieChoice = localStorage.getItem('cookieConsent');
+        // Check if user has already made a choice
+        const cookieChoice = localStorage.getItem('cookieConsent');
 
-            if (!cookieChoice) {
-                // Show popup after a short delay
-                setTimeout(() => {
-                    cookieConsent.classList.add('show');
-                }, 1000);
-            }
+        if (!cookieChoice) {
+            // Show popup after a short delay
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
 
-            acceptBtn.addEventListener('click', function () {
-                localStorage.setItem('cookieConsent', 'accepted');
-                cookieConsent.classList.remove('show');
-                console.log('All cookies accepted');
-            });
+        acceptBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+            console.log('All cookies accepted');
+        });
 
-            declineBtn.addEventListener('click', function () {
-                localStorage.setItem('cookieConsent', 'declined');
-                cookieConsent.classList.remove('show');
-                console.log('Non-essential cookies declined');
-            });
-            // Cookie Preferences Modal functionality
-            const cookieModal = document.getElementById('cookie-preferences-modal');
-            const modalClose = document.getElementById('cookie-modal-close');
-            const acceptSelected = document.getElementById('cookie-accept-selected');
-            const acceptAllModal = document.getElementById('cookie-accept-all-modal');
-            const rejectAll = document.getElementById('cookie-reject-all');
+        declineBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+            console.log('Non-essential cookies declined');
+        });
+        // Cookie Preferences Modal functionality
+        const cookieModal = document.getElementById('cookie-preferences-modal');
+        const modalClose = document.getElementById('cookie-modal-close');
+        const acceptSelected = document.getElementById('cookie-accept-selected');
+        const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+        const rejectAll = document.getElementById('cookie-reject-all');
 
-            // Update the settings button click handler
-            settingsBtn.addEventListener('click', function () {
-                cookieModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
+        // Update the settings button click handler
+        settingsBtn.addEventListener('click', function () {
+            cookieModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
 
-                // Load current preferences
-                loadCookiePreferences();
-            });
+            // Load current preferences
+            loadCookiePreferences();
+        });
 
-            // Close modal
-            modalClose.addEventListener('click', closeModal);
-            window.addEventListener('click', function (e) {
-                if (e.target === cookieModal) {
-                    closeModal();
-                }
-            });
-
-            function closeModal() {
-                cookieModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-
-            // Load saved cookie preferences
-            function loadCookiePreferences() {
-                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
-
-                document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
-                document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
-                document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
-            }
-
-            // Save cookie preferences
-            function saveCookiePreferences() {
-                const preferences = {
-                    essential: true, // Always true
-                    analytics: document.getElementById('analytics-cookies').checked,
-                    functional: document.getElementById('functional-cookies').checked,
-                    marketing: document.getElementById('marketing-cookies').checked
-                };
-
-                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
-                localStorage.setItem('cookieConsent', 'custom');
-
-                console.log('Cookie preferences saved:', preferences);
-                return preferences;
-            }
-
-            // Accept selected cookies
-            acceptSelected.addEventListener('click', function () {
-                const prefs = saveCookiePreferences();
-                cookieConsent.classList.remove('show');
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        window.addEventListener('click', function (e) {
+            if (e.target === cookieModal) {
                 closeModal();
+            }
+        });
 
-                // You can add logic here to actually enable/disable tracking based on preferences
-                if (prefs.analytics) {
-                    console.log('Analytics cookies enabled');
-                    // Enable Google Analytics or other analytics
-                }
-                if (prefs.functional) {
-                    console.log('Functional cookies enabled');
-                    // Enable functional features
-                }
-                if (prefs.marketing) {
-                    console.log('Marketing cookies enabled');
-                    // Enable marketing tracking
-                }
-            });
+        function closeModal() {
+            cookieModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-            // Accept all cookies from modal
-            acceptAllModal.addEventListener('click', function () {
-                document.getElementById('analytics-cookies').checked = true;
-                document.getElementById('functional-cookies').checked = true;
-                document.getElementById('marketing-cookies').checked = true;
+        // Load saved cookie preferences
+        function loadCookiePreferences() {
+            const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
 
-                saveCookiePreferences();
-                cookieConsent.classList.remove('show');
-                closeModal();
-                console.log('All cookies accepted from modal');
-            });
+            document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+            document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+            document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+        }
 
-            // Reject all non-essential cookies
-            rejectAll.addEventListener('click', function () {
-                document.getElementById('analytics-cookies').checked = false;
-                document.getElementById('functional-cookies').checked = false;
-                document.getElementById('marketing-cookies').checked = false;
+        // Save cookie preferences
+        function saveCookiePreferences() {
+            const preferences = {
+                essential: true, // Always true
+                analytics: document.getElementById('analytics-cookies').checked,
+                functional: document.getElementById('functional-cookies').checked,
+                marketing: document.getElementById('marketing-cookies').checked
+            };
 
-                saveCookiePreferences();
-                cookieConsent.classList.remove('show');
-                closeModal();
-                console.log('All non-essential cookies rejected');
-            });
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            localStorage.setItem('cookieConsent', 'custom');
+
+            console.log('Cookie preferences saved:', preferences);
+            return preferences;
+        }
+
+        // Accept selected cookies
+        acceptSelected.addEventListener('click', function () {
+            const prefs = saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+
+            // You can add logic here to actually enable/disable tracking based on preferences
+            if (prefs.analytics) {
+                console.log('Analytics cookies enabled');
+                // Enable Google Analytics or other analytics
+            }
+            if (prefs.functional) {
+                console.log('Functional cookies enabled');
+                // Enable functional features
+            }
+            if (prefs.marketing) {
+                console.log('Marketing cookies enabled');
+                // Enable marketing tracking
+            }
+        });
+
+        // Accept all cookies from modal
+        acceptAllModal.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = true;
+            document.getElementById('functional-cookies').checked = true;
+            document.getElementById('marketing-cookies').checked = true;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All cookies accepted from modal');
+        });
+
+        // Reject all non-essential cookies
+        rejectAll.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = false;
+            document.getElementById('functional-cookies').checked = false;
+            document.getElementById('marketing-cookies').checked = false;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All non-essential cookies rejected');
+        });
     </script>
 </body>
 
