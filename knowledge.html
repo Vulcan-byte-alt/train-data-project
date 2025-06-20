@@ -30,7 +30,8 @@
             line-height: 1.7;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
         }
@@ -427,6 +428,205 @@
             color: var(--bg-dark);
         }
 
+        /* Cookie Preferences Modal */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cookie-modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-modal-close:hover {
+            color: var(--primary);
+        }
+
+        .cookie-modal-body {
+            padding: 2rem;
+        }
+
+        .cookie-modal-intro {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cookie-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-category-header h4 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-category-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .cookie-toggle {
+            position: relative;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label:hover {
+            background-color: #bbb;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label {
+            background-color: #10b981;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label:hover {
+            background-color: #10b981;
+        }
+
+        .cookie-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .cookie-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .cookie-modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-modal-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cookie-modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .cookie-modal-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .cookie-modal-btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         @media (min-width: 768px) {
             .cookie-consent-content {
                 flex-direction: row;
@@ -451,6 +651,7 @@
 
             .kb-header h1 {
                 font-size: 2rem;
+                margin-top: 15px;
             }
 
             .categories-grid {
@@ -476,6 +677,35 @@
                 min-width: 120px;
             }
         }
+
+
+        @media (max-width: 767px) {
+            .cookie-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .cookie-modal-header,
+            .cookie-modal-body,
+            .cookie-modal-footer {
+                padding: 1rem;
+            }
+
+            .cookie-category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .cookie-modal-footer {
+                flex-direction: column;
+            }
+
+            .cookie-modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 
@@ -483,12 +713,8 @@
     <!-- Simple Navbar -->
     <nav class="navbar">
         <div class="container mx-auto px-4 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <img src="logo.png" alt="DataCaboose Logo" class="h-10 object-contain">
-                <div>
-                    <div class="text-white font-bold text-lg">DataCaboose</div>
-                    <div class="text-xs text-gray-300">Your Canadian Cloud Solution</div>
-                </div>
+            <div class="w-30 h-30 relative" style="height: 80px;">
+                <img src="logo.png" alt="DataCaboose Logo" class="w-full h-full object-contain">
             </div>
             <div class="hidden md:flex space-x-6">
                 <a href="index.html">Home</a>
@@ -509,12 +735,112 @@
         <div class="cookie-consent-content">
             <div>
                 <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
-                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
             </div>
             <div class="cookie-buttons">
                 <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
                 <button id="decline-cookies" class="cookie-btn cookie-btn-decline">Decline Non-Essential</button>
                 <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Preferences</h3>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
+                    which
+                    types of cookies to allow:</p>
+
+                <!-- Essential Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Essential Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="essential-cookies" checked disabled>
+                            <label for="essential-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually
+                        set in response to actions made by you which amount to a request for services, such as setting
+                        your
+                        privacy preferences, logging in, or filling in forms.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Analytics Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="analytics-cookies">
+                            <label for="analytics-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies help us understand how visitors interact with our website by collecting and
+                        reporting
+                        information anonymously. We use Google Analytics to measure website performance and improve user
+                        experience.
+                    </p>
+                </div>
+
+                <!-- Functional Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Functional Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="functional-cookies">
+                            <label for="functional-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies enable enhanced functionality and personalization, such as remembering your
+                        preferences, language settings, and providing live chat support.
+                    </p>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Marketing Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="marketing-cookies">
+                            <label for="marketing-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies track visitors across websites to display relevant advertisements and measure
+                        campaign
+                        effectiveness. We do not use third-party marketing cookies, but may use them for our own
+                        marketing
+                        analysis.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookie-accept-selected" class="cookie-modal-btn cookie-modal-btn-primary">Accept
+                    Selected</button>
+                <button id="cookie-accept-all-modal" class="cookie-modal-btn cookie-modal-btn-secondary">Accept
+                    All</button>
+                <button id="cookie-reject-all" class="cookie-modal-btn cookie-modal-btn-outline">Reject All</button>
             </div>
         </div>
     </div>
@@ -525,13 +851,15 @@
         <div class="kb-header">
             <h1>Knowledge Base</h1>
             <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 0;">
-                Everything you need to know about DataCaboose cloud services. Find guides, tutorials, and resources to help you get the most out of your Canadian cloud infrastructure.
+                Everything you need to know about DataCaboose cloud services. Find guides, tutorials, and resources to
+                help you get the most out of your Canadian cloud infrastructure.
             </p>
-            
+
             <!-- Search -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search articles, guides, and documentation..." id="search-input">
+                <input type="text" class="search-input" placeholder="Search articles, guides, and documentation..."
+                    id="search-input">
             </div>
         </div>
 
@@ -549,10 +877,14 @@
                     New to DataCaboose? Start here for account setup, first VM deployment, and basic configuration.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="account-setup"><i class="fas fa-chevron-right"></i>Setting Up Your DataCaboose Account</a></li>
-                    <li><a href="#" class="article-link" data-article="first-vm"><i class="fas fa-chevron-right"></i>Deploying Your First Virtual Machine</a></li>
-                    <li><a href="#" class="article-link" data-article="networking-basics"><i class="fas fa-chevron-right"></i>Networking Basics for Beginners</a></li>
-                    <li><a href="#" class="article-link" data-article="billing-overview"><i class="fas fa-chevron-right"></i>Understanding Your Billing Dashboard</a></li>
+                    <li><a href="#" class="article-link" data-article="account-setup"><i
+                                class="fas fa-chevron-right"></i>Setting Up Your DataCaboose Account</a></li>
+                    <li><a href="#" class="article-link" data-article="first-vm"><i
+                                class="fas fa-chevron-right"></i>Deploying Your First Virtual Machine</a></li>
+                    <li><a href="#" class="article-link" data-article="networking-basics"><i
+                                class="fas fa-chevron-right"></i>Networking Basics for Beginners</a></li>
+                    <li><a href="#" class="article-link" data-article="billing-overview"><i
+                                class="fas fa-chevron-right"></i>Understanding Your Billing Dashboard</a></li>
                 </ul>
             </div>
 
@@ -568,10 +900,14 @@
                     Step-by-step guides for migrating from other cloud providers to DataCaboose.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="aws-migration"><i class="fas fa-chevron-right"></i>Migrating from AWS to DataCaboose</a></li>
-                    <li><a href="#" class="article-link" data-article="azure-migration"><i class="fas fa-chevron-right"></i>Migrating from Microsoft Azure</a></li>
-                    <li><a href="#" class="article-link" data-article="gcp-migration"><i class="fas fa-chevron-right"></i>Migrating from Google Cloud Platform</a></li>
-                    <li><a href="#" class="article-link" data-article="data-transfer"><i class="fas fa-chevron-right"></i>Large Data Transfer Best Practices</a></li>
+                    <li><a href="#" class="article-link" data-article="aws-migration"><i
+                                class="fas fa-chevron-right"></i>Migrating from AWS to DataCaboose</a></li>
+                    <li><a href="#" class="article-link" data-article="azure-migration"><i
+                                class="fas fa-chevron-right"></i>Migrating from Microsoft Azure</a></li>
+                    <li><a href="#" class="article-link" data-article="gcp-migration"><i
+                                class="fas fa-chevron-right"></i>Migrating from Google Cloud Platform</a></li>
+                    <li><a href="#" class="article-link" data-article="data-transfer"><i
+                                class="fas fa-chevron-right"></i>Large Data Transfer Best Practices</a></li>
                 </ul>
             </div>
 
@@ -587,10 +923,14 @@
                     Advanced configuration, automation, and optimization guides for power users.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="gpu-setup"><i class="fas fa-chevron-right"></i>GPU Instance Setup for AI/ML Workloads</a></li>
-                    <li><a href="#" class="article-link" data-article="load-balancing"><i class="fas fa-chevron-right"></i>Setting Up Load Balancing</a></li>
-                    <li><a href="#" class="article-link" data-article="backup-automation"><i class="fas fa-chevron-right"></i>Automated Backup Configuration</a></li>
-                    <li><a href="#" class="article-link" data-article="monitoring-setup"><i class="fas fa-chevron-right"></i>Infrastructure Monitoring Setup</a></li>
+                    <li><a href="#" class="article-link" data-article="gpu-setup"><i
+                                class="fas fa-chevron-right"></i>GPU Instance Setup for AI/ML Workloads</a></li>
+                    <li><a href="#" class="article-link" data-article="load-balancing"><i
+                                class="fas fa-chevron-right"></i>Setting Up Load Balancing</a></li>
+                    <li><a href="#" class="article-link" data-article="backup-automation"><i
+                                class="fas fa-chevron-right"></i>Automated Backup Configuration</a></li>
+                    <li><a href="#" class="article-link" data-article="monitoring-setup"><i
+                                class="fas fa-chevron-right"></i>Infrastructure Monitoring Setup</a></li>
                 </ul>
             </div>
 
@@ -606,10 +946,14 @@
                     Security best practices, compliance guidelines, and PIPEDA requirements.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="pipeda-compliance"><i class="fas fa-chevron-right"></i>PIPEDA Compliance Best Practices</a></li>
-                    <li><a href="#" class="article-link" data-article="firewall-config"><i class="fas fa-chevron-right"></i>Firewall Configuration Guide</a></li>
-                    <li><a href="#" class="article-link" data-article="ssl-certificates"><i class="fas fa-chevron-right"></i>SSL Certificate Management</a></li>
-                    <li><a href="#" class="article-link" data-article="vpn-setup"><i class="fas fa-chevron-right"></i>VPN Setup for Secure Access</a></li>
+                    <li><a href="#" class="article-link" data-article="pipeda-compliance"><i
+                                class="fas fa-chevron-right"></i>PIPEDA Compliance Best Practices</a></li>
+                    <li><a href="#" class="article-link" data-article="firewall-config"><i
+                                class="fas fa-chevron-right"></i>Firewall Configuration Guide</a></li>
+                    <li><a href="#" class="article-link" data-article="ssl-certificates"><i
+                                class="fas fa-chevron-right"></i>SSL Certificate Management</a></li>
+                    <li><a href="#" class="article-link" data-article="vpn-setup"><i
+                                class="fas fa-chevron-right"></i>VPN Setup for Secure Access</a></li>
                 </ul>
             </div>
 
@@ -625,10 +969,14 @@
                     Common issues, error messages, and step-by-step solutions.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="connection-issues"><i class="fas fa-chevron-right"></i>VM Connection Issues</a></li>
-                    <li><a href="#" class="article-link" data-article="performance-issues"><i class="fas fa-chevron-right"></i>Performance Troubleshooting</a></li>
-                    <li><a href="#" class="article-link" data-article="storage-issues"><i class="fas fa-chevron-right"></i>Storage and Disk Issues</a></li>
-                    <li><a href="#" class="article-link" data-article="network-issues"><i class="fas fa-chevron-right"></i>Network Connectivity Problems</a></li>
+                    <li><a href="#" class="article-link" data-article="connection-issues"><i
+                                class="fas fa-chevron-right"></i>VM Connection Issues</a></li>
+                    <li><a href="#" class="article-link" data-article="performance-issues"><i
+                                class="fas fa-chevron-right"></i>Performance Troubleshooting</a></li>
+                    <li><a href="#" class="article-link" data-article="storage-issues"><i
+                                class="fas fa-chevron-right"></i>Storage and Disk Issues</a></li>
+                    <li><a href="#" class="article-link" data-article="network-issues"><i
+                                class="fas fa-chevron-right"></i>Network Connectivity Problems</a></li>
                 </ul>
             </div>
 
@@ -644,10 +992,14 @@
                     API documentation, automation scripts, and integration guides.
                 </p>
                 <ul class="article-list">
-                    <li><a href="#" class="article-link" data-article="api-quickstart"><i class="fas fa-chevron-right"></i>API Quick Start Guide</a></li>
-                    <li><a href="#" class="article-link" data-article="terraform-guide"><i class="fas fa-chevron-right"></i>Infrastructure as Code with Terraform</a></li>
-                    <li><a href="#" class="article-link" data-article="ansible-automation"><i class="fas fa-chevron-right"></i>Automation with Ansible</a></li>
-                    <li><a href="#" class="article-link" data-article="ci-cd-integration"><i class="fas fa-chevron-right"></i>CI/CD Pipeline Integration</a></li>
+                    <li><a href="#" class="article-link" data-article="api-quickstart"><i
+                                class="fas fa-chevron-right"></i>API Quick Start Guide</a></li>
+                    <li><a href="#" class="article-link" data-article="terraform-guide"><i
+                                class="fas fa-chevron-right"></i>Infrastructure as Code with Terraform</a></li>
+                    <li><a href="#" class="article-link" data-article="ansible-automation"><i
+                                class="fas fa-chevron-right"></i>Automation with Ansible</a></li>
+                    <li><a href="#" class="article-link" data-article="ci-cd-integration"><i
+                                class="fas fa-chevron-right"></i>CI/CD Pipeline Integration</a></li>
                 </ul>
             </div>
         </div>
@@ -658,7 +1010,7 @@
             <p style="color: #6b7280; margin-bottom: 1.5rem;">
                 Download helpful resources, tools, and documentation to enhance your DataCaboose experience.
             </p>
-            
+
             <div class="downloads-grid">
                 <div class="download-card">
                     <div class="download-header">
@@ -671,7 +1023,8 @@
                         </div>
                     </div>
                     <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
-                        Comprehensive 50-page guide for planning your migration to DataCaboose from other cloud providers.
+                        Comprehensive 50-page guide for planning your migration to DataCaboose from other cloud
+                        providers.
                     </p>
                     <a href="#" class="download-btn" onclick="downloadFile('migration-guide.pdf')">
                         <i class="fas fa-download"></i>Download PDF
@@ -689,7 +1042,8 @@
                         </div>
                     </div>
                     <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
-                        Python, JavaScript, and Go client libraries for the DataCaboose API with examples and documentation.
+                        Python, JavaScript, and Go client libraries for the DataCaboose API with examples and
+                        documentation.
                     </p>
                     <a href="#" class="download-btn" onclick="downloadFile('api-libraries.zip')">
                         <i class="fas fa-download"></i>Download Libraries
@@ -707,7 +1061,8 @@
                         </div>
                     </div>
                     <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
-                        Pre-configured network templates for common use cases including VPN, load balancing, and security groups.
+                        Pre-configured network templates for common use cases including VPN, load balancing, and
+                        security groups.
                     </p>
                     <a href="#" class="download-btn" onclick="downloadFile('network-templates.zip')">
                         <i class="fas fa-download"></i>Download Templates
@@ -761,7 +1116,8 @@
                         </div>
                     </div>
                     <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;">
-                        Interactive Excel spreadsheet to calculate costs and plan your DataCaboose infrastructure budget.
+                        Interactive Excel spreadsheet to calculate costs and plan your DataCaboose infrastructure
+                        budget.
                     </p>
                     <a href="#" class="download-btn" onclick="downloadFile('cost-calculator.xlsx')">
                         <i class="fas fa-download"></i>Download Calculator
@@ -783,7 +1139,7 @@
 
     <script>
         // Cookie Consent Logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cookieConsent = document.getElementById('cookie-consent');
             const acceptBtn = document.getElementById('accept-cookies');
             const declineBtn = document.getElementById('decline-cookies');
@@ -791,7 +1147,7 @@
 
             // Check if user has already made a choice
             const cookieChoice = localStorage.getItem('cookieConsent');
-            
+
             if (!cookieChoice) {
                 // Show popup after a short delay
                 setTimeout(() => {
@@ -799,20 +1155,114 @@
                 }, 1000);
             }
 
-            acceptBtn.addEventListener('click', function() {
+            acceptBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'accepted');
                 cookieConsent.classList.remove('show');
                 console.log('All cookies accepted');
             });
 
-            declineBtn.addEventListener('click', function() {
+            declineBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'declined');
                 cookieConsent.classList.remove('show');
                 console.log('Non-essential cookies declined');
             });
+            // Cookie Preferences Modal functionality
+            const cookieModal = document.getElementById('cookie-preferences-modal');
+            const modalClose = document.getElementById('cookie-modal-close');
+            const acceptSelected = document.getElementById('cookie-accept-selected');
+            const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+            const rejectAll = document.getElementById('cookie-reject-all');
 
-            settingsBtn.addEventListener('click', function() {
-                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            // Update the settings button click handler
+            settingsBtn.addEventListener('click', function () {
+                cookieModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Load current preferences
+                loadCookiePreferences();
+            });
+
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            window.addEventListener('click', function (e) {
+                if (e.target === cookieModal) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                cookieModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Load saved cookie preferences
+            function loadCookiePreferences() {
+                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+
+                document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+                document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+                document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+            }
+
+            // Save cookie preferences
+            function saveCookiePreferences() {
+                const preferences = {
+                    essential: true, // Always true
+                    analytics: document.getElementById('analytics-cookies').checked,
+                    functional: document.getElementById('functional-cookies').checked,
+                    marketing: document.getElementById('marketing-cookies').checked
+                };
+
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                localStorage.setItem('cookieConsent', 'custom');
+
+                console.log('Cookie preferences saved:', preferences);
+                return preferences;
+            }
+
+            // Accept selected cookies
+            acceptSelected.addEventListener('click', function () {
+                const prefs = saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+
+                // You can add logic here to actually enable/disable tracking based on preferences
+                if (prefs.analytics) {
+                    console.log('Analytics cookies enabled');
+                    // Enable Google Analytics or other analytics
+                }
+                if (prefs.functional) {
+                    console.log('Functional cookies enabled');
+                    // Enable functional features
+                }
+                if (prefs.marketing) {
+                    console.log('Marketing cookies enabled');
+                    // Enable marketing tracking
+                }
+            });
+
+            // Accept all cookies from modal
+            acceptAllModal.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = true;
+                document.getElementById('functional-cookies').checked = true;
+                document.getElementById('marketing-cookies').checked = true;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All cookies accepted from modal');
+            });
+
+            // Reject all non-essential cookies
+            rejectAll.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = false;
+                document.getElementById('functional-cookies').checked = false;
+                document.getElementById('marketing-cookies').checked = false;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All non-essential cookies rejected');
             });
         });
 
@@ -1100,34 +1550,34 @@ mysql -h datacaboose-db-ip -u username -p database_name < backup.sql</code></pre
 
                     <h4>Data Collection and Consent</h4>
                     <ul>
-                        <li>☐ Clearly identify purposes for personal information collection</li>
-                        <li>☐ Obtain meaningful consent before collecting personal information</li>
-                        <li>☐ Provide clear, understandable privacy policies</li>
-                        <li>☐ Limit collection to what is necessary for identified purposes</li>
+                        <li>• Clearly identify purposes for personal information collection</li>
+                        <li>• Obtain meaningful consent before collecting personal information</li>
+                        <li>• Provide clear, understandable privacy policies</li>
+                        <li>• Limit collection to what is necessary for identified purposes</li>
                     </ul>
 
                     <h4>Data Storage and Security</h4>
                     <ul>
-                        <li>☐ Store all personal information on DataCaboose Canadian servers</li>
-                        <li>☐ Enable encryption for all sensitive data</li>
-                        <li>☐ Implement strong access controls and authentication</li>
-                        <li>☐ Regular security assessments and updates</li>
+                        <li>• Store all personal information on DataCaboose Canadian servers</li>
+                        <li>• Enable encryption for all sensitive data</li>
+                        <li>• Implement strong access controls and authentication</li>
+                        <li>• Regular security assessments and updates</li>
                     </ul>
 
                     <h4>Data Management</h4>
                     <ul>
-                        <li>☐ Maintain accurate and up-to-date personal information</li>
-                        <li>☐ Establish data retention and deletion policies</li>
-                        <li>☐ Document all data processing activities</li>
-                        <li>☐ Train staff on privacy and data protection requirements</li>
+                        <li>• Maintain accurate and up-to-date personal information</li>
+                        <li>• Establish data retention and deletion policies</li>
+                        <li>• Document all data processing activities</li>
+                        <li>• Train staff on privacy and data protection requirements</li>
                     </ul>
 
                     <h4>Individual Rights</h4>
                     <ul>
-                        <li>☐ Provide mechanisms for individuals to access their data</li>
-                        <li>☐ Enable data portability and correction requests</li>
-                        <li>☐ Implement data deletion procedures</li>
-                        <li>☐ Establish complaint handling procedures</li>
+                        <li>• Provide mechanisms for individuals to access their data</li>
+                        <li>• Enable data portability and correction requests</li>
+                        <li>• Implement data deletion procedures</li>
+                        <li>• Establish complaint handling procedures</li>
                     </ul>
 
                     <h3>DataCaboose Compliance Tools</h3>
@@ -1182,7 +1632,668 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
 
                     <p>For detailed compliance assistance, contact our Privacy Team at privacy@datacaboose.com</p>
                 `
-            }
+            },
+            'gpu-setup': {
+                title: 'GPU Instance Setup for AI/ML Workloads',
+                content: `
+        <h3>GPU-Powered AI/ML on DataCaboose</h3>
+        <p>DataCaboose offers RTX 4060+ GPU instances specifically designed for machine learning, AI development, and high-performance computing workloads. This guide will help you set up and optimize your GPU instance for maximum performance.</p>
+
+        <h3>Step 1: Choose Your GPU Configuration</h3>
+        <p>GPU instances are available as add-ons to our Power and Pro VM configurations:</p>
+        <ul>
+            <li><strong>Power + GPU:</strong> 4 vCPU, 24GB RAM, RTX 4060 Ti - $229/month</li>
+            <li><strong>Power+ + GPU:</strong> 4 vCPU, 24GB RAM, RTX 4070 - $259/month</li>
+            <li><strong>Pro + GPU:</strong> 6 vCPU, 32GB RAM, RTX 4080 - $289/month</li>
+            <li><strong>Custom Enterprise:</strong> Up to 16 vCPU, 128GB RAM, RTX 4090 - Contact us</li>
+        </ul>
+
+        <h3>Step 2: Operating System Selection</h3>
+        <p>For optimal GPU performance, we recommend:</p>
+        <ul>
+            <li><strong>Ubuntu 22.04 LTS:</strong> Best compatibility with ML frameworks</li>
+            <li><strong>Ubuntu 20.04 LTS:</strong> Stable option for legacy projects</li>
+            <li><strong>Windows 11 Pro:</strong> For Windows-based ML tools (+$15/month)</li>
+            <li><strong>CentOS Stream 9:</strong> Enterprise-grade stability</li>
+        </ul>
+
+        <h3>Step 3: Initial GPU Setup (Ubuntu)</h3>
+        <p>Once your instance is deployed, connect via SSH and install the NVIDIA drivers:</p>
+        <pre><code># Update system packages
+sudo apt update && sudo apt upgrade -y
+
+# Install NVIDIA drivers
+sudo apt install nvidia-driver-535 nvidia-utils-535
+
+# Reboot to load drivers
+sudo reboot
+
+# Verify GPU detection
+nvidia-smi</code></pre>
+
+        <h3>Step 4: Install CUDA Toolkit</h3>
+        <pre><code># Download and install CUDA 12.2
+wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run
+sudo sh cuda_12.2.0_535.54.03_linux.run
+
+# Add CUDA to PATH
+echo 'export PATH=/usr/local/cuda-12.2/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Verify CUDA installation
+nvcc --version</code></pre>
+
+        <h3>Step 5: Install Machine Learning Frameworks</h3>
+        <p>Set up popular ML frameworks with GPU support:</p>
+
+        <h4>PyTorch with CUDA</h4>
+        <pre><code># Install Python and pip
+sudo apt install python3-pip python3-venv
+
+# Create virtual environment
+python3 -m venv ml-env
+source ml-env/bin/activate
+
+# Install PyTorch with CUDA support
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# Test PyTorch GPU access
+python3 -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU count: {torch.cuda.device_count()}')"</code></pre>
+
+        <h4>TensorFlow with GPU</h4>
+        <pre><code># Install TensorFlow
+pip install tensorflow[and-cuda]
+
+# Test TensorFlow GPU access
+python3 -c "import tensorflow as tf; print('GPU devices:', tf.config.list_physical_devices('GPU'))"</code></pre>
+
+        <h3>Step 6: Performance Optimization</h3>
+        <ul>
+            <li><strong>Memory Management:</strong> Monitor GPU memory usage with <code>nvidia-smi</code></li>
+            <li><strong>Batch Size Tuning:</strong> Start with smaller batches and increase until you hit memory limits</li>
+            <li><strong>Mixed Precision:</strong> Use FP16 training to double your effective memory</li>
+            <li><strong>Data Pipeline:</strong> Optimize data loading to keep GPU busy</li>
+        </ul>
+
+        <h3>Common ML/AI Use Cases</h3>
+        <ul>
+            <li><strong>Computer Vision:</strong> Image classification, object detection, segmentation</li>
+            <li><strong>Natural Language Processing:</strong> Fine-tuning transformers, text generation</li>
+            <li><strong>Generative AI:</strong> Stable Diffusion, DALL-E style models</li>
+            <li><strong>Reinforcement Learning:</strong> Game AI, robotics simulations</li>
+            <li><strong>Scientific Computing:</strong> Molecular dynamics, climate modeling</li>
+        </ul>
+
+        <h3>Monitoring and Maintenance</h3>
+        <pre><code># Monitor GPU utilization
+watch -n 1 nvidia-smi
+
+# Check GPU temperature and power
+nvidia-smi --query-gpu=temperature.gpu,power.draw --format=csv
+
+# Log GPU metrics
+nvidia-smi --query-gpu=timestamp,name,utilization.gpu,memory.used,memory.total --format=csv --loop=60 > gpu_metrics.log</code></pre>
+
+        <h3>Cost Optimization Tips</h3>
+        <ul>
+            <li><strong>Scheduled Training:</strong> Run intensive training during off-peak hours</li>
+            <li><strong>Snapshot Management:</strong> Use our backup service to save training checkpoints</li>
+            <li><strong>Auto-scaling:</strong> Contact support for custom auto-scaling solutions</li>
+            <li><strong>Spot Instances:</strong> Ask about discounted GPU time for non-critical workloads</li>
+        </ul>
+
+        <h3>Getting Help</h3>
+        <p>Need assistance with your GPU setup?</p>
+        <ul>
+            <li>Check our <a href="#" data-article="connection-issues">Connection Troubleshooting</a> guide</li>
+            <li>Contact our GPU specialists at gpu-support@datacaboose.com</li>
+            <li>Schedule a consultation for custom ML infrastructure</li>
+            <li>Join our AI/ML community forum for peer support</li>
+        </ul>
+
+        <p><strong>Pro Tip:</strong> All DataCaboose GPU instances include Canadian data residency guarantees, making them perfect for AI projects with sensitive data or regulatory requirements.</p>
+    `
+            },
+
+            'connection-issues': {
+                title: 'VM Connection Issues',
+                content: `
+        <h3>Troubleshooting VM Connection Problems</h3>
+        <p>Having trouble connecting to your DataCaboose VM? This comprehensive guide will help you diagnose and resolve the most common connection issues quickly and efficiently.</p>
+
+        <h3>Quick Diagnosis Checklist</h3>
+        <p>Before diving into detailed troubleshooting, verify these basics:</p>
+        <ul>
+            <li>✓ VM status shows "Running" in DataCaboose dashboard</li>
+            <li>✓ You have the correct IP address</li>
+            <li>✓ Your internet connection is stable</li>
+            <li>✓ No local firewall blocking the connection</li>
+            <li>✓ Using correct username and authentication method</li>
+        </ul>
+
+        <h3>SSH Connection Issues (Linux/macOS)</h3>
+        
+        <h4>Problem: "Connection refused" or "Connection timed out"</h4>
+        <p><strong>Solution 1:</strong> Verify SSH service is running</p>
+        <pre><code># Connect via DataCaboose web console first
+sudo systemctl status ssh
+sudo systemctl start ssh
+sudo systemctl enable ssh</code></pre>
+
+        <p><strong>Solution 2:</strong> Check firewall settings</p>
+        <pre><code># Ubuntu/Debian firewall check
+sudo ufw status
+sudo ufw allow ssh
+sudo ufw allow 22/tcp
+
+# CentOS/RHEL firewall check
+sudo firewall-cmd --list-all
+sudo firewall-cmd --add-service=ssh --permanent
+sudo firewall-cmd --reload</code></pre>
+
+        <h4>Problem: "Permission denied (publickey)"</h4>
+        <p><strong>Solution:</strong> SSH key authentication issues</p>
+        <pre><code># Check if your key is loaded
+ssh-add -l
+
+# Add your private key to SSH agent
+ssh-add ~/.ssh/id_rsa
+
+# Connect with verbose output for debugging
+ssh -v -i ~/.ssh/your-key.pem ubuntu@your-vm-ip
+
+# Alternative: Use password authentication temporarily
+ssh -o PreferredAuthentications=password ubuntu@your-vm-ip</code></pre>
+
+        <h4>Problem: "Host key verification failed"</h4>
+        <p><strong>Solution:</strong> Remove old host key and accept new one</p>
+        <pre><code># Remove old host key
+ssh-keygen -R your-vm-ip
+
+# Connect again and accept new host key
+ssh ubuntu@your-vm-ip</code></pre>
+
+        <h3>RDP Connection Issues (Windows)</h3>
+
+        <h4>Problem: "Remote Desktop can't connect"</h4>
+        <p><strong>Solution 1:</strong> Enable Remote Desktop on the VM</p>
+        <ul>
+            <li>Connect via DataCaboose web console</li>
+            <li>Go to Settings → System → Remote Desktop</li>
+            <li>Enable "Enable Remote Desktop"</li>
+            <li>Add your user account to Remote Desktop Users group</li>
+        </ul>
+
+        <p><strong>Solution 2:</strong> Configure Windows Firewall</p>
+        <pre><code># Run in Command Prompt as Administrator
+netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+netsh advfirewall firewall add rule name="RDP" protocol=TCP dir=in localport=3389 action=allow</code></pre>
+
+        <h4>Problem: "Your credentials did not work"</h4>
+        <p><strong>Solution:</strong> Reset user password via web console</p>
+        <ul>
+            <li>Access VM via DataCaboose web console</li>
+            <li>Open Command Prompt as Administrator</li>
+            <li>Run: <code>net user Administrator NewPassword123!</code></li>
+            <li>Try RDP connection again with new password</li>
+        </ul>
+
+        <h3>Web Console Access</h3>
+        <p>When SSH/RDP fails, use DataCaboose web console as a backup:</p>
+        <ul>
+            <li>Log in to your DataCaboose dashboard</li>
+            <li>Navigate to Virtual Machines</li>
+            <li>Click "Console" next to your VM</li>
+            <li>Use this for emergency access and troubleshooting</li>
+        </ul>
+
+        <h3>Network Configuration Issues</h3>
+
+        <h4>Problem: VM not getting IP address</h4>
+        <p><strong>Solution:</strong> Check network configuration</p>
+        <pre><code># Ubuntu: Check network interface
+sudo ip addr show
+sudo dhclient -v
+
+# CentOS: Restart network service
+sudo systemctl restart NetworkManager
+sudo nmcli connection show</code></pre>
+
+        <h4>Problem: Can ping but can't connect to services</h4>
+        <p><strong>Solution:</strong> Check port accessibility</p>
+        <pre><code># Test specific ports from your local machine
+telnet your-vm-ip 22    # SSH
+telnet your-vm-ip 3389  # RDP
+telnet your-vm-ip 80    # HTTP
+
+# On the VM, check listening ports
+sudo netstat -tulpn | grep LISTEN
+sudo ss -tulpn | grep LISTEN</code></pre>
+
+        <h3>DataCaboose Security Group Settings</h3>
+        <p>Verify your VM's security group allows the necessary traffic:</p>
+        <ul>
+            <li><strong>SSH (Port 22):</strong> Required for Linux connections</li>
+            <li><strong>RDP (Port 3389):</strong> Required for Windows Remote Desktop</li>
+            <li><strong>HTTP (Port 80):</strong> For web applications</li>
+            <li><strong>HTTPS (Port 443):</strong> For secure web applications</li>
+            <li><strong>Custom Ports:</strong> For specific applications</li>
+        </ul>
+
+        <h3>DNS and Hostname Issues</h3>
+        <p>If you're having DNS-related connection problems:</p>
+        <pre><code># Check DNS resolution
+nslookup your-vm-hostname
+dig your-vm-hostname
+
+# Test direct IP connection
+ping your-vm-ip
+
+# Check /etc/hosts for conflicts (Linux)
+cat /etc/hosts</code></pre>
+
+        <h3>Performance-Related Connection Issues</h3>
+
+        <h4>Problem: Slow or laggy connections</h4>
+        <p><strong>Solutions:</strong></p>
+        <ul>
+            <li><strong>SSH:</strong> Enable compression with <code>ssh -C username@host</code></li>
+            <li><strong>RDP:</strong> Reduce color depth and disable visual effects</li>
+            <li><strong>General:</strong> Check VM resource usage in DataCaboose dashboard</li>
+            <li><strong>Network:</strong> Test connection during different times of day</li>
+        </ul>
+
+        <h3>Advanced Troubleshooting</h3>
+
+        <h4>Enable SSH Debug Logging</h4>
+        <pre><code># On the VM, enable verbose SSH logging
+sudo sed -i 's/#LogLevel INFO/LogLevel DEBUG/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+
+# Check logs
+sudo tail -f /var/log/auth.log  # Ubuntu/Debian
+sudo tail -f /var/log/secure    # CentOS/RHEL</code></pre>
+
+        <h4>Network Packet Analysis</h4>
+        <pre><code># Capture packets on the VM
+sudo tcpdump -i any port 22 or port 3389
+
+# Analyze connection attempts
+sudo tcpdump -i any host your-client-ip</code></pre>
+
+        <h3>When to Contact Support</h3>
+        <p>Contact DataCaboose support if you experience:</p>
+        <ul>
+            <li>Persistent connection failures after following this guide</li>
+            <li>VM status stuck in "Starting" or "Stopping"</li>
+            <li>Suspected hardware or infrastructure issues</li>
+            <li>Security group modifications not taking effect</li>
+            <li>Need assistance with complex network configurations</li>
+        </ul>
+
+        <h3>Prevention Tips</h3>
+        <ul>
+            <li><strong>Regular Backups:</strong> Use DataCaboose backup service</li>
+            <li><strong>Multiple Access Methods:</strong> Configure both SSH keys and passwords</li>
+            <li><strong>Documentation:</strong> Keep a record of your VM configurations</li>
+            <li><strong>Monitoring:</strong> Set up alerts for VM availability</li>
+            <li><strong>Testing:</strong> Regularly test your connection methods</li>
+        </ul>
+
+        <h3>Emergency Access</h3>
+        <p>If all else fails:</p>
+        <ul>
+            <li>Use DataCaboose web console for direct access</li>
+            <li>Contact support for emergency assistance: +1 (555) 123-4567</li>
+            <li>Consider creating a new VM and restoring from backup</li>
+        </ul>
+
+        <p><strong>Remember:</strong> DataCaboose VMs benefit from Canadian data center reliability and our 24/7 bilingual support team is always ready to help with connection issues.</p>
+    `
+            },
+
+            'api-quickstart': {
+                title: 'API Quick Start Guide',
+                content: `
+        <h3>DataCaboose API Quick Start</h3>
+        <p>The DataCaboose API allows you to programmatically manage your cloud infrastructure, automate deployments, and integrate with your existing tools. This guide will get you up and running in minutes.</p>
+
+        <h3>Getting Your API Credentials</h3>
+        <p>First, generate your API credentials from the DataCaboose dashboard:</p>
+        <ul>
+            <li>Log in to your DataCaboose account</li>
+            <li>Navigate to Account → API Keys</li>
+            <li>Click "Generate New API Key"</li>
+            <li>Copy your API Key and Secret immediately (secret shown only once)</li>
+            <li>Set appropriate permissions for your use case</li>
+        </ul>
+
+        <h3>API Endpoint and Authentication</h3>
+        <p>All API requests are made to our Canadian endpoints:</p>
+        <pre><code># Base URL
+https://api.datacaboose.com/v1/
+
+# Authentication Header
+Authorization: Bearer YOUR_API_KEY
+
+# Content Type (for POST/PUT requests)
+Content-Type: application/json</code></pre>
+
+        <h3>Quick Test: Get Account Information</h3>
+        <p>Test your API connection with a simple account info request:</p>
+        <pre><code># Using cURL
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.datacaboose.com/v1/account
+
+# Expected Response
+{
+  "id": "acc_1234567890",
+  "name": "Your Company Name",
+  "email": "you@example.com",
+  "plan": "Business",
+  "data_center": "Toronto",
+  "status": "active"
+}</code></pre>
+
+        <h3>Virtual Machine Management</h3>
+
+        <h4>List All VMs</h4>
+        <pre><code>GET /v1/vms
+
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.datacaboose.com/v1/vms</code></pre>
+
+        <h4>Create a New VM</h4>
+        <pre><code>POST /v1/vms
+
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "name": "my-web-server",
+       "plan": "power",
+       "os": "ubuntu-22.04",
+       "data_center": "toronto",
+       "ssh_keys": ["ssh-rsa AAAAB3..."],
+       "gpu": false
+     }' \
+     https://api.datacaboose.com/v1/vms</code></pre>
+
+        <h4>Get VM Details</h4>
+        <pre><code>GET /v1/vms/{vm_id}
+
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.datacaboose.com/v1/vms/vm_1234567890</code></pre>
+
+        <h4>VM Actions (Start/Stop/Restart)</h4>
+        <pre><code>POST /v1/vms/{vm_id}/actions
+
+# Start VM
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "start"}' \
+     https://api.datacaboose.com/v1/vms/vm_1234567890/actions
+
+# Stop VM
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "stop"}' \
+     https://api.datacaboose.com/v1/vms/vm_1234567890/actions
+
+# Restart VM
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "restart"}' \
+     https://api.datacaboose.com/v1/vms/vm_1234567890/actions</code></pre>
+
+        <h3>Python SDK Example</h3>
+        <p>For easier integration, use our official Python SDK:</p>
+        <pre><code># Install the SDK
+pip install datacaboose
+
+# Basic usage
+import datacaboose
+
+# Initialize client
+client = datacaboose.Client(api_key='YOUR_API_KEY')
+
+# List VMs
+vms = client.vms.list()
+print(f"You have {len(vms)} VMs")
+
+# Create a new VM
+new_vm = client.vms.create(
+    name="api-test-vm",
+    plan="power",
+    os="ubuntu-22.04",
+    data_center="toronto"
+)
+print(f"Created VM: {new_vm.id}")
+
+# Wait for VM to be ready
+new_vm.wait_for_status('active', timeout=300)
+
+# Get VM IP address
+print(f"VM IP: {new_vm.public_ip}")
+
+# Clean up
+new_vm.delete()</code></pre>
+
+        <h3>Node.js SDK Example</h3>
+        <pre><code># Install the SDK
+npm install @datacaboose/api
+
+// Basic usage
+const DataCaboose = require('@datacaboose/api');
+
+const client = new DataCaboose({
+    apiKey: 'YOUR_API_KEY'
+});
+
+// Create and manage VMs
+async function manageVMs() {
+    try {
+        // List existing VMs
+        const vms = await client.vms.list();
+       console.log(\`You have \${ vms.length } VMs\`);
+
+        // Create new VM
+        const newVM = await client.vms.create({
+            name: 'nodejs-api-vm',
+            plan: 'power',
+            os: 'ubuntu-22.04',
+            dataCenter: 'vancouver'
+        });
+
+        console.log(\`Created VM: \${ newVM.id } \`);
+        
+        // Wait for active status
+        await newVM.waitForStatus('active');
+        console.log(\`VM is ready: \${ newVM.publicIP } \`);
+        
+    } catch (error) {
+        console.error('API Error:', error.message);
+    }
+}
+
+manageVMs();</code></pre>
+
+        <h3>Terraform Integration</h3>
+        <p>Use our Terraform provider for Infrastructure as Code:</p>
+        <pre><code># Configure the DataCaboose Provider
+terraform {
+  required_providers {
+    datacaboose = {
+      source  = "datacaboose/datacaboose"
+      version = "~> 1.0"
+    }
+  }
+}
+
+provider "datacaboose" {
+  api_key = var.datacaboose_api_key
+}
+
+# Create a VM
+resource "datacaboose_vm" "web_server" {
+  name        = "terraform-web-server"
+  plan        = "power"
+  os          = "ubuntu-22.04"
+  data_center = "montreal"
+  
+  ssh_keys = [
+    datacaboose_ssh_key.main.id
+  ]
+  
+  tags = {
+    Environment = "production"
+    Team        = "web"
+  }
+}
+
+# Output the VM's IP address
+output "vm_ip" {
+  value = datacaboose_vm.web_server.public_ip
+}</code></pre>
+
+        <h3>Monitoring and Metrics API</h3>
+        <pre><code># Get VM metrics
+GET /v1/vms/{vm_id}/metrics
+
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     "https://api.datacaboose.com/v1/vms/vm_1234567890/metrics?period=1h"
+
+# Response includes CPU, memory, disk, and network metrics
+{
+  "vm_id": "vm_1234567890",
+  "period": "1h",
+  "metrics": {
+    "cpu_usage": [
+      {"timestamp": "2024-01-15T10:00:00Z", "value": 25.5},
+      {"timestamp": "2024-01-15T10:05:00Z", "value": 30.2}
+    ],
+    "memory_usage": [...],
+    "disk_usage": [...],
+    "network_in": [...],
+    "network_out": [...]
+  }
+}</code></pre>
+
+        <h3>Backup Management</h3>
+        <pre><code># Create a backup
+POST /v1/vms/{vm_id}/backups
+
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"name": "pre-update-backup"}' \
+     https://api.datacaboose.com/v1/vms/vm_1234567890/backups
+
+# List backups
+GET /v1/vms/{vm_id}/backups
+
+# Restore from backup
+POST /v1/vms/{vm_id}/restore
+
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"backup_id": "backup_9876543210"}' \
+     https://api.datacaboose.com/v1/vms/vm_1234567890/restore</code></pre>
+
+        <h3>Webhook Integration</h3>
+        <p>Set up webhooks to receive real-time notifications:</p>
+        <pre><code># Configure a webhook endpoint
+POST /v1/webhooks
+
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "url": "https://your-app.com/datacaboose-webhook",
+       "events": ["vm.created", "vm.status_changed", "backup.completed"],
+       "secret": "your-webhook-secret"
+     }' \
+     https://api.datacaboose.com/v1/webhooks</code></pre>
+
+        <h3>Error Handling</h3>
+        <p>The API uses standard HTTP status codes and returns detailed error messages:</p>
+        <pre><code># Common HTTP Status Codes
+200 - Success
+201 - Created
+400 - Bad Request (invalid parameters)
+401 - Unauthorized (invalid API key)
+404 - Not Found (resource doesn't exist)
+429 - Rate Limit Exceeded
+500 - Internal Server Error
+
+# Error Response Format
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "The specified plan 'invalid-plan' is not available",
+    "details": {
+      "field": "plan",
+      "allowed_values": ["starter", "power", "power+", "pro"]
+    }
+  }
+}</code></pre>
+
+        <h3>Rate Limiting</h3>
+        <p>API requests are rate limited to ensure fair usage:</p>
+        <ul>
+            <li><strong>Standard accounts:</strong> 1,000 requests/hour</li>
+            <li><strong>Business accounts:</strong> 5,000 requests/hour</li>
+            <li><strong>Enterprise accounts:</strong> 25,000 requests/hour</li>
+            <li><strong>Rate limit headers:</strong> Check X-RateLimit-* headers in responses</li>
+        </ul>
+
+        <h3>Best Practices</h3>
+        <ul>
+            <li><strong>Store API keys securely:</strong> Use environment variables, never commit to code</li>
+            <li><strong>Implement retry logic:</strong> Handle temporary failures gracefully</li>
+            <li><strong>Use pagination:</strong> For large result sets, use limit/offset parameters</li>
+            <li><strong>Monitor usage:</strong> Track your API usage via the dashboard</li>
+            <li><strong>Version pinning:</strong> Always specify API version in your requests</li>
+        </ul>
+
+        <h3>Automation Examples</h3>
+
+        <h4>Auto-scaling Script</h4>
+        <pre><code>#!/bin/bash
+# Simple auto-scaling based on CPU usage
+
+API_KEY="your-api-key"
+VM_ID="vm_1234567890"
+
+# Get current CPU usage
+CPU_USAGE=$(curl -s -H "Authorization: Bearer $API_KEY" \
+    "https://api.datacaboose.com/v1/vms/$VM_ID/metrics?period=5m" | \
+    jq '.metrics.cpu_usage[-1].value')
+
+echo "Current CPU usage: $CPU_USAGE%"
+
+if (( $(echo "$CPU_USAGE > 80" | bc -l) )); then
+    echo "High CPU detected, scaling up..."
+    # Implement your scaling logic here
+fi</code></pre>
+
+        <h3>Getting Help</h3>
+        <ul>
+            <li><strong>API Documentation:</strong> Full reference at <a href="https://docs.datacaboose.com/api">docs.datacaboose.com/api</a></li>
+            <li><strong>SDK Documentation:</strong> Language-specific guides and examples</li>
+            <li><strong>Support:</strong> Email api-support@datacaboose.com for technical issues</li>
+            <li><strong>Community:</strong> Join our developer Discord for peer support</li>
+            <li><strong>Status Page:</strong> Check api-status.datacaboose.com for service status</li>
+        </ul>
+
+        <p><strong>Next Steps:</strong> Explore our <a href="#" data-article="terraform-guide">Terraform Integration Guide</a> or learn about <a href="#" data-article="ci-cd-integration">CI/CD Pipeline Integration</a> for advanced automation.</p>
+    `
+}
         };
 
         // Search functionality
@@ -1190,9 +2301,9 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
         const categoryCards = document.querySelectorAll('.category-card');
         const articleLinks = document.querySelectorAll('.article-link');
 
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             const searchTerm = this.value.toLowerCase();
-            
+
             if (searchTerm === '') {
                 // Show all categories when search is empty
                 categoryCards.forEach(card => {
@@ -1204,7 +2315,7 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
             categoryCards.forEach(card => {
                 const title = card.querySelector('.category-title').textContent.toLowerCase();
                 const description = card.querySelector('.category-description').textContent.toLowerCase();
-                const articles = Array.from(card.querySelectorAll('.article-link')).map(link => 
+                const articles = Array.from(card.querySelectorAll('.article-link')).map(link =>
                     link.textContent.toLowerCase()
                 ).join(' ');
 
@@ -1223,7 +2334,7 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
 
         // Article link handlers
         articleLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const articleId = this.getAttribute('data-article');
                 showArticle(articleId);
@@ -1243,13 +2354,13 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
         }
 
         // Close modal
-        closeBtn.addEventListener('click', function() {
+        closeBtn.addEventListener('click', function () {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         });
 
         // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
+        window.addEventListener('click', function (e) {
             if (e.target === modal) {
                 modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
@@ -1262,13 +2373,13 @@ curl -X DELETE "https://api.datacaboose.com/v1/user-data" \
             const link = document.createElement('a');
             link.href = '#';
             link.download = filename;
-            
+
             // Show download started message
             alert(`Download started: ${filename}\n\nIn a real implementation, this would download the actual file.`);
         }
 
         // Handle article links within modal content
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (e.target.matches('a[data-article]')) {
                 e.preventDefault();
                 const articleId = e.target.getAttribute('data-article');

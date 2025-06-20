@@ -30,7 +30,8 @@
             line-height: 1.7;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
         }
@@ -204,6 +205,205 @@
             color: var(--bg-dark);
         }
 
+        /* Cookie Preferences Modal */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cookie-modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-modal-close:hover {
+            color: var(--primary);
+        }
+
+        .cookie-modal-body {
+            padding: 2rem;
+        }
+
+        .cookie-modal-intro {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cookie-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-category-header h4 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-category-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .cookie-toggle {
+            position: relative;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label:hover {
+            background-color: #bbb;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label {
+            background-color: #10b981;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label:hover {
+            background-color: #10b981;
+        }
+
+        .cookie-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .cookie-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .cookie-modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-modal-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cookie-modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .cookie-modal-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .cookie-modal-btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         @media (min-width: 768px) {
             .cookie-consent-content {
                 flex-direction: row;
@@ -224,6 +424,7 @@
 
             .legal-content h1 {
                 font-size: 2rem;
+                margin-top: 35px;
             }
 
             .legal-content h2 {
@@ -237,6 +438,34 @@
             .cookie-btn {
                 flex: 1;
                 min-width: 120px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .cookie-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .cookie-modal-header,
+            .cookie-modal-body,
+            .cookie-modal-footer {
+                padding: 1rem;
+            }
+
+            .cookie-category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .cookie-modal-footer {
+                flex-direction: column;
+            }
+
+            .cookie-modal-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -268,7 +497,9 @@
         <div class="cookie-consent-content">
             <div>
                 <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
-                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
             </div>
             <div class="cookie-buttons">
                 <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
@@ -278,43 +509,155 @@
         </div>
     </div>
 
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Preferences</h3>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
+                    which
+                    types of cookies to allow:</p>
+
+                <!-- Essential Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Essential Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="essential-cookies" checked disabled>
+                            <label for="essential-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually
+                        set in response to actions made by you which amount to a request for services, such as setting
+                        your
+                        privacy preferences, logging in, or filling in forms.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Analytics Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="analytics-cookies">
+                            <label for="analytics-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies help us understand how visitors interact with our website by collecting and
+                        reporting
+                        information anonymously. We use Google Analytics to measure website performance and improve user
+                        experience.
+                    </p>
+                </div>
+
+                <!-- Functional Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Functional Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="functional-cookies">
+                            <label for="functional-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies enable enhanced functionality and personalization, such as remembering your
+                        preferences, language settings, and providing live chat support.
+                    </p>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Marketing Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="marketing-cookies">
+                            <label for="marketing-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies track visitors across websites to display relevant advertisements and measure
+                        campaign
+                        effectiveness. We do not use third-party marketing cookies, but may use them for our own
+                        marketing
+                        analysis.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookie-accept-selected" class="cookie-modal-btn cookie-modal-btn-primary">Accept
+                    Selected</button>
+                <button id="cookie-accept-all-modal" class="cookie-modal-btn cookie-modal-btn-secondary">Accept
+                    All</button>
+                <button id="cookie-reject-all" class="cookie-modal-btn cookie-modal-btn-outline">Reject All</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="legal-content">
         <h1>Privacy Policy</h1>
         <p class="effective-date"><strong>Effective Date:</strong> January 15, 2025</p>
-        
-        <p>This Privacy Policy explains how <strong>DataCaboose</strong> (a service provided by <strong>DataCaboose</strong>) collects, uses, and protects your personal information in accordance with Canadian privacy laws including PIPEDA.</p>
+
+        <p>This Privacy Policy explains how <strong>DataCaboose</strong> (a service provided by
+            <strong>DataCaboose</strong>) collects, uses, and protects your personal information in accordance with
+            Canadian privacy laws including PIPEDA.</p>
 
         <div class="highlight-box">
-            <p>🍁 Your data stays in Canada, always. We are committed to Canadian digital sovereignty and protecting your privacy under Canadian law.</p>
+            <p>🍁 Your data stays in Canada, always. We are committed to Canadian digital sovereignty and protecting
+                your privacy under Canadian law.</p>
         </div>
 
         <h2>1. What Information We Collect</h2>
         <p>We collect the following types of information to provide and improve our Canadian cloud services:</p>
         <ul>
-            <li><strong>Account Information:</strong> Name, email address, company name, phone number, and billing address</li>
-            <li><strong>Billing and Payment Details:</strong> Credit card information, billing history, and payment preferences (processed securely by Canadian payment processors)</li>
-            <li><strong>Technical Data:</strong> IP address, browser type, device information, usage patterns, and service performance metrics</li>
-            <li><strong>Support Communications:</strong> Messages, tickets, phone calls, and account preferences related to customer support</li>
-            <li><strong>Infrastructure Metadata:</strong> Virtual machine configurations, resource usage, system logs, and backup schedules</li>
+            <li><strong>Account Information:</strong> Name, email address, company name, phone number, and billing
+                address</li>
+            <li><strong>Billing and Payment Details:</strong> Credit card information, billing history, and payment
+                preferences (processed securely by Canadian payment processors)</li>
+            <li><strong>Technical Data:</strong> IP address, browser type, device information, usage patterns, and
+                service performance metrics</li>
+            <li><strong>Support Communications:</strong> Messages, tickets, phone calls, and account preferences related
+                to customer support</li>
+            <li><strong>Infrastructure Metadata:</strong> Virtual machine configurations, resource usage, system logs,
+                and backup schedules</li>
             <li><strong>Geographic Data:</strong> Data center selection preferences and latency optimization data</li>
         </ul>
-        
+
         <div class="highlight-box">
-            <p><strong>Important:</strong> We do NOT collect or require Social Insurance Numbers, driver's license numbers, or other sensitive government-issued personal identifiers unless legally required.</p>
+            <p><strong>Important:</strong> We do NOT collect or require Social Insurance Numbers, driver's license
+                numbers, or other sensitive government-issued personal identifiers unless legally required.</p>
         </div>
 
         <h2>2. How We Use Your Information</h2>
         <p>We use your information solely for the following legitimate business purposes:</p>
         <ul>
-            <li><strong>Service Provision:</strong> Provide and manage access to your virtual machines, dedicated compute units, and cloud infrastructure</li>
-            <li><strong>Billing and Administration:</strong> Process payments, generate invoices, and manage your subscription</li>
-            <li><strong>Customer Support:</strong> Respond to support requests, provide technical assistance, and resolve service issues</li>
-            <li><strong>Service Communications:</strong> Send important service announcements, security alerts, billing notices, and system maintenance updates</li>
-            <li><strong>Performance Optimization:</strong> Monitor and improve system performance, security, and overall customer experience</li>
+            <li><strong>Service Provision:</strong> Provide and manage access to your virtual machines, dedicated
+                compute units, and cloud infrastructure</li>
+            <li><strong>Billing and Administration:</strong> Process payments, generate invoices, and manage your
+                subscription</li>
+            <li><strong>Customer Support:</strong> Respond to support requests, provide technical assistance, and
+                resolve service issues</li>
+            <li><strong>Service Communications:</strong> Send important service announcements, security alerts, billing
+                notices, and system maintenance updates</li>
+            <li><strong>Performance Optimization:</strong> Monitor and improve system performance, security, and overall
+                customer experience</li>
             <li><strong>Legal Compliance:</strong> Meet our obligations under Canadian federal and provincial laws</li>
         </ul>
-        
+
         <p><strong>We do NOT:</strong></p>
         <ul>
             <li>Sell or share your personal information with third parties for advertising purposes</li>
@@ -328,14 +671,17 @@
         <ul>
             <li><strong>Essential Functions:</strong> User authentication, session management, and security</li>
             <li><strong>Performance Monitoring:</strong> Service performance tracking and system optimization</li>
-            <li><strong>Analytics:</strong> Understanding usage patterns to improve our services (anonymized data only)</li>
+            <li><strong>Analytics:</strong> Understanding usage patterns to improve our services (anonymized data only)
+            </li>
             <li><strong>User Preferences:</strong> Remembering your settings and preferences</li>
         </ul>
-        <p>You can control cookie settings in your browser. Disabling certain cookies may affect some functionality of our services.</p>
+        <p>You can control cookie settings in your browser. Disabling certain cookies may affect some functionality of
+            our services.</p>
 
         <h2>4. Data Residency and Sovereignty</h2>
         <div class="highlight-box">
-            <p>ALL customer data, including personal information and stored content, is hosted and processed exclusively within Canada across our data centers in Toronto, Vancouver, and Montreal.</p>
+            <p>ALL customer data, including personal information and stored content, is hosted and processed exclusively
+                within Canada across our data centers in Toronto, Vancouver, and Montreal.</p>
         </div>
         <ul>
             <li>Your data never crosses Canadian borders without explicit written consent</li>
@@ -347,20 +693,28 @@
         <h2>5. How We Protect Your Data</h2>
         <p>We implement comprehensive security measures to protect your information:</p>
         <ul>
-            <li><strong>Encryption:</strong> All data transmissions use TLS/SSL encryption, and stored data is encrypted at rest</li>
-            <li><strong>Network Security:</strong> Firewalled private networks, intrusion detection, and regular security monitoring</li>
-            <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access, and regular access reviews</li>
-            <li><strong>Infrastructure Security:</strong> Physical security at all data centers, environmental monitoring, and redundant systems</li>
-            <li><strong>Regular Updates:</strong> Timely security patches, system updates, and vulnerability assessments</li>
+            <li><strong>Encryption:</strong> All data transmissions use TLS/SSL encryption, and stored data is encrypted
+                at rest</li>
+            <li><strong>Network Security:</strong> Firewalled private networks, intrusion detection, and regular
+                security monitoring</li>
+            <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access, and regular access
+                reviews</li>
+            <li><strong>Infrastructure Security:</strong> Physical security at all data centers, environmental
+                monitoring, and redundant systems</li>
+            <li><strong>Regular Updates:</strong> Timely security patches, system updates, and vulnerability assessments
+            </li>
             <li><strong>Staff Training:</strong> Regular privacy and security training for all employees</li>
         </ul>
-        <p>Payment information is processed by PCI-DSS compliant Canadian payment processors. We do not store complete credit card numbers on our systems.</p>
+        <p>Payment information is processed by PCI-DSS compliant Canadian payment processors. We do not store complete
+            credit card numbers on our systems.</p>
 
         <h2>6. Third-Party Service Providers</h2>
         <p>We may share limited data with trusted Canadian service providers who assist us with:</p>
         <ul>
-            <li><strong>Payment Processing:</strong> Canadian payment processors for billing and subscription management</li>
-            <li><strong>Support Services:</strong> Canadian ticketing and communication platforms for customer support</li>
+            <li><strong>Payment Processing:</strong> Canadian payment processors for billing and subscription management
+            </li>
+            <li><strong>Support Services:</strong> Canadian ticketing and communication platforms for customer support
+            </li>
             <li><strong>Infrastructure Services:</strong> Canadian data center partners and network providers</li>
             <li><strong>Professional Services:</strong> Canadian legal, accounting, and compliance services</li>
         </ul>
@@ -388,7 +742,8 @@
         <ul>
             <li><strong>Access:</strong> Request a copy of your personal information we hold</li>
             <li><strong>Correction:</strong> Update or correct inaccurate personal information</li>
-            <li><strong>Deletion:</strong> Request deletion of your personal information (subject to legal retention requirements)</li>
+            <li><strong>Deletion:</strong> Request deletion of your personal information (subject to legal retention
+                requirements)</li>
             <li><strong>Portability:</strong> Receive your data in a machine-readable format</li>
             <li><strong>Withdrawal:</strong> Withdraw consent for non-essential data processing</li>
             <li><strong>Complaint:</strong> File a complaint with the Privacy Commissioner of Canada</li>
@@ -396,22 +751,28 @@
         <p>To exercise these rights, contact us at admin@billzone.com or +1 (555) 123-4567.</p>
 
         <h2>9. Data Retention</h2>
-        <p>We retain your information for as long as necessary to provide services and comply with legal obligations:</p>
+        <p>We retain your information for as long as necessary to provide services and comply with legal obligations:
+        </p>
         <ul>
-            <li><strong>Account Information:</strong> While your account is active and for 7 years after termination for tax and legal purposes</li>
+            <li><strong>Account Information:</strong> While your account is active and for 7 years after termination for
+                tax and legal purposes</li>
             <li><strong>Billing Records:</strong> 7 years as required by Canadian tax law</li>
             <li><strong>Support Communications:</strong> 3 years for service quality and training purposes</li>
             <li><strong>System Logs:</strong> 13 months for security and performance monitoring</li>
-            <li><strong>Your Stored Data:</strong> Up to 30 days after account termination for recovery, then securely deleted</li>
+            <li><strong>Your Stored Data:</strong> Up to 30 days after account termination for recovery, then securely
+                deleted</li>
         </ul>
 
         <h2>10. International Data Transfers</h2>
         <div class="highlight-box">
-            <p>DataCaboose does NOT transfer personal information outside of Canada. Your data remains within Canadian borders at all times.</p>
+            <p>DataCaboose does NOT transfer personal information outside of Canada. Your data remains within Canadian
+                borders at all times.</p>
         </div>
 
         <h2>11. Children's Privacy</h2>
-        <p>Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal information from minors. If we become aware that we have collected personal information from a minor, we will delete it promptly.</p>
+        <p>Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal
+            information from minors. If we become aware that we have collected personal information from a minor, we
+            will delete it promptly.</p>
 
         <h2>12. Changes to This Privacy Policy</h2>
         <p>We may update this Privacy Policy to reflect:</p>
@@ -420,7 +781,8 @@
             <li>Updates to Canadian privacy laws or regulations</li>
             <li>Improvements to our privacy practices</li>
         </ul>
-        <p>Significant changes will be communicated via email and posted on our website at least 30 days before taking effect. Your continued use of our services after changes indicates acceptance of the updated policy.</p>
+        <p>Significant changes will be communicated via email and posted on our website at least 30 days before taking
+            effect. Your continued use of our services after changes indicates acceptance of the updated policy.</p>
 
         <h2>13. Contact Us</h2>
         <p>For questions about this Privacy Policy or to exercise your privacy rights, contact us:</p>
@@ -442,47 +804,138 @@
 
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
             <p><strong>🍁 DataCaboose - Proudly Canadian Owned & Operated</strong></p>
-            <p style="font-size: 0.9rem; color: #666;">Protecting Canadian privacy and digital sovereignty since 2024</p>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">If you have concerns about our privacy practices, you may contact the Privacy Commissioner of Canada at priv.gc.ca</p>
+            <p style="font-size: 0.9rem; color: #666;">Protecting Canadian privacy and digital sovereignty since 2024
+            </p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">If you have concerns about our privacy
+                practices, you may contact the Privacy Commissioner of Canada at priv.gc.ca</p>
         </div>
     </main>
 
     <script>
-        // Cookie Consent Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookieConsent = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-            const settingsBtn = document.getElementById('cookie-settings');
+        
+        const cookieConsent = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+        const settingsBtn = document.getElementById('cookie-settings');
 
-            // Check if user has already made a choice
-            const cookieChoice = localStorage.getItem('cookieConsent');
-            
-            if (!cookieChoice) {
-                // Show popup after a short delay
-                setTimeout(() => {
-                    cookieConsent.classList.add('show');
-                }, 1000);
+        // Check if user has already made a choice
+        const cookieChoice = localStorage.getItem('cookieConsent');
+
+        if (!cookieChoice) {
+            // Show popup after a short delay
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+            console.log('All cookies accepted');
+        });
+
+        declineBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+            console.log('Non-essential cookies declined');
+        });
+        // Cookie Preferences Modal functionality
+        const cookieModal = document.getElementById('cookie-preferences-modal');
+        const modalClose = document.getElementById('cookie-modal-close');
+        const acceptSelected = document.getElementById('cookie-accept-selected');
+        const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+        const rejectAll = document.getElementById('cookie-reject-all');
+
+        // Update the settings button click handler
+        settingsBtn.addEventListener('click', function () {
+            cookieModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Load current preferences
+            loadCookiePreferences();
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        window.addEventListener('click', function (e) {
+            if (e.target === cookieModal) {
+                closeModal();
             }
+        });
 
-            acceptBtn.addEventListener('click', function() {
-                localStorage.setItem('cookieConsent', 'accepted');
-                cookieConsent.classList.remove('show');
-                // Enable all cookies/analytics here
-                console.log('All cookies accepted');
-            });
+        function closeModal() {
+            cookieModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-            declineBtn.addEventListener('click', function() {
-                localStorage.setItem('cookieConsent', 'declined');
-                cookieConsent.classList.remove('show');
-                // Disable non-essential cookies here
-                console.log('Non-essential cookies declined');
-            });
+        // Load saved cookie preferences
+        function loadCookiePreferences() {
+            const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
 
-            settingsBtn.addEventListener('click', function() {
-                // You can expand this to show a detailed cookie settings modal
-                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
-            });
+            document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+            document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+            document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+        }
+
+        // Save cookie preferences
+        function saveCookiePreferences() {
+            const preferences = {
+                essential: true, // Always true
+                analytics: document.getElementById('analytics-cookies').checked,
+                functional: document.getElementById('functional-cookies').checked,
+                marketing: document.getElementById('marketing-cookies').checked
+            };
+
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            localStorage.setItem('cookieConsent', 'custom');
+
+            console.log('Cookie preferences saved:', preferences);
+            return preferences;
+        }
+
+        // Accept selected cookies
+        acceptSelected.addEventListener('click', function () {
+            const prefs = saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+
+            // You can add logic here to actually enable/disable tracking based on preferences
+            if (prefs.analytics) {
+                console.log('Analytics cookies enabled');
+                // Enable Google Analytics or other analytics
+            }
+            if (prefs.functional) {
+                console.log('Functional cookies enabled');
+                // Enable functional features
+            }
+            if (prefs.marketing) {
+                console.log('Marketing cookies enabled');
+                // Enable marketing tracking
+            }
+        });
+
+        // Accept all cookies from modal
+        acceptAllModal.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = true;
+            document.getElementById('functional-cookies').checked = true;
+            document.getElementById('marketing-cookies').checked = true;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All cookies accepted from modal');
+        });
+
+        // Reject all non-essential cookies
+        rejectAll.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = false;
+            document.getElementById('functional-cookies').checked = false;
+            document.getElementById('marketing-cookies').checked = false;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All non-essential cookies rejected');
         });
     </script>
 </body>

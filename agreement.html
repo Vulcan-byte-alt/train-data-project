@@ -30,7 +30,8 @@
             line-height: 1.7;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
         }
@@ -145,7 +146,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .sla-table th {
@@ -173,9 +174,17 @@
             margin-right: 8px;
         }
 
-        .status-green { background: #10b981; }
-        .status-yellow { background: #f59e0b; }
-        .status-red { background: #ef4444; }
+        .status-green {
+            background: #10b981;
+        }
+
+        .status-yellow {
+            background: #f59e0b;
+        }
+
+        .status-red {
+            background: #ef4444;
+        }
 
         /* Cookie Consent Popup */
         .cookie-consent {
@@ -250,6 +259,205 @@
             color: var(--bg-dark);
         }
 
+        /* Cookie Preferences Modal */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cookie-modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-modal-close:hover {
+            color: var(--primary);
+        }
+
+        .cookie-modal-body {
+            padding: 2rem;
+        }
+
+        .cookie-modal-intro {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cookie-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-category-header h4 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-category-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .cookie-toggle {
+            position: relative;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label:hover {
+            background-color: #bbb;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label {
+            background-color: #10b981;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label:hover {
+            background-color: #10b981;
+        }
+
+        .cookie-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .cookie-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .cookie-modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-modal-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cookie-modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .cookie-modal-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .cookie-modal-btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         @media (min-width: 768px) {
             .cookie-consent-content {
                 flex-direction: row;
@@ -270,6 +478,7 @@
 
             .legal-content h1 {
                 font-size: 2rem;
+                margin-top: 30px;
             }
 
             .legal-content h2 {
@@ -292,6 +501,34 @@
             .cookie-btn {
                 flex: 1;
                 min-width: 120px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .cookie-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .cookie-modal-header,
+            .cookie-modal-body,
+            .cookie-modal-footer {
+                padding: 1rem;
+            }
+
+            .cookie-category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .cookie-modal-footer {
+                flex-direction: column;
+            }
+
+            .cookie-modal-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -323,7 +560,9 @@
         <div class="cookie-consent-content">
             <div>
                 <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
-                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
             </div>
             <div class="cookie-buttons">
                 <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
@@ -333,19 +572,120 @@
         </div>
     </div>
 
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Preferences</h3>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
+                    which
+                    types of cookies to allow:</p>
+
+                <!-- Essential Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Essential Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="essential-cookies" checked disabled>
+                            <label for="essential-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually
+                        set in response to actions made by you which amount to a request for services, such as setting
+                        your
+                        privacy preferences, logging in, or filling in forms.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Analytics Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="analytics-cookies">
+                            <label for="analytics-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies help us understand how visitors interact with our website by collecting and
+                        reporting
+                        information anonymously. We use Google Analytics to measure website performance and improve user
+                        experience.
+                    </p>
+                </div>
+
+                <!-- Functional Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Functional Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="functional-cookies">
+                            <label for="functional-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies enable enhanced functionality and personalization, such as remembering your
+                        preferences, language settings, and providing live chat support.
+                    </p>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Marketing Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="marketing-cookies">
+                            <label for="marketing-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies track visitors across websites to display relevant advertisements and measure
+                        campaign
+                        effectiveness. We do not use third-party marketing cookies, but may use them for our own
+                        marketing
+                        analysis.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookie-accept-selected" class="cookie-modal-btn cookie-modal-btn-primary">Accept
+                    Selected</button>
+                <button id="cookie-accept-all-modal" class="cookie-modal-btn cookie-modal-btn-secondary">Accept
+                    All</button>
+                <button id="cookie-reject-all" class="cookie-modal-btn cookie-modal-btn-outline">Reject All</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="legal-content">
         <h1>Service Level Agreement</h1>
         <p class="effective-date"><strong>Effective Date:</strong> January 15, 2025</p>
-        
-        <p>This Service Level Agreement ("SLA") describes the performance standards DataCaboose commits to providing for our Canadian cloud infrastructure services. This SLA applies to all DataCaboose virtual machines, dedicated compute units, and related services.</p>
+
+        <p>This Service Level Agreement ("SLA") describes the performance standards DataCaboose commits to providing for
+            our Canadian cloud infrastructure services. This SLA applies to all DataCaboose virtual machines, dedicated
+            compute units, and related services.</p>
 
         <div class="highlight-box">
-            <p>🍁 Our commitment: World-class reliability with guaranteed Canadian data residency and 24/7 bilingual support.</p>
+            <p>🍁 Our commitment: World-class reliability with guaranteed Canadian data residency and 24/7 bilingual
+                support.</p>
         </div>
 
         <h2>1. Service Availability Commitments</h2>
-        
+
         <h3>1.1 Uptime Guarantees</h3>
         <table class="sla-table">
             <thead>
@@ -382,7 +722,8 @@
         <ul>
             <li><strong>Network Availability:</strong> 99.9% monthly uptime</li>
             <li><strong>Inter-Data Center Latency:</strong> &lt;50ms between Toronto, Vancouver, and Montreal</li>
-            <li><strong>Internet Connectivity:</strong> Multiple Tier 1 Canadian ISP connections with automatic failover</li>
+            <li><strong>Internet Connectivity:</strong> Multiple Tier 1 Canadian ISP connections with automatic failover
+            </li>
             <li><strong>Bandwidth Guarantee:</strong> Full provisioned bandwidth available 99.5% of the time</li>
         </ul>
 
@@ -489,7 +830,8 @@
         <h3>4.2 Disaster Recovery</h3>
         <ul>
             <li><strong>Recovery Time Objective (RTO):</strong> 4 hours for critical systems</li>
-            <li><strong>Recovery Point Objective (RPO):</strong> 24 hours maximum data loss for weekly backups, 1 hour for nightly backups</li>
+            <li><strong>Recovery Point Objective (RPO):</strong> 24 hours maximum data loss for weekly backups, 1 hour
+                for nightly backups</li>
             <li><strong>Failover Testing:</strong> Quarterly disaster recovery tests</li>
             <li><strong>Geographic Redundancy:</strong> Data replicated across multiple Canadian regions</li>
         </ul>
@@ -501,7 +843,8 @@
             <li><strong>Data Encryption:</strong> AES-256 encryption at rest, TLS 1.3 in transit</li>
             <li><strong>Network Security:</strong> DDoS protection, intrusion detection, firewall management</li>
             <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access</li>
-            <li><strong>Vulnerability Management:</strong> Monthly security scans, patch management within 48 hours of critical updates</li>
+            <li><strong>Vulnerability Management:</strong> Monthly security scans, patch management within 48 hours of
+                critical updates</li>
         </ul>
 
         <h3>5.2 Compliance Commitments</h3>
@@ -525,7 +868,8 @@
         <h3>6.2 Software Updates</h3>
         <ul>
             <li><strong>Operating System Updates:</strong> Customer-controlled update scheduling</li>
-            <li><strong>Security Patches:</strong> Critical patches applied within 48 hours (with customer approval)</li>
+            <li><strong>Security Patches:</strong> Critical patches applied within 48 hours (with customer approval)
+            </li>
             <li><strong>Infrastructure Updates:</strong> Zero-downtime updates where possible</li>
             <li><strong>Version Support:</strong> Minimum 12 months support for all software versions</li>
         </ul>
@@ -545,7 +889,8 @@
             <li><strong>Claim Period:</strong> Service credits must be requested within 30 days of the incident</li>
             <li><strong>Credit Application:</strong> Credits applied to the following month's invoice</li>
             <li><strong>Maximum Credits:</strong> Total monthly credits cannot exceed 100% of monthly service fees</li>
-            <li><strong>Exclusions:</strong> Credits do not apply during scheduled maintenance or customer-caused outages</li>
+            <li><strong>Exclusions:</strong> Credits do not apply during scheduled maintenance or customer-caused
+                outages</li>
         </ul>
 
         <h2>8. Monitoring and Reporting</h2>
@@ -561,7 +906,8 @@
         <h3>8.2 Reporting</h3>
         <ul>
             <li><strong>Monthly SLA Reports:</strong> Detailed uptime and performance reports</li>
-            <li><strong>Quarterly Business Reviews:</strong> Service performance analysis and optimization recommendations</li>
+            <li><strong>Quarterly Business Reviews:</strong> Service performance analysis and optimization
+                recommendations</li>
             <li><strong>Incident Reports:</strong> Post-incident analysis and prevention measures</li>
             <li><strong>Capacity Planning:</strong> Proactive monitoring and scaling recommendations</li>
         </ul>
@@ -607,7 +953,8 @@
         </ul>
 
         <h2>11. SLA Modifications</h2>
-        <p>DataCaboose may modify this SLA with 30 days advance notice. Significant changes affecting service levels will include:</p>
+        <p>DataCaboose may modify this SLA with 30 days advance notice. Significant changes affecting service levels
+            will include:</p>
         <ul>
             <li>Email notification to all active customers</li>
             <li>Updated SLA posted on our website</li>
@@ -617,22 +964,22 @@
 
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
             <p><strong>🍁 DataCaboose - Your Reliable Canadian Cloud Partner</strong></p>
-            <p style="font-size: 0.9rem; color: #666;">Committed to excellence in Canadian cloud infrastructure since 2024</p>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This SLA is governed by Canadian law and supersedes all previous service level agreements.</p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to excellence in Canadian cloud infrastructure since
+                2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This SLA is governed by Canadian law and
+                supersedes all previous service level agreements.</p>
         </div>
     </main>
 
     <script>
-        // Cookie Consent Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookieConsent = document.getElementById('cookie-consent');
+        const cookieConsent = document.getElementById('cookie-consent');
             const acceptBtn = document.getElementById('accept-cookies');
             const declineBtn = document.getElementById('decline-cookies');
             const settingsBtn = document.getElementById('cookie-settings');
 
             // Check if user has already made a choice
             const cookieChoice = localStorage.getItem('cookieConsent');
-            
+
             if (!cookieChoice) {
                 // Show popup after a short delay
                 setTimeout(() => {
@@ -640,22 +987,115 @@
                 }, 1000);
             }
 
-            acceptBtn.addEventListener('click', function() {
+            acceptBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'accepted');
                 cookieConsent.classList.remove('show');
                 console.log('All cookies accepted');
             });
 
-            declineBtn.addEventListener('click', function() {
+            declineBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'declined');
                 cookieConsent.classList.remove('show');
                 console.log('Non-essential cookies declined');
             });
+            // Cookie Preferences Modal functionality
+            const cookieModal = document.getElementById('cookie-preferences-modal');
+            const modalClose = document.getElementById('cookie-modal-close');
+            const acceptSelected = document.getElementById('cookie-accept-selected');
+            const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+            const rejectAll = document.getElementById('cookie-reject-all');
 
-            settingsBtn.addEventListener('click', function() {
-                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            // Update the settings button click handler
+            settingsBtn.addEventListener('click', function () {
+                cookieModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Load current preferences
+                loadCookiePreferences();
             });
-        });
+
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            window.addEventListener('click', function (e) {
+                if (e.target === cookieModal) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                cookieModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Load saved cookie preferences
+            function loadCookiePreferences() {
+                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+
+                document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+                document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+                document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+            }
+
+            // Save cookie preferences
+            function saveCookiePreferences() {
+                const preferences = {
+                    essential: true, // Always true
+                    analytics: document.getElementById('analytics-cookies').checked,
+                    functional: document.getElementById('functional-cookies').checked,
+                    marketing: document.getElementById('marketing-cookies').checked
+                };
+
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                localStorage.setItem('cookieConsent', 'custom');
+
+                console.log('Cookie preferences saved:', preferences);
+                return preferences;
+            }
+
+            // Accept selected cookies
+            acceptSelected.addEventListener('click', function () {
+                const prefs = saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+
+                // You can add logic here to actually enable/disable tracking based on preferences
+                if (prefs.analytics) {
+                    console.log('Analytics cookies enabled');
+                    // Enable Google Analytics or other analytics
+                }
+                if (prefs.functional) {
+                    console.log('Functional cookies enabled');
+                    // Enable functional features
+                }
+                if (prefs.marketing) {
+                    console.log('Marketing cookies enabled');
+                    // Enable marketing tracking
+                }
+            });
+
+            // Accept all cookies from modal
+            acceptAllModal.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = true;
+                document.getElementById('functional-cookies').checked = true;
+                document.getElementById('marketing-cookies').checked = true;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All cookies accepted from modal');
+            });
+
+            // Reject all non-essential cookies
+            rejectAll.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = false;
+                document.getElementById('functional-cookies').checked = false;
+                document.getElementById('marketing-cookies').checked = false;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All non-essential cookies rejected');
+            });
     </script>
 </body>
 

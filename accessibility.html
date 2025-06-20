@@ -30,7 +30,8 @@
             line-height: 1.7;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
         }
@@ -173,7 +174,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .wcag-table th {
@@ -192,6 +193,54 @@
 
         .wcag-table tr:nth-child(even) {
             background: #f8f9fa;
+        }
+
+        /* Mobile Cards for WCAG Compliance - Hidden by default */
+        .wcag-cards {
+            display: none;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .wcag-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .wcag-card-header {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .wcag-card-body {
+            padding: 1rem;
+        }
+
+        .wcag-card-row {
+            margin-bottom: 1rem;
+        }
+
+        .wcag-card-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .wcag-card-label {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .wcag-card-value {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         .conformance-badge {
@@ -363,12 +412,211 @@
             color: var(--bg-dark);
         }
 
+        /* Cookie Preferences Modal */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cookie-modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-modal-close:hover {
+            color: var(--primary);
+        }
+
+        .cookie-modal-body {
+            padding: 2rem;
+        }
+
+        .cookie-modal-intro {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cookie-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-category-header h4 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-category-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .cookie-toggle {
+            position: relative;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label:hover {
+            background-color: #bbb;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label {
+            background-color: #10b981;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label:hover {
+            background-color: #10b981;
+        }
+
+        .cookie-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .cookie-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .cookie-modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-modal-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cookie-modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .cookie-modal-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .cookie-modal-btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         /* High contrast mode support */
         @media (prefers-contrast: high) {
             .legal-content {
                 border: 2px solid #000;
             }
-            
+
             .highlight-box {
                 border: 2px solid var(--primary);
             }
@@ -376,7 +624,10 @@
 
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -403,6 +654,7 @@
 
             .legal-content h1 {
                 font-size: 2rem;
+                margin-top: 35px;
             }
 
             .legal-content h2 {
@@ -413,13 +665,14 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Hide table on mobile and show cards */
             .wcag-table {
-                font-size: 0.9rem;
+                display: none;
             }
 
-            .wcag-table th,
-            .wcag-table td {
-                padding: 0.5rem;
+            .wcag-cards {
+                display: flex;
+                flex-direction: column;
             }
 
             .cookie-buttons {
@@ -433,7 +686,11 @@
         }
 
         /* Focus indicators */
-        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+        a:focus,
+        button:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: 3px solid var(--primary);
             outline-offset: 2px;
         }
@@ -442,6 +699,34 @@
         .legal-content a {
             color: var(--primary-dark);
             font-weight: 600;
+        }
+
+        @media (max-width: 767px) {
+            .cookie-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .cookie-modal-header,
+            .cookie-modal-body,
+            .cookie-modal-footer {
+                padding: 1rem;
+            }
+
+            .cookie-category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .cookie-modal-footer {
+                flex-direction: column;
+            }
+
+            .cookie-modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -475,7 +760,9 @@
         <div class="cookie-consent-content">
             <div>
                 <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
-                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
             </div>
             <div class="cookie-buttons">
                 <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
@@ -485,15 +772,116 @@
         </div>
     </div>
 
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Preferences</h3>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
+                    which
+                    types of cookies to allow:</p>
+
+                <!-- Essential Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Essential Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="essential-cookies" checked disabled>
+                            <label for="essential-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually
+                        set in response to actions made by you which amount to a request for services, such as setting
+                        your
+                        privacy preferences, logging in, or filling in forms.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Analytics Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="analytics-cookies">
+                            <label for="analytics-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies help us understand how visitors interact with our website by collecting and
+                        reporting
+                        information anonymously. We use Google Analytics to measure website performance and improve user
+                        experience.
+                    </p>
+                </div>
+
+                <!-- Functional Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Functional Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="functional-cookies">
+                            <label for="functional-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies enable enhanced functionality and personalization, such as remembering your
+                        preferences, language settings, and providing live chat support.
+                    </p>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Marketing Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="marketing-cookies">
+                            <label for="marketing-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies track visitors across websites to display relevant advertisements and measure
+                        campaign
+                        effectiveness. We do not use third-party marketing cookies, but may use them for our own
+                        marketing
+                        analysis.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookie-accept-selected" class="cookie-modal-btn cookie-modal-btn-primary">Accept
+                    Selected</button>
+                <button id="cookie-accept-all-modal" class="cookie-modal-btn cookie-modal-btn-secondary">Accept
+                    All</button>
+                <button id="cookie-reject-all" class="cookie-modal-btn cookie-modal-btn-outline">Reject All</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main id="main-content" class="legal-content">
         <h1>Accessibility Statement</h1>
         <p class="effective-date"><strong>Last Updated:</strong> January 15, 2025</p>
-        
-        <p>DataCaboose is committed to ensuring digital accessibility for all users, including people with disabilities. We strive to provide an inclusive experience that enables everyone to access our Canadian cloud services effectively and efficiently.</p>
+
+        <p>DataCaboose is committed to ensuring digital accessibility for all users, including people with disabilities.
+            We strive to provide an inclusive experience that enables everyone to access our Canadian cloud services
+            effectively and efficiently.</p>
 
         <div class="highlight-box">
-            <p>♿ <strong>Accessibility First:</strong> We believe technology should be accessible to everyone. Our commitment goes beyond compliance to create truly inclusive digital experiences.</p>
+            <p>♿ <strong>Accessibility First:</strong> We believe technology should be accessible to everyone. Our
+                commitment goes beyond compliance to create truly inclusive digital experiences.</p>
         </div>
 
         <h2>1. Our Accessibility Commitment</h2>
@@ -520,6 +908,7 @@
 
         <h2>2. WCAG 2.1 Compliance Status</h2>
 
+        <!-- Desktop Table -->
         <table class="wcag-table">
             <thead>
                 <tr>
@@ -556,6 +945,82 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Mobile Cards -->
+        <div class="wcag-cards">
+            <div class="wcag-card">
+                <div class="wcag-card-header">Perceivable</div>
+                <div class="wcag-card-body">
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Guidelines:</span>
+                        <div class="wcag-card-value">Information must be presentable in ways users can perceive</div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Conformance Level:</span>
+                        <div class="wcag-card-value"><span class="conformance-badge conformance-aa">AA</span></div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Implementation Status:</span>
+                        <div class="wcag-card-value">Fully Implemented</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wcag-card">
+                <div class="wcag-card-header">Operable</div>
+                <div class="wcag-card-body">
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Guidelines:</span>
+                        <div class="wcag-card-value">User interface components must be operable</div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Conformance Level:</span>
+                        <div class="wcag-card-value"><span class="conformance-badge conformance-aa">AA</span></div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Implementation Status:</span>
+                        <div class="wcag-card-value">Fully Implemented</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wcag-card">
+                <div class="wcag-card-header">Understandable</div>
+                <div class="wcag-card-body">
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Guidelines:</span>
+                        <div class="wcag-card-value">Information and UI operation must be understandable</div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Conformance Level:</span>
+                        <div class="wcag-card-value"><span class="conformance-badge conformance-aa">AA</span></div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Implementation Status:</span>
+                        <div class="wcag-card-value">Fully Implemented</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wcag-card">
+                <div class="wcag-card-header">Robust</div>
+                <div class="wcag-card-body">
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Guidelines:</span>
+                        <div class="wcag-card-value">Content must be robust enough for various assistive technologies
+                        </div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Conformance Level:</span>
+                        <div class="wcag-card-value"><span class="conformance-badge conformance-aa">AA</span></div>
+                    </div>
+                    <div class="wcag-card-row">
+                        <span class="wcag-card-label">Implementation Status:</span>
+                        <div class="wcag-card-value">Fully Implemented</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h2>3. Accessibility Features</h2>
 
@@ -698,7 +1163,8 @@
         <h3>7.1 Regular Testing Methods</h3>
         <ul>
             <li><strong>Automated Testing:</strong> axe-core, Pa11y, and Lighthouse accessibility audits</li>
-            <li><strong>Manual Testing:</strong> Keyboard navigation, screen reader testing, color contrast verification</li>
+            <li><strong>Manual Testing:</strong> Keyboard navigation, screen reader testing, color contrast verification
+            </li>
             <li><strong>User Testing:</strong> Testing with actual users who have disabilities</li>
             <li><strong>Third-Party Audits:</strong> Annual accessibility assessments by certified experts</li>
         </ul>
@@ -720,9 +1186,12 @@
         <h3>8.1 Current Limitations</h3>
         <p>We are actively working to address the following known issues:</p>
         <ul>
-            <li><strong>Legacy Systems Integration:</strong> Some older third-party integrations may have limited accessibility features</li>
-            <li><strong>Complex Data Visualizations:</strong> Some advanced charts may require additional navigation methods</li>
-            <li><strong>PDF Documents:</strong> Working to ensure all downloadable PDFs meet accessibility standards</li>
+            <li><strong>Legacy Systems Integration:</strong> Some older third-party integrations may have limited
+                accessibility features</li>
+            <li><strong>Complex Data Visualizations:</strong> Some advanced charts may require additional navigation
+                methods</li>
+            <li><strong>PDF Documents:</strong> Working to ensure all downloadable PDFs meet accessibility standards
+            </li>
         </ul>
 
         <h3>8.2 Workarounds and Alternatives</h3>
@@ -802,64 +1271,165 @@
 
         <h3>12.1 Accessibility Resources</h3>
         <ul>
-            <li><strong>Web Content Accessibility Guidelines:</strong> <a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1 Quick Reference</a></li>
-            <li><strong>Accessible Canada Act:</strong> <a href="https://laws-lois.justice.gc.ca/eng/acts/A-0.6/">Full Legislative Text</a></li>
-            <li><strong>Government of Canada Accessibility:</strong> <a href="https://www.canada.ca/en/employment-social-development/programs/accessible-people-disabilities.html">Accessibility Resources</a></li>
-            <li><strong>AODA Information:</strong> <a href="https://www.ontario.ca/page/about-accessibility-laws">Ontario Accessibility Laws</a></li>
+            <li><strong>Web Content Accessibility Guidelines:</strong> <a
+                    href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1 Quick Reference</a></li>
+            <li><strong>Accessible Canada Act:</strong> <a href="https://laws-lois.justice.gc.ca/eng/acts/A-0.6/">Full
+                    Legislative Text</a></li>
+            <li><strong>Government of Canada Accessibility:</strong> <a
+                    href="https://www.canada.ca/en/employment-social-development/programs/accessible-people-disabilities.html">Accessibility
+                    Resources</a></li>
+            <li><strong>AODA Information:</strong> <a
+                    href="https://www.ontario.ca/page/about-accessibility-laws">Ontario Accessibility Laws</a></li>
         </ul>
 
         <h3>12.2 Assistive Technology Support</h3>
         <ul>
-            <li><strong>NVDA Screen Reader:</strong> <a href="https://www.nvaccess.org/">Free download and support</a></li>
-            <li><strong>JAWS Information:</strong> <a href="https://www.freedomscientific.com/products/software/jaws/">Freedom Scientific JAWS</a></li>
-            <li><strong>Apple Accessibility:</strong> <a href="https://www.apple.com/accessibility/">VoiceOver and other features</a></li>
-            <li><strong>Google Accessibility:</strong> <a href="https://www.google.com/accessibility/">Android accessibility tools</a></li>
+            <li><strong>NVDA Screen Reader:</strong> <a href="https://www.nvaccess.org/">Free download and support</a>
+            </li>
+            <li><strong>JAWS Information:</strong> <a
+                    href="https://www.freedomscientific.com/products/software/jaws/">Freedom Scientific JAWS</a></li>
+            <li><strong>Apple Accessibility:</strong> <a href="https://www.apple.com/accessibility/">VoiceOver and other
+                    features</a></li>
+            <li><strong>Google Accessibility:</strong> <a href="https://www.google.com/accessibility/">Android
+                    accessibility tools</a></li>
         </ul>
 
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
             <p><strong>♿ DataCaboose - Accessible Technology for All Canadians</strong></p>
             <p style="font-size: 0.9rem; color: #666;">Committed to digital inclusion and accessibility since 2024</p>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This accessibility statement was last reviewed on January 15, 2025, and will be updated regularly to reflect our ongoing improvements.</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This accessibility statement was last reviewed
+                on January 15, 2025, and will be updated regularly to reflect our ongoing improvements.</p>
         </div>
     </main>
 
     <script>
-        // Cookie Consent Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookieConsent = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-            const settingsBtn = document.getElementById('cookie-settings');
+        const cookieConsent = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+        const settingsBtn = document.getElementById('cookie-settings');
 
-            // Check if user has already made a choice
-            const cookieChoice = localStorage.getItem('cookieConsent');
-            
-            if (!cookieChoice) {
-                // Show popup after a short delay
-                setTimeout(() => {
-                    cookieConsent.classList.add('show');
-                }, 1000);
+        // Check if user has already made a choice
+        const cookieChoice = localStorage.getItem('cookieConsent');
+
+        if (!cookieChoice) {
+            // Show popup after a short delay
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+            console.log('All cookies accepted');
+        });
+
+        declineBtn.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+            console.log('Non-essential cookies declined');
+        });
+        // Cookie Preferences Modal functionality
+        const cookieModal = document.getElementById('cookie-preferences-modal');
+        const modalClose = document.getElementById('cookie-modal-close');
+        const acceptSelected = document.getElementById('cookie-accept-selected');
+        const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+        const rejectAll = document.getElementById('cookie-reject-all');
+
+        // Update the settings button click handler
+        settingsBtn.addEventListener('click', function () {
+            cookieModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Load current preferences
+            loadCookiePreferences();
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        window.addEventListener('click', function (e) {
+            if (e.target === cookieModal) {
+                closeModal();
             }
+        });
 
-            acceptBtn.addEventListener('click', function() {
-                localStorage.setItem('cookieConsent', 'accepted');
-                cookieConsent.classList.remove('show');
-                console.log('All cookies accepted');
-            });
+        function closeModal() {
+            cookieModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-            declineBtn.addEventListener('click', function() {
-                localStorage.setItem('cookieConsent', 'declined');
-                cookieConsent.classList.remove('show');
-                console.log('Non-essential cookies declined');
-            });
+        // Load saved cookie preferences
+        function loadCookiePreferences() {
+            const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
 
-            settingsBtn.addEventListener('click', function() {
-                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
-            });
+            document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+            document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+            document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+        }
+
+        // Save cookie preferences
+        function saveCookiePreferences() {
+            const preferences = {
+                essential: true, // Always true
+                analytics: document.getElementById('analytics-cookies').checked,
+                functional: document.getElementById('functional-cookies').checked,
+                marketing: document.getElementById('marketing-cookies').checked
+            };
+
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            localStorage.setItem('cookieConsent', 'custom');
+
+            console.log('Cookie preferences saved:', preferences);
+            return preferences;
+        }
+
+        // Accept selected cookies
+        acceptSelected.addEventListener('click', function () {
+            const prefs = saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+
+            // You can add logic here to actually enable/disable tracking based on preferences
+            if (prefs.analytics) {
+                console.log('Analytics cookies enabled');
+                // Enable Google Analytics or other analytics
+            }
+            if (prefs.functional) {
+                console.log('Functional cookies enabled');
+                // Enable functional features
+            }
+            if (prefs.marketing) {
+                console.log('Marketing cookies enabled');
+                // Enable marketing tracking
+            }
+        });
+
+        // Accept all cookies from modal
+        acceptAllModal.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = true;
+            document.getElementById('functional-cookies').checked = true;
+            document.getElementById('marketing-cookies').checked = true;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All cookies accepted from modal');
+        });
+
+        // Reject all non-essential cookies
+        rejectAll.addEventListener('click', function () {
+            document.getElementById('analytics-cookies').checked = false;
+            document.getElementById('functional-cookies').checked = false;
+            document.getElementById('marketing-cookies').checked = false;
+
+            saveCookiePreferences();
+            cookieConsent.classList.remove('show');
+            closeModal();
+            console.log('All non-essential cookies rejected');
         });
 
         // Accessibility enhancements
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Announce page content to screen readers
             const pageTitle = document.querySelector('h1').textContent;
             const announcement = document.createElement('div');
@@ -871,7 +1441,7 @@
             document.body.appendChild(announcement);
 
             // Enhanced keyboard navigation
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 // Press 'h' to jump to next heading
                 if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !e.altKey) {
                     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
@@ -883,7 +1453,7 @@
                         e.preventDefault();
                     }
                 }
-                
+
                 // Press 'l' to jump to next link
                 if (e.key === 'l' && !e.ctrlKey && !e.metaKey && !e.altKey) {
                     const links = document.querySelectorAll('a[href]');
@@ -899,7 +1469,7 @@
             // Improve focus management for screen readers
             const focusableElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
             focusableElements.forEach(element => {
-                element.addEventListener('focus', function() {
+                element.addEventListener('focus', function () {
                     this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 });
             });

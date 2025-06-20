@@ -30,7 +30,8 @@
             line-height: 1.7;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
         }
@@ -173,7 +174,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .principle-table th {
@@ -192,6 +193,54 @@
 
         .principle-table tr:nth-child(even) {
             background: #f8f9fa;
+        }
+
+        /* Mobile Cards for PIPEDA Principles - Hidden by default */
+        .principle-cards {
+            display: none;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .principle-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .principle-card-header {
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .principle-card-body {
+            padding: 1rem;
+        }
+
+        .principle-card-row {
+            margin-bottom: 1rem;
+        }
+
+        .principle-card-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .principle-card-label {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .principle-card-value {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         .status-badge {
@@ -333,6 +382,205 @@
             color: var(--bg-dark);
         }
 
+        /* Cookie Preferences Modal */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cookie-modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-modal-close:hover {
+            color: var(--primary);
+        }
+
+        .cookie-modal-body {
+            padding: 2rem;
+        }
+
+        .cookie-modal-intro {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .cookie-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-category-header h4 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-category-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .cookie-toggle {
+            position: relative;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label:hover {
+            background-color: #bbb;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .cookie-toggle input[type="checkbox"]:checked+.toggle-label .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label {
+            background-color: #10b981;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .cookie-toggle input[type="checkbox"]:disabled+.toggle-label:hover {
+            background-color: #10b981;
+        }
+
+        .cookie-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .cookie-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .cookie-modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .cookie-modal-btn-secondary {
+            background: #f3f4f6;
+            color: var(--secondary);
+            border: 1px solid #d1d5db;
+        }
+
+        .cookie-modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .cookie-modal-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .cookie-modal-btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         @media (min-width: 768px) {
             .cookie-consent-content {
                 flex-direction: row;
@@ -353,6 +601,7 @@
 
             .legal-content h1 {
                 font-size: 2rem;
+                margin-top: 35px;
             }
 
             .legal-content h2 {
@@ -363,13 +612,14 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Hide table on mobile and show cards */
             .principle-table {
-                font-size: 0.9rem;
+                display: none;
             }
 
-            .principle-table th,
-            .principle-table td {
-                padding: 0.5rem;
+            .principle-cards {
+                display: flex;
+                flex-direction: column;
             }
 
             .cookie-buttons {
@@ -379,6 +629,34 @@
             .cookie-btn {
                 flex: 1;
                 min-width: 120px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .cookie-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .cookie-modal-header,
+            .cookie-modal-body,
+            .cookie-modal-footer {
+                padding: 1rem;
+            }
+
+            .cookie-category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .cookie-modal-footer {
+                flex-direction: column;
+            }
+
+            .cookie-modal-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -410,7 +688,9 @@
         <div class="cookie-consent-content">
             <div>
                 <p class="mb-2"><strong>🍪 We use cookies to improve your experience</strong></p>
-                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to understand how you use our Canadian cloud services. We never share personal data with third parties.</p>
+                <p class="text-sm text-gray-300">We use essential cookies to make our site work and analytics cookies to
+                    understand how you use our Canadian cloud services. We never share personal data with third parties.
+                </p>
             </div>
             <div class="cookie-buttons">
                 <button id="accept-cookies" class="cookie-btn cookie-btn-accept">Accept All</button>
@@ -420,23 +700,129 @@
         </div>
     </div>
 
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Preferences</h3>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
+                    which
+                    types of cookies to allow:</p>
+
+                <!-- Essential Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Essential Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="essential-cookies" checked disabled>
+                            <label for="essential-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually
+                        set in response to actions made by you which amount to a request for services, such as setting
+                        your
+                        privacy preferences, logging in, or filling in forms.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Analytics Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="analytics-cookies">
+                            <label for="analytics-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies help us understand how visitors interact with our website by collecting and
+                        reporting
+                        information anonymously. We use Google Analytics to measure website performance and improve user
+                        experience.
+                    </p>
+                </div>
+
+                <!-- Functional Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Functional Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="functional-cookies">
+                            <label for="functional-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies enable enhanced functionality and personalization, such as remembering your
+                        preferences, language settings, and providing live chat support.
+                    </p>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>Marketing Cookies</h4>
+                        <div class="cookie-toggle">
+                            <input type="checkbox" id="marketing-cookies">
+                            <label for="marketing-cookies" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="cookie-category-description">
+                        These cookies track visitors across websites to display relevant advertisements and measure
+                        campaign
+                        effectiveness. We do not use third-party marketing cookies, but may use them for our own
+                        marketing
+                        analysis.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookie-accept-selected" class="cookie-modal-btn cookie-modal-btn-primary">Accept
+                    Selected</button>
+                <button id="cookie-accept-all-modal" class="cookie-modal-btn cookie-modal-btn-secondary">Accept
+                    All</button>
+                <button id="cookie-reject-all" class="cookie-modal-btn cookie-modal-btn-outline">Reject All</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="legal-content">
         <h1>PIPEDA Compliance</h1>
         <p class="effective-date"><strong>Last Updated:</strong> January 15, 2025</p>
-        
-        <p>DataCaboose is fully committed to compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and other applicable Canadian privacy laws. This page outlines our comprehensive approach to privacy protection and how we help our customers achieve and maintain compliance.</p>
+
+        <p>DataCaboose is fully committed to compliance with the Personal Information Protection and Electronic
+            Documents Act (PIPEDA) and other applicable Canadian privacy laws. This page outlines our comprehensive
+            approach to privacy protection and how we help our customers achieve and maintain compliance.</p>
 
         <div class="highlight-box">
-            <p>🍁 <strong>100% Canadian Privacy Protection:</strong> Your data never leaves Canada, ensuring full compliance with PIPEDA and protection from foreign surveillance laws.</p>
+            <p>🍁 <strong>100% Canadian Privacy Protection:</strong> Your data never leaves Canada, ensuring full
+                compliance with PIPEDA and protection from foreign surveillance laws.</p>
         </div>
 
         <h2>1. Understanding PIPEDA</h2>
 
         <h3>1.1 What is PIPEDA?</h3>
-        <p>The Personal Information Protection and Electronic Documents Act (PIPEDA) is Canada's federal privacy law that governs how private sector organizations collect, use, and disclose personal information in the course of commercial activities. It applies to all provinces and territories, except where substantially similar provincial legislation exists.</p>
+        <p>The Personal Information Protection and Electronic Documents Act (PIPEDA) is Canada's federal privacy law
+            that governs how private sector organizations collect, use, and disclose personal information in the course
+            of commercial activities. It applies to all provinces and territories, except where substantially similar
+            provincial legislation exists.</p>
 
         <h3>1.2 PIPEDA's Ten Fair Information Principles</h3>
+        
+        <!-- Desktop Table -->
         <table class="principle-table">
             <thead>
                 <tr>
@@ -449,7 +835,8 @@
                 <tr>
                     <td><strong>1. Accountability</strong></td>
                     <td>Organizations are responsible for personal information under their control</td>
-                    <td><span class="status-badge status-compliant">Implemented</span>Chief Privacy Officer appointed</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Chief Privacy Officer appointed
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>2. Identifying Purposes</strong></td>
@@ -474,17 +861,20 @@
                 <tr>
                     <td><strong>6. Accuracy</strong></td>
                     <td>Personal information must be accurate, complete, and up-to-date</td>
-                    <td><span class="status-badge status-implemented">Tools Available</span>Customer data correction tools</td>
+                    <td><span class="status-badge status-implemented">Tools Available</span>Customer data correction
+                        tools</td>
                 </tr>
                 <tr>
                     <td><strong>7. Safeguards</strong></td>
                     <td>Personal information protected by appropriate safeguards</td>
-                    <td><span class="status-badge status-compliant">Implemented</span>AES-256 encryption, access controls</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>AES-256 encryption, access
+                        controls</td>
                 </tr>
                 <tr>
                     <td><strong>8. Openness</strong></td>
                     <td>Information available about policies and practices</td>
-                    <td><span class="status-badge status-compliant">Implemented</span>Public privacy policy and practices</td>
+                    <td><span class="status-badge status-compliant">Implemented</span>Public privacy policy and
+                        practices</td>
                 </tr>
                 <tr>
                     <td><strong>9. Individual Access</strong></td>
@@ -498,6 +888,149 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Mobile Cards -->
+        <div class="principle-cards">
+            <div class="principle-card">
+                <div class="principle-card-header">1. Accountability</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Organizations are responsible for personal information under their control</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-compliant">Implemented</span>Chief Privacy Officer appointed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">2. Identifying Purposes</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Purposes for collecting personal information must be identified</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-compliant">Implemented</span>Clear data collection notices</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">3. Consent</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Knowledge and consent required for collection, use, or disclosure</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-implemented">Automated</span>Consent management system</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">4. Limiting Collection</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Collection limited to what is necessary for identified purposes</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-compliant">Implemented</span>Data minimization practices</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">5. Limiting Use, Disclosure, and Retention</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Information used only for purposes for which it was collected</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-automated">Automated</span>Purpose limitation controls</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">6. Accuracy</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Personal information must be accurate, complete, and up-to-date</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-implemented">Tools Available</span>Customer data correction tools</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">7. Safeguards</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Personal information protected by appropriate safeguards</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-compliant">Implemented</span>AES-256 encryption, access controls</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">8. Openness</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Information available about policies and practices</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-compliant">Implemented</span>Public privacy policy and practices</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">9. Individual Access</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Individuals have the right to access their personal information</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-automated">Self-Service</span>Customer portal access</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div class="principle-card-header">10. Challenging Compliance</div>
+                <div class="principle-card-body">
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">Description:</span>
+                        <div class="principle-card-value">Individuals can challenge an organization's compliance</div>
+                    </div>
+                    <div class="principle-card-row">
+                        <span class="principle-card-label">DataCaboose Implementation:</span>
+                        <div class="principle-card-value"><span class="status-badge status-implemented">Available</span>Complaint handling procedures</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h2>2. DataCaboose PIPEDA Compliance Framework</h2>
 
@@ -551,7 +1084,8 @@
 
         <h3>3.1 Built-in Compliance Features</h3>
         <ul>
-            <li><strong>Canadian Data Residency Guarantee:</strong> All customer data remains within Canadian borders</li>
+            <li><strong>Canadian Data Residency Guarantee:</strong> All customer data remains within Canadian borders
+            </li>
             <li><strong>Encryption by Default:</strong> All data encrypted using industry-leading standards</li>
             <li><strong>Access Controls:</strong> Role-based permissions and multi-factor authentication</li>
             <li><strong>Audit Logging:</strong> Comprehensive logs of all data access and processing activities</li>
@@ -609,10 +1143,12 @@
         <p>In the event of a privacy breach affecting DataCaboose systems:</p>
         <ul>
             <li><strong>Immediate Response (within 1 hour):</strong> Contain the breach and assess scope</li>
-            <li><strong>Customer Notification (within 2 hours):</strong> Notify affected customers of potential impact</li>
+            <li><strong>Customer Notification (within 2 hours):</strong> Notify affected customers of potential impact
+            </li>
             <li><strong>Risk Assessment (within 24 hours):</strong> Evaluate potential harm to individuals</li>
             <li><strong>Authority Reporting (within 72 hours):</strong> Report to Privacy Commissioner if required</li>
-            <li><strong>Individual Notification:</strong> Assist customers in notifying affected individuals if required</li>
+            <li><strong>Individual Notification:</strong> Assist customers in notifying affected individuals if required
+            </li>
         </ul>
 
         <h3>5.2 Customer Breach Obligations</h3>
@@ -740,22 +1276,23 @@
 
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
             <p><strong>🍁 DataCaboose - Your PIPEDA Compliance Partner</strong></p>
-            <p style="font-size: 0.9rem; color: #666;">Committed to Canadian privacy protection and data sovereignty since 2024</p>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This information is provided for guidance only and does not constitute legal advice. Consult with qualified privacy counsel for specific compliance requirements.</p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to Canadian privacy protection and data sovereignty
+                since 2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This information is provided for guidance only
+                and does not constitute legal advice. Consult with qualified privacy counsel for specific compliance
+                requirements.</p>
         </div>
     </main>
 
     <script>
-        // Cookie Consent Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookieConsent = document.getElementById('cookie-consent');
+        const cookieConsent = document.getElementById('cookie-consent');
             const acceptBtn = document.getElementById('accept-cookies');
             const declineBtn = document.getElementById('decline-cookies');
             const settingsBtn = document.getElementById('cookie-settings');
 
             // Check if user has already made a choice
             const cookieChoice = localStorage.getItem('cookieConsent');
-            
+
             if (!cookieChoice) {
                 // Show popup after a short delay
                 setTimeout(() => {
@@ -763,22 +1300,115 @@
                 }, 1000);
             }
 
-            acceptBtn.addEventListener('click', function() {
+            acceptBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'accepted');
                 cookieConsent.classList.remove('show');
                 console.log('All cookies accepted');
             });
 
-            declineBtn.addEventListener('click', function() {
+            declineBtn.addEventListener('click', function () {
                 localStorage.setItem('cookieConsent', 'declined');
                 cookieConsent.classList.remove('show');
                 console.log('Non-essential cookies declined');
             });
+            // Cookie Preferences Modal functionality
+            const cookieModal = document.getElementById('cookie-preferences-modal');
+            const modalClose = document.getElementById('cookie-modal-close');
+            const acceptSelected = document.getElementById('cookie-accept-selected');
+            const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+            const rejectAll = document.getElementById('cookie-reject-all');
 
-            settingsBtn.addEventListener('click', function() {
-                alert('Cookie settings would open a detailed preferences modal. For now, you can accept all or decline non-essential cookies.');
+            // Update the settings button click handler
+            settingsBtn.addEventListener('click', function () {
+                cookieModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Load current preferences
+                loadCookiePreferences();
             });
-        });
+
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            window.addEventListener('click', function (e) {
+                if (e.target === cookieModal) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                cookieModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Load saved cookie preferences
+            function loadCookiePreferences() {
+                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+
+                document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+                document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+                document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+            }
+
+            // Save cookie preferences
+            function saveCookiePreferences() {
+                const preferences = {
+                    essential: true, // Always true
+                    analytics: document.getElementById('analytics-cookies').checked,
+                    functional: document.getElementById('functional-cookies').checked,
+                    marketing: document.getElementById('marketing-cookies').checked
+                };
+
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                localStorage.setItem('cookieConsent', 'custom');
+
+                console.log('Cookie preferences saved:', preferences);
+                return preferences;
+            }
+
+            // Accept selected cookies
+            acceptSelected.addEventListener('click', function () {
+                const prefs = saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+
+                // You can add logic here to actually enable/disable tracking based on preferences
+                if (prefs.analytics) {
+                    console.log('Analytics cookies enabled');
+                    // Enable Google Analytics or other analytics
+                }
+                if (prefs.functional) {
+                    console.log('Functional cookies enabled');
+                    // Enable functional features
+                }
+                if (prefs.marketing) {
+                    console.log('Marketing cookies enabled');
+                    // Enable marketing tracking
+                }
+            });
+
+            // Accept all cookies from modal
+            acceptAllModal.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = true;
+                document.getElementById('functional-cookies').checked = true;
+                document.getElementById('marketing-cookies').checked = true;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All cookies accepted from modal');
+            });
+
+            // Reject all non-essential cookies
+            rejectAll.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = false;
+                document.getElementById('functional-cookies').checked = false;
+                document.getElementById('marketing-cookies').checked = false;
+
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All non-essential cookies rejected');
+            });
     </script>
 </body>
 
