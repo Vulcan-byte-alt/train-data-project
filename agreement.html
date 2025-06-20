@@ -172,7 +172,6 @@
             height: 12px;
             border-radius: 50%;
             margin-right: 8px;
-            vertical-align: middle;
         }
 
         .status-green {
@@ -185,54 +184,6 @@
 
         .status-red {
             background: #ef4444;
-        }
-
-        /* NEW: Mobile Cards for responsive tables - Hidden by default */
-        .responsive-cards {
-            display: none;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .responsive-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .responsive-card-header {
-            background: var(--bg-dark);
-            color: white;
-            padding: 1rem;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .responsive-card-body {
-            padding: 1rem;
-        }
-
-        .responsive-card-row {
-            margin-bottom: 1rem;
-        }
-
-        .responsive-card-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .responsive-card-label {
-            font-weight: 600;
-            color: var(--secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        .responsive-card-value {
-            color: #4b5563;
-            font-size: 0.9rem;
-            line-height: 1.4;
         }
 
         /* Cookie Consent Popup */
@@ -534,14 +485,13 @@
                 font-size: 1.3rem;
             }
 
-            /* MODIFIED: Hide table on mobile and show cards */
             .sla-table {
-                display: none;
+                font-size: 0.9rem;
             }
 
-            .responsive-cards {
-                display: flex;
-                flex-direction: column;
+            .sla-table th,
+            .sla-table td {
+                padding: 0.5rem;
             }
 
             .cookie-buttons {
@@ -627,7 +577,7 @@
         <div class="cookie-modal-content">
             <div class="cookie-modal-header">
                 <h3>Cookie Preferences</h3>
-                <button class="cookie-modal-close" id="cookie-modal-close">×</button>
+                <button class="cookie-modal-close" id="cookie-modal-close">&times;</button>
             </div>
             <div class="cookie-modal-body">
                 <p class="cookie-modal-intro">We use cookies to enhance your experience on our website. You can choose
@@ -737,7 +687,6 @@
         <h2>1. Service Availability Commitments</h2>
 
         <h3>1.1 Uptime Guarantees</h3>
-        <!-- Desktop Table -->
         <table class="sla-table">
             <thead>
                 <tr>
@@ -768,60 +717,11 @@
                 </tr>
             </tbody>
         </table>
-        <!-- Mobile Cards -->
-        <div class="responsive-cards">
-            <div class="responsive-card">
-                <div class="responsive-card-header"><span class="status-indicator status-green"></span>Standard VMs
-                </div>
-                <div class="responsive-card-body">
-                    <div class="responsive-card-row"><span class="responsive-card-label">Monthly Uptime:</span>
-                        <div class="responsive-card-value">99.9%</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Max Downtime:</span>
-                        <div class="responsive-card-value">43.8 minutes</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Service Credit:</span>
-                        <div class="responsive-card-value">10% monthly fee</div>
-                    </div>
-                </div>
-            </div>
-            <div class="responsive-card">
-                <div class="responsive-card-header"><span class="status-indicator status-green"></span>Dedicated Compute
-                </div>
-                <div class="responsive-card-body">
-                    <div class="responsive-card-row"><span class="responsive-card-label">Monthly Uptime:</span>
-                        <div class="responsive-card-value">99.95%</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Max Downtime:</span>
-                        <div class="responsive-card-value">21.9 minutes</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Service Credit:</span>
-                        <div class="responsive-card-value">25% monthly fee</div>
-                    </div>
-                </div>
-            </div>
-            <div class="responsive-card">
-                <div class="responsive-card-header"><span class="status-indicator status-green"></span>High Availability
-                    Add-on</div>
-                <div class="responsive-card-body">
-                    <div class="responsive-card-row"><span class="responsive-card-label">Monthly Uptime:</span>
-                        <div class="responsive-card-value">99.99%</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Max Downtime:</span>
-                        <div class="responsive-card-value">4.38 minutes</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Service Credit:</span>
-                        <div class="responsive-card-value">50% monthly fee</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <h3>1.2 Network Performance</h3>
         <ul>
             <li><strong>Network Availability:</strong> 99.9% monthly uptime</li>
-            <li><strong>Inter-Data Center Latency:</strong>
-                <50ms between Toronto, Vancouver, and Montreal</li>
+            <li><strong>Inter-Data Center Latency:</strong> &lt;50ms between Toronto, Vancouver, and Montreal</li>
             <li><strong>Internet Connectivity:</strong> Multiple Tier 1 Canadian ISP connections with automatic failover
             </li>
             <li><strong>Bandwidth Guarantee:</strong> Full provisioned bandwidth available 99.5% of the time</li>
@@ -838,7 +738,6 @@
         </ul>
 
         <h3>2.2 Storage Performance</h3>
-        <!-- Desktop Table -->
         <table class="sla-table">
             <thead>
                 <tr>
@@ -853,491 +752,350 @@
                     <td>Standard SSD</td>
                     <td>1,000+</td>
                     <td>800+</td>
-                    <td>
-                        <10ms< /td>
+                    <td>&lt;10ms</td>
                 </tr>
                 <tr>
                     <td>NVMe SSD</td>
                     <td>5,000+</td>
                     <td>4,000+</td>
-                    <td>
-                        <2ms< /td>
+                    <td>&lt;2ms</td>
                 </tr>
                 <tr>
                     <td>High Availability Storage</td>
                     <td>3,000+</td>
                     <td>2,500+</td>
-                    <td>
-                        <5ms< /td>
+                    <td>&lt;5ms</td>
                 </tr>
             </tbody>
         </table>
-        <!-- Mobile Cards -->
-        <div class="responsive-cards">
-            <div class="responsive-card">
-                <div class="responsive-card-header">Standard SSD</div>
-                <div class="responsive-card-body">
-                    <div class="responsive-card-row"><span class="responsive-card-label">Read IOPS:</span>
-                        <div class="responsive-card-value">1,000+</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Write IOPS:</span>
-                        <div class="responsive-card-value">800+</div>
-                    </div>
-                    <div class="responsive-card-row"><span class="responsive-card-label">Latency:</span>
-                        <div class="responsive-card-value">
-                            <10ms< /div>
-                        </div>
-                    </div>
-                </div>
-                <div class="responsive-card">
-                    <div class="responsive-card-header">NVMe SSD</div>
-                    <div class="responsive-card-body">
-                        <div class="responsive-card-row"><span class="responsive-card-label">Read IOPS:</span>
-                            <div class="responsive-card-value">5,000+</div>
-                        </div>
-                        <div class="responsive-card-row"><span class="responsive-card-label">Write IOPS:</span>
-                            <div class="responsive-card-value">4,000+</div>
-                        </div>
-                        <div class="responsive-card-row"><span class="responsive-card-label">Latency:</span>
-                            <div class="responsive-card-value">
-                                <2ms< /div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="responsive-card">
-                        <div class="responsive-card-header">High Availability Storage</div>
-                        <div class="responsive-card-body">
-                            <div class="responsive-card-row"><span class="responsive-card-label">Read IOPS:</span>
-                                <div class="responsive-card-value">3,000+</div>
-                            </div>
-                            <div class="responsive-card-row"><span class="responsive-card-label">Write IOPS:</span>
-                                <div class="responsive-card-value">2,500+</div>
-                            </div>
-                            <div class="responsive-card-row"><span class="responsive-card-label">Latency:</span>
-                                <div class="responsive-card-value">
-                                    <5ms< /div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <h2>3. Support Response Times</h2>
+        <h2>3. Support Response Times</h2>
 
-                    <h3>3.1 Support Tiers</h3>
-                    <!-- Desktop Table -->
-                    <table class="sla-table">
-                        <thead>
-                            <tr>
-                                <th>Priority Level</th>
-                                <th>Definition</th>
-                                <th>Response Time</th>
-                                <th>Resolution Target</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="status-indicator status-red"></span>Critical (P1)</td>
-                                <td>Service completely unavailable</td>
-                                <td>15 minutes</td>
-                                <td>4 hours</td>
-                            </tr>
-                            <tr>
-                                <td><span class="status-indicator status-yellow"></span>High (P2)</td>
-                                <td>Significant service degradation</td>
-                                <td>1 hour</td>
-                                <td>8 hours</td>
-                            </tr>
-                            <tr>
-                                <td><span class="status-indicator status-green"></span>Medium (P3)</td>
-                                <td>Minor issues or general inquiries</td>
-                                <td>4 hours</td>
-                                <td>24 hours</td>
-                            </tr>
-                            <tr>
-                                <td><span class="status-indicator status-green"></span>Low (P4)</td>
-                                <td>Feature requests, documentation</td>
-                                <td>24 hours</td>
-                                <td>72 hours</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- Mobile Cards -->
-                    <div class="responsive-cards">
-                        <div class="responsive-card">
-                            <div class="responsive-card-header"><span
-                                    class="status-indicator status-red"></span>Critical (P1)</div>
-                            <div class="responsive-card-body">
-                                <div class="responsive-card-row"><span class="responsive-card-label">Definition:</span>
-                                    <div class="responsive-card-value">Service completely unavailable</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Response
-                                        Time:</span>
-                                    <div class="responsive-card-value">15 minutes</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Resolution
-                                        Target:</span>
-                                    <div class="responsive-card-value">4 hours</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="responsive-card">
-                            <div class="responsive-card-header"><span class="status-indicator status-yellow"></span>High
-                                (P2)</div>
-                            <div class="responsive-card-body">
-                                <div class="responsive-card-row"><span class="responsive-card-label">Definition:</span>
-                                    <div class="responsive-card-value">Significant service degradation</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Response
-                                        Time:</span>
-                                    <div class="responsive-card-value">1 hour</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Resolution
-                                        Target:</span>
-                                    <div class="responsive-card-value">8 hours</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="responsive-card">
-                            <div class="responsive-card-header"><span
-                                    class="status-indicator status-green"></span>Medium (P3)</div>
-                            <div class="responsive-card-body">
-                                <div class="responsive-card-row"><span class="responsive-card-label">Definition:</span>
-                                    <div class="responsive-card-value">Minor issues or general inquiries</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Response
-                                        Time:</span>
-                                    <div class="responsive-card-value">4 hours</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Resolution
-                                        Target:</span>
-                                    <div class="responsive-card-value">24 hours</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="responsive-card">
-                            <div class="responsive-card-header"><span class="status-indicator status-green"></span>Low
-                                (P4)</div>
-                            <div class="responsive-card-body">
-                                <div class="responsive-card-row"><span class="responsive-card-label">Definition:</span>
-                                    <div class="responsive-card-value">Feature requests, documentation</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Response
-                                        Time:</span>
-                                    <div class="responsive-card-value">24 hours</div>
-                                </div>
-                                <div class="responsive-card-row"><span class="responsive-card-label">Resolution
-                                        Target:</span>
-                                    <div class="responsive-card-value">72 hours</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <h3>3.1 Support Tiers</h3>
+        <table class="sla-table">
+            <thead>
+                <tr>
+                    <th>Priority Level</th>
+                    <th>Definition</th>
+                    <th>Response Time</th>
+                    <th>Resolution Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="status-indicator status-red"></span>Critical (P1)</td>
+                    <td>Service completely unavailable</td>
+                    <td>15 minutes</td>
+                    <td>4 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-yellow"></span>High (P2)</td>
+                    <td>Significant service degradation</td>
+                    <td>1 hour</td>
+                    <td>8 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Medium (P3)</td>
+                    <td>Minor issues or general inquiries</td>
+                    <td>4 hours</td>
+                    <td>24 hours</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-green"></span>Low (P4)</td>
+                    <td>Feature requests, documentation</td>
+                    <td>24 hours</td>
+                    <td>72 hours</td>
+                </tr>
+            </tbody>
+        </table>
 
-                    <h3>3.2 Support Channels</h3>
-                    <ul>
-                        <li><strong>24/7 Phone Support:</strong> +1 (555) 123-4567 (English and French)</li>
-                        <li><strong>Emergency Escalation:</strong> Automatic escalation for P1 issues</li>
-                        <li><strong>Ticket System:</strong> Web-based support portal with real-time updates</li>
-                        <li><strong>Live Chat:</strong> Available during business hours (9 AM - 5 PM EST)</li>
-                    </ul>
+        <h3>3.2 Support Channels</h3>
+        <ul>
+            <li><strong>24/7 Phone Support:</strong> +1 (555) 123-4567 (English and French)</li>
+            <li><strong>Emergency Escalation:</strong> Automatic escalation for P1 issues</li>
+            <li><strong>Ticket System:</strong> Web-based support portal with real-time updates</li>
+            <li><strong>Live Chat:</strong> Available during business hours (9 AM - 5 PM EST)</li>
+        </ul>
 
-                    <h2>4. Backup and Recovery</h2>
+        <h2>4. Backup and Recovery</h2>
 
-                    <h3>4.1 Backup Service Levels</h3>
-                    <ul>
-                        <li><strong>Weekly Backups:</strong> 99.5% success rate, 4-week retention</li>
-                        <li><strong>Nightly Backups:</strong> 99.9% success rate, 30-day retention</li>
-                        <li><strong>Backup Verification:</strong> Automated integrity checks on all backups</li>
-                        <li><strong>Cross-Region Backup:</strong> Secondary backup storage in alternate Canadian data
-                            center</li>
-                    </ul>
+        <h3>4.1 Backup Service Levels</h3>
+        <ul>
+            <li><strong>Weekly Backups:</strong> 99.5% success rate, 4-week retention</li>
+            <li><strong>Nightly Backups:</strong> 99.9% success rate, 30-day retention</li>
+            <li><strong>Backup Verification:</strong> Automated integrity checks on all backups</li>
+            <li><strong>Cross-Region Backup:</strong> Secondary backup storage in alternate Canadian data center</li>
+        </ul>
 
-                    <h3>4.2 Disaster Recovery</h3>
-                    <ul>
-                        <li><strong>Recovery Time Objective (RTO):</strong> 4 hours for critical systems</li>
-                        <li><strong>Recovery Point Objective (RPO):</strong> 24 hours maximum data loss for weekly
-                            backups, 1 hour
-                            for nightly backups</li>
-                        <li><strong>Failover Testing:</strong> Quarterly disaster recovery tests</li>
-                        <li><strong>Geographic Redundancy:</strong> Data replicated across multiple Canadian regions
-                        </li>
-                    </ul>
+        <h3>4.2 Disaster Recovery</h3>
+        <ul>
+            <li><strong>Recovery Time Objective (RTO):</strong> 4 hours for critical systems</li>
+            <li><strong>Recovery Point Objective (RPO):</strong> 24 hours maximum data loss for weekly backups, 1 hour
+                for nightly backups</li>
+            <li><strong>Failover Testing:</strong> Quarterly disaster recovery tests</li>
+            <li><strong>Geographic Redundancy:</strong> Data replicated across multiple Canadian regions</li>
+        </ul>
 
-                    <h2>5. Security and Compliance</h2>
+        <h2>5. Security and Compliance</h2>
 
-                    <h3>5.1 Security Standards</h3>
-                    <ul>
-                        <li><strong>Data Encryption:</strong> AES-256 encryption at rest, TLS 1.3 in transit</li>
-                        <li><strong>Network Security:</strong> DDoS protection, intrusion detection, firewall management
-                        </li>
-                        <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access</li>
-                        <li><strong>Vulnerability Management:</strong> Monthly security scans, patch management within
-                            48 hours of
-                            critical updates</li>
-                    </ul>
+        <h3>5.1 Security Standards</h3>
+        <ul>
+            <li><strong>Data Encryption:</strong> AES-256 encryption at rest, TLS 1.3 in transit</li>
+            <li><strong>Network Security:</strong> DDoS protection, intrusion detection, firewall management</li>
+            <li><strong>Access Controls:</strong> Multi-factor authentication, role-based access</li>
+            <li><strong>Vulnerability Management:</strong> Monthly security scans, patch management within 48 hours of
+                critical updates</li>
+        </ul>
 
-                    <h3>5.2 Compliance Commitments</h3>
-                    <ul>
-                        <li><strong>PIPEDA Compliance:</strong> Full adherence to Canadian privacy legislation</li>
-                        <li><strong>Data Residency:</strong> 100% Canadian data storage guarantee</li>
-                        <li><strong>Audit Compliance:</strong> Annual third-party security audits</li>
-                        <li><strong>Incident Reporting:</strong> Security incidents reported within 2 hours of detection
-                        </li>
-                    </ul>
+        <h3>5.2 Compliance Commitments</h3>
+        <ul>
+            <li><strong>PIPEDA Compliance:</strong> Full adherence to Canadian privacy legislation</li>
+            <li><strong>Data Residency:</strong> 100% Canadian data storage guarantee</li>
+            <li><strong>Audit Compliance:</strong> Annual third-party security audits</li>
+            <li><strong>Incident Reporting:</strong> Security incidents reported within 2 hours of detection</li>
+        </ul>
 
-                    <h2>6. Maintenance and Updates</h2>
+        <h2>6. Maintenance and Updates</h2>
 
-                    <h3>6.1 Scheduled Maintenance</h3>
-                    <ul>
-                        <li><strong>Maintenance Windows:</strong> Sundays 2:00 AM - 6:00 AM EST</li>
-                        <li><strong>Advance Notice:</strong> Minimum 72 hours notice for all maintenance</li>
-                        <li><strong>Emergency Maintenance:</strong> Immediate notification with detailed impact
-                            assessment</li>
-                        <li><strong>Maintenance Impact:</strong> Maximum 2 hours downtime per month for scheduled
-                            maintenance</li>
-                    </ul>
+        <h3>6.1 Scheduled Maintenance</h3>
+        <ul>
+            <li><strong>Maintenance Windows:</strong> Sundays 2:00 AM - 6:00 AM EST</li>
+            <li><strong>Advance Notice:</strong> Minimum 72 hours notice for all maintenance</li>
+            <li><strong>Emergency Maintenance:</strong> Immediate notification with detailed impact assessment</li>
+            <li><strong>Maintenance Impact:</strong> Maximum 2 hours downtime per month for scheduled maintenance</li>
+        </ul>
 
-                    <h3>6.2 Software Updates</h3>
-                    <ul>
-                        <li><strong>Operating System Updates:</strong> Customer-controlled update scheduling</li>
-                        <li><strong>Security Patches:</strong> Critical patches applied within 48 hours (with customer
-                            approval)
-                        </li>
-                        <li><strong>Infrastructure Updates:</strong> Zero-downtime updates where possible</li>
-                        <li><strong>Version Support:</strong> Minimum 12 months support for all software versions</li>
-                    </ul>
+        <h3>6.2 Software Updates</h3>
+        <ul>
+            <li><strong>Operating System Updates:</strong> Customer-controlled update scheduling</li>
+            <li><strong>Security Patches:</strong> Critical patches applied within 48 hours (with customer approval)
+            </li>
+            <li><strong>Infrastructure Updates:</strong> Zero-downtime updates where possible</li>
+            <li><strong>Version Support:</strong> Minimum 12 months support for all software versions</li>
+        </ul>
 
-                    <h2>7. Service Credits and Remedies</h2>
+        <h2>7. Service Credits and Remedies</h2>
 
-                    <h3>7.1 Service Credit Calculation</h3>
-                    <p>Service credits are calculated based on the monthly service fee for affected services:</p>
-                    <ul>
-                        <li><strong>99.0% - 99.89% uptime:</strong> 10% service credit</li>
-                        <li><strong>95.0% - 98.99% uptime:</strong> 25% service credit</li>
-                        <li><strong>Below 95.0% uptime:</strong> 50% service credit</li>
-                    </ul>
+        <h3>7.1 Service Credit Calculation</h3>
+        <p>Service credits are calculated based on the monthly service fee for affected services:</p>
+        <ul>
+            <li><strong>99.0% - 99.89% uptime:</strong> 10% service credit</li>
+            <li><strong>95.0% - 98.99% uptime:</strong> 25% service credit</li>
+            <li><strong>Below 95.0% uptime:</strong> 50% service credit</li>
+        </ul>
 
-                    <h3>7.2 Service Credit Process</h3>
-                    <ul>
-                        <li><strong>Claim Period:</strong> Service credits must be requested within 30 days of the
-                            incident</li>
-                        <li><strong>Credit Application:</strong> Credits applied to the following month's invoice</li>
-                        <li><strong>Maximum Credits:</strong> Total monthly credits cannot exceed 100% of monthly
-                            service fees</li>
-                        <li><strong>Exclusions:</strong> Credits do not apply during scheduled maintenance or
-                            customer-caused
-                            outages</li>
-                    </ul>
+        <h3>7.2 Service Credit Process</h3>
+        <ul>
+            <li><strong>Claim Period:</strong> Service credits must be requested within 30 days of the incident</li>
+            <li><strong>Credit Application:</strong> Credits applied to the following month's invoice</li>
+            <li><strong>Maximum Credits:</strong> Total monthly credits cannot exceed 100% of monthly service fees</li>
+            <li><strong>Exclusions:</strong> Credits do not apply during scheduled maintenance or customer-caused
+                outages</li>
+        </ul>
 
-                    <h2>8. Monitoring and Reporting</h2>
+        <h2>8. Monitoring and Reporting</h2>
 
-                    <h3>8.1 System Monitoring</h3>
-                    <ul>
-                        <li><strong>24/7 Monitoring:</strong> Automated monitoring of all infrastructure components</li>
-                        <li><strong>Real-time Alerts:</strong> Immediate notification of service issues</li>
-                        <li><strong>Performance Metrics:</strong> Continuous monitoring of CPU, memory, storage, and
-                            network</li>
-                        <li><strong>Status Page:</strong> Public status dashboard at status.datacaboose.com</li>
-                    </ul>
+        <h3>8.1 System Monitoring</h3>
+        <ul>
+            <li><strong>24/7 Monitoring:</strong> Automated monitoring of all infrastructure components</li>
+            <li><strong>Real-time Alerts:</strong> Immediate notification of service issues</li>
+            <li><strong>Performance Metrics:</strong> Continuous monitoring of CPU, memory, storage, and network</li>
+            <li><strong>Status Page:</strong> Public status dashboard at status.datacaboose.com</li>
+        </ul>
 
-                    <h3>8.2 Reporting</h3>
-                    <ul>
-                        <li><strong>Monthly SLA Reports:</strong> Detailed uptime and performance reports</li>
-                        <li><strong>Quarterly Business Reviews:</strong> Service performance analysis and optimization
-                            recommendations</li>
-                        <li><strong>Incident Reports:</strong> Post-incident analysis and prevention measures</li>
-                        <li><strong>Capacity Planning:</strong> Proactive monitoring and scaling recommendations</li>
-                    </ul>
+        <h3>8.2 Reporting</h3>
+        <ul>
+            <li><strong>Monthly SLA Reports:</strong> Detailed uptime and performance reports</li>
+            <li><strong>Quarterly Business Reviews:</strong> Service performance analysis and optimization
+                recommendations</li>
+            <li><strong>Incident Reports:</strong> Post-incident analysis and prevention measures</li>
+            <li><strong>Capacity Planning:</strong> Proactive monitoring and scaling recommendations</li>
+        </ul>
 
-                    <h2>9. Exclusions and Limitations</h2>
+        <h2>9. Exclusions and Limitations</h2>
 
-                    <h3>9.1 SLA Exclusions</h3>
-                    <p>This SLA does not apply to service interruptions caused by:</p>
-                    <ul>
-                        <li>Scheduled maintenance performed within defined maintenance windows</li>
-                        <li>Customer-initiated changes or misconfigurations</li>
-                        <li>Third-party software issues outside DataCaboose control</li>
-                        <li>Internet service provider issues affecting customer connectivity</li>
-                        <li>Force majeure events (natural disasters, government actions, etc.)</li>
-                        <li>DDoS attacks or other malicious activities targeting customer infrastructure</li>
-                        <li>Customer violations of our Acceptable Use Policy</li>
-                    </ul>
+        <h3>9.1 SLA Exclusions</h3>
+        <p>This SLA does not apply to service interruptions caused by:</p>
+        <ul>
+            <li>Scheduled maintenance performed within defined maintenance windows</li>
+            <li>Customer-initiated changes or misconfigurations</li>
+            <li>Third-party software issues outside DataCaboose control</li>
+            <li>Internet service provider issues affecting customer connectivity</li>
+            <li>Force majeure events (natural disasters, government actions, etc.)</li>
+            <li>DDoS attacks or other malicious activities targeting customer infrastructure</li>
+            <li>Customer violations of our Acceptable Use Policy</li>
+        </ul>
 
-                    <h3>9.2 SLA Scope</h3>
-                    <ul>
-                        <li>SLA commitments apply only to DataCaboose-managed infrastructure</li>
-                        <li>Customer applications and data are the customer's responsibility</li>
-                        <li>Third-party integrations and external dependencies are excluded</li>
-                        <li>Performance guarantees are based on baseline configurations</li>
-                    </ul>
+        <h3>9.2 SLA Scope</h3>
+        <ul>
+            <li>SLA commitments apply only to DataCaboose-managed infrastructure</li>
+            <li>Customer applications and data are the customer's responsibility</li>
+            <li>Third-party integrations and external dependencies are excluded</li>
+            <li>Performance guarantees are based on baseline configurations</li>
+        </ul>
 
-                    <h2>10. Contact and Escalation</h2>
+        <h2>10. Contact and Escalation</h2>
 
-                    <h3>10.1 SLA Inquiries</h3>
-                    <p>For questions about this SLA or to request service credits:</p>
-                    <ul>
-                        <li><strong>Email:</strong> sla@datacaboose.com</li>
-                        <li><strong>Phone:</strong> +1 (555) 123-4567</li>
-                        <li><strong>Support Portal:</strong> support.datacaboose.com</li>
-                    </ul>
+        <h3>10.1 SLA Inquiries</h3>
+        <p>For questions about this SLA or to request service credits:</p>
+        <ul>
+            <li><strong>Email:</strong> sla@datacaboose.com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+            <li><strong>Support Portal:</strong> support.datacaboose.com</li>
+        </ul>
 
-                    <h3>10.2 Escalation Process</h3>
-                    <ul>
-                        <li><strong>Level 1:</strong> Technical Support Team</li>
-                        <li><strong>Level 2:</strong> Senior Engineering Team</li>
-                        <li><strong>Level 3:</strong> Management Escalation</li>
-                        <li><strong>Executive Escalation:</strong> CTO/CEO involvement for critical issues</li>
-                    </ul>
+        <h3>10.2 Escalation Process</h3>
+        <ul>
+            <li><strong>Level 1:</strong> Technical Support Team</li>
+            <li><strong>Level 2:</strong> Senior Engineering Team</li>
+            <li><strong>Level 3:</strong> Management Escalation</li>
+            <li><strong>Executive Escalation:</strong> CTO/CEO involvement for critical issues</li>
+        </ul>
 
-                    <h2>11. SLA Modifications</h2>
-                    <p>DataCaboose may modify this SLA with 30 days advance notice. Significant changes affecting
-                        service levels
-                        will include:</p>
-                    <ul>
-                        <li>Email notification to all active customers</li>
-                        <li>Updated SLA posted on our website</li>
-                        <li>Option for customers to terminate services without penalty if they disagree with changes
-                        </li>
-                        <li>Grandfathering of existing commitments for existing customers (minimum 12 months)</li>
-                    </ul>
+        <h2>11. SLA Modifications</h2>
+        <p>DataCaboose may modify this SLA with 30 days advance notice. Significant changes affecting service levels
+            will include:</p>
+        <ul>
+            <li>Email notification to all active customers</li>
+            <li>Updated SLA posted on our website</li>
+            <li>Option for customers to terminate services without penalty if they disagree with changes</li>
+            <li>Grandfathering of existing commitments for existing customers (minimum 12 months)</li>
+        </ul>
 
-                    <div
-                        style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
-                        <p><strong>🍁 DataCaboose - Your Reliable Canadian Cloud Partner</strong></p>
-                        <p style="font-size: 0.9rem; color: #666;">Committed to excellence in Canadian cloud
-                            infrastructure since
-                            2024</p>
-                        <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This SLA is governed by Canadian
-                            law and
-                            supersedes all previous service level agreements.</p>
-                    </div>
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p><strong>🍁 DataCaboose - Your Reliable Canadian Cloud Partner</strong></p>
+            <p style="font-size: 0.9rem; color: #666;">Committed to excellence in Canadian cloud infrastructure since
+                2024</p>
+            <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">This SLA is governed by Canadian law and
+                supersedes all previous service level agreements.</p>
+        </div>
     </main>
 
     <script>
         const cookieConsent = document.getElementById('cookie-consent');
-        const acceptBtn = document.getElementById('accept-cookies');
-        const declineBtn = document.getElementById('decline-cookies');
-        const settingsBtn = document.getElementById('cookie-settings');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            const settingsBtn = document.getElementById('cookie-settings');
 
-        // Check if user has already made a choice
-        const cookieChoice = localStorage.getItem('cookieConsent');
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieConsent');
 
-        if (!cookieChoice) {
-            // Show popup after a short delay
-            setTimeout(() => {
-                cookieConsent.classList.add('show');
-            }, 1000);
-        }
+            if (!cookieChoice) {
+                // Show popup after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
 
-        acceptBtn.addEventListener('click', function () {
-            localStorage.setItem('cookieConsent', 'accepted');
-            cookieConsent.classList.remove('show');
-            console.log('All cookies accepted');
-        });
+            acceptBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+                console.log('All cookies accepted');
+            });
 
-        declineBtn.addEventListener('click', function () {
-            localStorage.setItem('cookieConsent', 'declined');
-            cookieConsent.classList.remove('show');
-            console.log('Non-essential cookies declined');
-        });
-        // Cookie Preferences Modal functionality
-        const cookieModal = document.getElementById('cookie-preferences-modal');
-        const modalClose = document.getElementById('cookie-modal-close');
-        const acceptSelected = document.getElementById('cookie-accept-selected');
-        const acceptAllModal = document.getElementById('cookie-accept-all-modal');
-        const rejectAll = document.getElementById('cookie-reject-all');
+            declineBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.classList.remove('show');
+                console.log('Non-essential cookies declined');
+            });
+            // Cookie Preferences Modal functionality
+            const cookieModal = document.getElementById('cookie-preferences-modal');
+            const modalClose = document.getElementById('cookie-modal-close');
+            const acceptSelected = document.getElementById('cookie-accept-selected');
+            const acceptAllModal = document.getElementById('cookie-accept-all-modal');
+            const rejectAll = document.getElementById('cookie-reject-all');
 
-        // Update the settings button click handler
-        settingsBtn.addEventListener('click', function () {
-            cookieModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Update the settings button click handler
+            settingsBtn.addEventListener('click', function () {
+                cookieModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
 
-            // Load current preferences
-            loadCookiePreferences();
-        });
+                // Load current preferences
+                loadCookiePreferences();
+            });
 
-        // Close modal
-        modalClose.addEventListener('click', closeModal);
-        window.addEventListener('click', function (e) {
-            if (e.target === cookieModal) {
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            window.addEventListener('click', function (e) {
+                if (e.target === cookieModal) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                cookieModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Load saved cookie preferences
+            function loadCookiePreferences() {
+                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+
+                document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
+                document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
+                document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
+            }
+
+            // Save cookie preferences
+            function saveCookiePreferences() {
+                const preferences = {
+                    essential: true, // Always true
+                    analytics: document.getElementById('analytics-cookies').checked,
+                    functional: document.getElementById('functional-cookies').checked,
+                    marketing: document.getElementById('marketing-cookies').checked
+                };
+
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                localStorage.setItem('cookieConsent', 'custom');
+
+                console.log('Cookie preferences saved:', preferences);
+                return preferences;
+            }
+
+            // Accept selected cookies
+            acceptSelected.addEventListener('click', function () {
+                const prefs = saveCookiePreferences();
+                cookieConsent.classList.remove('show');
                 closeModal();
-            }
-        });
 
-        function closeModal() {
-            cookieModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+                // You can add logic here to actually enable/disable tracking based on preferences
+                if (prefs.analytics) {
+                    console.log('Analytics cookies enabled');
+                    // Enable Google Analytics or other analytics
+                }
+                if (prefs.functional) {
+                    console.log('Functional cookies enabled');
+                    // Enable functional features
+                }
+                if (prefs.marketing) {
+                    console.log('Marketing cookies enabled');
+                    // Enable marketing tracking
+                }
+            });
 
-        // Load saved cookie preferences
-        function loadCookiePreferences() {
-            const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+            // Accept all cookies from modal
+            acceptAllModal.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = true;
+                document.getElementById('functional-cookies').checked = true;
+                document.getElementById('marketing-cookies').checked = true;
 
-            document.getElementById('analytics-cookies').checked = savedPrefs.analytics || false;
-            document.getElementById('functional-cookies').checked = savedPrefs.functional || false;
-            document.getElementById('marketing-cookies').checked = savedPrefs.marketing || false;
-        }
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All cookies accepted from modal');
+            });
 
-        // Save cookie preferences
-        function saveCookiePreferences() {
-            const preferences = {
-                essential: true, // Always true
-                analytics: document.getElementById('analytics-cookies').checked,
-                functional: document.getElementById('functional-cookies').checked,
-                marketing: document.getElementById('marketing-cookies').checked
-            };
+            // Reject all non-essential cookies
+            rejectAll.addEventListener('click', function () {
+                document.getElementById('analytics-cookies').checked = false;
+                document.getElementById('functional-cookies').checked = false;
+                document.getElementById('marketing-cookies').checked = false;
 
-            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
-            localStorage.setItem('cookieConsent', 'custom');
-
-            console.log('Cookie preferences saved:', preferences);
-            return preferences;
-        }
-
-        // Accept selected cookies
-        acceptSelected.addEventListener('click', function () {
-            const prefs = saveCookiePreferences();
-            cookieConsent.classList.remove('show');
-            closeModal();
-
-            // You can add logic here to actually enable/disable tracking based on preferences
-            if (prefs.analytics) {
-                console.log('Analytics cookies enabled');
-                // Enable Google Analytics or other analytics
-            }
-            if (prefs.functional) {
-                console.log('Functional cookies enabled');
-                // Enable functional features
-            }
-            if (prefs.marketing) {
-                console.log('Marketing cookies enabled');
-                // Enable marketing tracking
-            }
-        });
-
-        // Accept all cookies from modal
-        acceptAllModal.addEventListener('click', function () {
-            document.getElementById('analytics-cookies').checked = true;
-            document.getElementById('functional-cookies').checked = true;
-            document.getElementById('marketing-cookies').checked = true;
-
-            saveCookiePreferences();
-            cookieConsent.classList.remove('show');
-            closeModal();
-            console.log('All cookies accepted from modal');
-        });
-
-        // Reject all non-essential cookies
-        rejectAll.addEventListener('click', function () {
-            document.getElementById('analytics-cookies').checked = false;
-            document.getElementById('functional-cookies').checked = false;
-            document.getElementById('marketing-cookies').checked = false;
-
-            saveCookiePreferences();
-            cookieConsent.classList.remove('show');
-            closeModal();
-            console.log('All non-essential cookies rejected');
-        });
+                saveCookiePreferences();
+                cookieConsent.classList.remove('show');
+                closeModal();
+                console.log('All non-essential cookies rejected');
+            });
     </script>
 </body>
 
